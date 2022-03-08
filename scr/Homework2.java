@@ -1,5 +1,3 @@
-
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -14,9 +12,9 @@ import java.sql.Statement;
  * student id or updated password (if changed)
  * 
  */
-
+ 
 public class Homework2 {
-	static final String jdbcURL = "jdbc:mariadb://classdb2.csc.ncsu.edu:3306/cpatel3";
+	static final String jdbcURL = "jdbc:mariadb://classdb2.csc.ncsu.edu:3306/$USER$";
 	// Put your oracle ID and password here
 
 	private static Connection connection = null;
@@ -27,27 +25,34 @@ public class Homework2 {
 
 		initialize();
 
-<<<<<<< HEAD
-		try { 
-=======
 		try {
->>>>>>> refs/remotes/origin/master
 			boolean canAfford = checkAbilityToStudy("Todd");
 			// ************************************************************************
-
-			// modifyALittleBit1();
-			modifyALittleBit2();
+			connection.setAutoCommit(false); // =========>
+			// modifyALittleBit1(); // Failure case
+			modifyALittleBit2(); // Success case
 
 			boolean canAfford1 = checkAbilityToStudy("Angela");
 
 			if (canAfford == canAfford1) {
+				connection.commit(); // =========>
 				System.out.println("Success");
 			} else {
+				connection.rollback(); // =========>
 				System.out.println("Failure");
 			}
-
+			connection.setAutoCommit(true); // =========>
 		} catch (SQLException e) {
-			e.printStackTrace();
+			if (connection != null) {
+				try {
+					connection.rollback(); // =========>
+					connection.setAutoCommit(true);
+					// =========>
+				} catch (SQLException e1) {
+
+					e.printStackTrace();
+				}
+			}
 		}
 		// ***********************************************************************
 		close();
@@ -59,7 +64,31 @@ public class Homework2 {
 
 			statement.executeUpdate("CREATE TABLE Students (Name VARCHAR(20), "
 					+ "School VARCHAR(10), Age INTEGER, FundingReceived INTEGER, Income INTEGER, Sex CHAR(1))");
-
+			
+			
+			statement.executeUpdate("CREATE TABLE Students (Name VARCHAR(20), "
+					+ "School VARCHAR(10), Age INTEGER, FundingReceived INTEGER, Income INTEGER, Sex CHAR(1))");
+			
+//			INSERT INTO Publication VALUES (1, 'Don Quixote', 'Novel', 'Adventure');
+//			INSERT INTO Publication VALUES (2, 'People', 'Magazine', 'Celebrity News');
+//			INSERT INTO Publication VALUES (3, 'People', 'Magazine', 'Celebrity News');
+//			INSERT INTO Publication VALUES (4, 'The Count of Monte Cristo', 'Novel', 'Adventure');
+//			
+//			INSERT INTO Issues VALUES (2, 'February-21', '2022-02-21');
+//			INSERT INTO Issues VALUES (3, 'February-14', '2022-02-14');
+//	
+//			INSERT INTO Books VALUES (1, '1', '0142437239', '2003-02-25');
+//			INSERT INTO Books VALUES (4, '1', '0140449264', '2003-05-27');
+//			
+//			INSERT INTO Articles VALUES (2, 'Title1', 'Celebrity News', '/Issues/1/February-21/Title1.pdf');
+//			INSERT INTO Articles VALUES (2, 'Title2', 'Stories', '/Issues/1/February-21/Title2.pdf');
+//			INSERT INTO Articles VALUES (3, 'Title1', 'Stories', '/Issues/1/February-14/Title1.pdf');
+//			
+//			INSERT INTO Chapters VALUES (1, 'Chapter 1');
+//			INSERT INTO Chapters VALUES (1, 'Chapter 2');
+//			INSERT INTO Chapters VALUES (4, 'Chapter 1');
+			
+			
 			statement.executeUpdate("INSERT INTO Students VALUES ('Todd', 'NC State'," + " 18, 16000, 30000, 'M')");
 			statement.executeUpdate("INSERT INTO Students VALUES ('Max', 'Stanford'," + " 21, 20000, 70000, 'M')");
 			statement.executeUpdate("INSERT INTO Students VALUES ('Alex', 'UNC'," + " 19, 8000, 40000, 'M')");
@@ -68,7 +97,7 @@ public class Homework2 {
 			statement.executeUpdate("INSERT INTO Students VALUES ('Angela', 'NYU'," + "18, 8000, 45000, 'F')");
 
 			statement.executeUpdate("CREATE TABLE Schools (Name VARCHAR(10), Location VARCHAR(30), "
-					+ "TuitionFees INTEGER, LivingExpenses INTEGER)");
+					+ "TuitonFees INTEGER, LivingExpenses INTEGER)");
 			statement.executeUpdate("INSERT INTO Schools VALUES ('NC State', 'North Carolina', 24000, 20000)");
 			statement.executeUpdate("INSERT INTO Schools VALUES ('Stanford', 'California', 44000, 35000)");
 			statement.executeUpdate("INSERT INTO Schools VALUES ('UNC', 'North Carolina', 34000, 20000)");
@@ -85,8 +114,8 @@ public class Homework2 {
 	private static void connectToDatabase() throws ClassNotFoundException, SQLException {
 		Class.forName("org.mariadb.jdbc.Driver");
 
-		String user = "cpatel3";
-		String password = "200048024";
+		String user = "$USER$";
+		String password = "$PASSWORD$";
 
 		connection = DriverManager.getConnection(jdbcURL, user, password);
 		statement = connection.createStatement();
@@ -101,7 +130,7 @@ public class Homework2 {
 	private static boolean checkAbilityToStudy(String studentName) {
 		try {
 			result = statement
-					.executeQuery("SELECT (FundingReceived+Income) AS TotalIncome, (TuitionFees+LivingExpenses) AS "
+					.executeQuery("SELECT (FundingReceived+Income) AS TotalIncome, (TuitonFees+LivingExpenses) AS "
 							+ "TotalFees FROM Students, Schools WHERE Students.School = Schools.Name AND Students.Name "
 							+ "LIKE '" + studentName + "%'");
 
@@ -117,21 +146,12 @@ public class Homework2 {
 
 	private static void modifyALittleBit1() throws SQLException {
 		statement.executeUpdate("UPDATE Students SET Income = 39000 WHERE Name LIKE 'Angela%'");
-		statement.executeUpdate("UPDATE Schools SET TuitionFees = 30000 WHERE Name = 'NYU'");
+		statement.executeUpdate("UPDATE Schools SET TuitonFees = 30000 WHERE Name = 'NYU'");
 	}
 
 	private static void modifyALittleBit2() throws SQLException {
-
-	    // create strings of statements
-	    String stud = "UPDATE Students SET Income = 55000 WHERE Name LIKE 'Angela%'";
-	    String uni = "UPDATE Schools SET TuitionFees = 15000 WHERE Name = 'NYU'";
-	    
-	    // add prepared statements
-	    connection.prepareStatement(stud).executeUpdate();
-	    connection.prepareStatement(uni).executeUpdate(); 
-
-		// statement.executeUpdate("UPDATE Students SET Income = 55000 WHERE Name LIKE 'Angela%'");
-		// statement.executeUpdate("UPDATE Schools SET TuitionFees = 15000 WHERE Name = 'NYU'");
+		statement.executeUpdate("UPDATE Students SET Income = 55000 WHERE Name LIKE 'Angela%'");
+		statement.executeUpdate("UPDATE Schools SET TuitonFees = 15000 WHERE Name = 'NYU'");
 	}
 
 	private static void close() {
