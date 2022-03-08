@@ -27,7 +27,7 @@ public class Homework2 {
 
 		initialize();
 
-		try {
+		try { 
 			boolean canAfford = checkAbilityToStudy("Todd");
 			// ************************************************************************
 
