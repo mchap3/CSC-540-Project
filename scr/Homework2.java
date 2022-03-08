@@ -27,7 +27,11 @@ public class Homework2 {
 
 		initialize();
 
+<<<<<<< HEAD
 		try { 
+=======
+		try {
+>>>>>>> refs/remotes/origin/master
 			boolean canAfford = checkAbilityToStudy("Todd");
 			// ************************************************************************
 
