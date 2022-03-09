@@ -151,6 +151,11 @@ public class database_setup {
             statement.executeUpdate("INSERT INTO Editors VALUES (7);");
             statement.executeUpdate("INSERT INTO Editors VALUES (8);");
 
+            statement.executeUpdate("INSERT INTO Edits VALUES (1, 5);");
+            statement.executeUpdate("INSERT INTO Edits VALUES (2, 6);");
+            statement.executeUpdate("INSERT INTO Edits VALUES (5, 7);");
+            statement.executeUpdate("INSERT INTO Edits VALUES (8, 8);");
+
             statement.executeUpdate("INSERT INTO WritesBook VALUES (7, 1);");
             statement.executeUpdate("INSERT INTO WritesBook VALUES (7, 4);");
             statement.executeUpdate("INSERT INTO WritesBook VALUES (8, 1);");
