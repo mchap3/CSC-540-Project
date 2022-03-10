@@ -63,33 +63,33 @@ public class database_setup {
             statement.executeUpdate(
                     "CREATE TABLE Publication(PublicationID INT, Title VARCHAR(128) NOT NULL, Type VARCHAR(128) NOT NULL, Topic VARCHAR(128) NOT NULL, PRIMARY KEY (PublicationID));");
             statement.executeUpdate(
-                    "CREATE TABLE Issues(PublicationID INT, IssueTitle VARCHAR(128) NOT NULL, IssueDate DATE NOT NULL, PRIMARY KEY (PublicationID), FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) ON UPDATE CASCADE);");
+                    "CREATE TABLE Issues(PublicationID INT, IssueTitle VARCHAR(128) NOT NULL, IssueDate DATE NOT NULL, PRIMARY KEY (PublicationID), FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE Articles(PublicationID INT, ArticleTitle VARCHAR(128) NOT NULL, ArticleTopic VARCHAR(128) NOT NULL, ArticleText VARCHAR(128), PRIMARY KEY (PublicationID, ArticleTitle), FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) ON UPDATE CASCADE);");
+                    "CREATE TABLE Articles(PublicationID INT, ArticleTitle VARCHAR(128) NOT NULL, ArticleTopic VARCHAR(128) NOT NULL, ArticleText VARCHAR(128), PRIMARY KEY (PublicationID, ArticleTitle), FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE Books(PublicationID INT, EditionNumber VARCHAR(16), ISBN VARCHAR(32), PublicationDate DATE NOT NULL, PRIMARY KEY (PublicationID), UNIQUE(ISBN), FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) ON UPDATE CASCADE);");
+                    "CREATE TABLE Books(PublicationID INT, EditionNumber VARCHAR(16), ISBN VARCHAR(32), PublicationDate DATE NOT NULL, PRIMARY KEY (PublicationID), UNIQUE(ISBN), FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE Chapters(PublicationID INT, ChapterTitle VARCHAR(128), PRIMARY KEY (PublicationID, ChapterTitle), FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) ON UPDATE CASCADE);");
+                    "CREATE TABLE Chapters(PublicationID INT, ChapterTitle VARCHAR(128), PRIMARY KEY (PublicationID, ChapterTitle), FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
                     "CREATE TABLE Employees(EmpID INT, Name VARCHAR(128) NOT NULL, Type VARCHAR(10) NOT NULL, Active BOOLEAN NOT NULL, PRIMARY KEY (EmpID));");
             statement.executeUpdate(
-                    "CREATE TABLE Editors(EmpID INT, PRIMARY KEY (EmpID), FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE);");
+                    "CREATE TABLE Editors(EmpID INT, PRIMARY KEY (EmpID), FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE Authors(EmpID INT, PRIMARY KEY (EmpID), FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE);");
+                    "CREATE TABLE Authors(EmpID INT, PRIMARY KEY (EmpID), FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE Edits(PublicationID INT, EmpID INT, PRIMARY KEY (PublicationID, EmpID), FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE);");
+                    "CREATE TABLE Edits(PublicationID INT, EmpID INT, PRIMARY KEY (PublicationID, EmpID), FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE WritesBook(PublicationID INT, EmpID INT, PRIMARY KEY (PublicationID, EmpID), FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE);");
+                    "CREATE TABLE WritesBook(PublicationID INT, EmpID INT, PRIMARY KEY (PublicationID, EmpID), FOREIGN KEY (PublicationID) REFERENCES Books(PublicationID) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE WritesArticle(PublicationID INT, ArticleTitle VARCHAR(128), EmpID INT, PRIMARY KEY (PublicationID, ArticleTitle, EmpID), FOREIGN KEY (PublicationID, ArticleTitle) REFERENCES Articles(PublicationID, ArticleTitle) ON UPDATE CASCADE, FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE);");
+                    "CREATE TABLE WritesArticle(PublicationID INT, ArticleTitle VARCHAR(128), EmpID INT, PRIMARY KEY (PublicationID, ArticleTitle, EmpID), FOREIGN KEY (PublicationID, ArticleTitle) REFERENCES Articles(PublicationID, ArticleTitle) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE Payments(CheckNumber INT, EmpID INT NOT NULL, Amount DECIMAL(8,2) NOT NULL, SubmitDate DATE NOT NULL, ClaimDate DATE, PRIMARY KEY (CheckNumber), FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE);");
+                    "CREATE TABLE Payments(CheckNumber INT, EmpID INT NOT NULL, Amount DECIMAL(8,2) NOT NULL, SubmitDate DATE NOT NULL, ClaimDate DATE, PRIMARY KEY (CheckNumber), FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE ON DELETE SET NULL);");
             statement.executeUpdate(
-                    "CREATE TABLE Distributors(DistAccountNum INTEGER, Name VARCHAR(128), Type VARCHAR(128), Address VARCHAR(128), City VARCHAR(128), PRIMARY KEY (DistAccountNum));");
+                    "CREATE TABLE Distributors (DistAccountNum INT, Name VARCHAR(128) NOT NULL, Type VARCHAR(128) NOT NULL, Address VARCHAR(128) NOT NULL, City VARCHAR(128) NOT NULL, PhoneNumber VARCHAR(16) NOT NULL, Contact VARCHAR(128) NOT NULL, Balance DECIMAL(8,2) NOT NULL, PRIMARY KEY (DistAccountNum));");
             statement.executeUpdate(
-                    "CREATE TABLE Orders(OrderID INTEGER, DistAccountNum INTEGER,PublicationID INTEGER, NumCopies INTEGER, ProduceByDate DATE, Price DECIMAL(8,2), ShippingCosts DECIMAL(8,2), PRIMARY KEY (OrderID), FOREIGN KEY (DistAccountNum) REFERENCES Distributors(DistAccountNum) ON UPDATE CASCADE, FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID));");
+                    "CREATE TABLE Orders (OrderID INT, DistAccountNum INT, PublicationID INT NOT NULL, NumCopies INT NOT NULL, ProduceByDate DATE NOT NULL, Price DECIMAL(8,2) NOT NULL, ShippingCosts DECIMAL(8,2) NOT NULL, PRIMARY KEY (OrderID), FOREIGN KEY (DistAccountNum) REFERENCES Distributors(DistAccountNum) ON UPDATE CASCADE ON DELETE SET NULL, FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) ON UPDATE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE Invoices(InvoiceID INTEGER, DistAccountNum INTEGER, Amount DECIMAL(8,2), BillingDate DATE, PaymentDate DATE, PRIMARY KEY (InvoiceID), FOREIGN KEY (DistAccountNum) REFERENCES Distributors(DistAccountNum) ON UPDATE CASCADE);");
+                    "CREATE TABLE Invoices (InvoiceID INT, DistAccountNum INT, Amount DECIMAL(8,2) NOT NULL, BillingDate DATE NOT NULL, PaymentDate DATE, PRIMARY KEY (InvoiceID), FOREIGN KEY (DistAccountNum) REFERENCES Distributors(DistAccountNum) ON UPDATE CASCADE ON DELETE SET NULL);");
         } catch (SQLException e) {
             e.printStackTrace();
         }
