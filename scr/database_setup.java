@@ -79,17 +79,17 @@ public class database_setup {
             statement.executeUpdate(
                     "CREATE TABLE Edits(PublicationID INT, EmpID INT, PRIMARY KEY (PublicationID, EmpID), FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE WritesBook (PublicationID INT, EmpID INT, PRIMARY KEY (PublicationID, EmpID), FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE);");
+                    "CREATE TABLE WritesBook(PublicationID INT, EmpID INT, PRIMARY KEY (PublicationID, EmpID), FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE WritesArticle (PublicationID INT, ArticleTitle VARCHAR(128), EmpID INT, PRIMARY KEY (PublicationID, ArticleTitle, EmpID), FOREIGN KEY (PublicationID, ArticleTitle) REFERENCES Articles(PublicationID, ArticleTitle) ON UPDATE CASCADE, FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE);");
+                    "CREATE TABLE WritesArticle(PublicationID INT, ArticleTitle VARCHAR(128), EmpID INT, PRIMARY KEY (PublicationID, ArticleTitle, EmpID), FOREIGN KEY (PublicationID, ArticleTitle) REFERENCES Articles(PublicationID, ArticleTitle) ON UPDATE CASCADE, FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE Payments (CheckNumber INT, EmpID INT NOT NULL, Amount DECIMAL(8,2) NOT NULL, SubmitDate DATE NOT NULL, ClaimDate DATE, PRIMARY KEY (CheckNumber), FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE);");
+                    "CREATE TABLE Payments(CheckNumber INT, EmpID INT NOT NULL, Amount DECIMAL(8,2) NOT NULL, SubmitDate DATE NOT NULL, ClaimDate DATE, PRIMARY KEY (CheckNumber), FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE Distributors (DistAccountNum INTEGER, Name VARCHAR(128), Type VARCHAR(128), Address VARCHAR(128), City VARCHAR(128), PRIMARY KEY (DistAccountNum));");
+                    "CREATE TABLE Distributors(DistAccountNum INTEGER, Name VARCHAR(128), Type VARCHAR(128), Address VARCHAR(128), City VARCHAR(128), PRIMARY KEY (DistAccountNum));");
             statement.executeUpdate(
-                    "CREATE TABLE Orders (OrderID INTEGER, DistAccountNum INTEGER,PublicationID INTEGER, NumCopies INTEGER, ProduceByDate DATE, Price DECIMAL(8,2), ShippingCosts DECIMAL(8,2), PRIMARY KEY (OrderID), FOREIGN KEY (DistAccountNum) REFERENCES Distributors(DistAccountNum) ON UPDATE CASCADE, FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID));");
+                    "CREATE TABLE Orders(OrderID INTEGER, DistAccountNum INTEGER,PublicationID INTEGER, NumCopies INTEGER, ProduceByDate DATE, Price DECIMAL(8,2), ShippingCosts DECIMAL(8,2), PRIMARY KEY (OrderID), FOREIGN KEY (DistAccountNum) REFERENCES Distributors(DistAccountNum) ON UPDATE CASCADE, FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID));");
             statement.executeUpdate(
-                    "CREATE TABLE Invoices (InvoiceID INTEGER, DistAccountNum INTEGER, Amount DECIMAL(8,2), BillingDate DATE, PaymentDate DATE, PRIMARY KEY (InvoiceID), FOREIGN KEY (DistAccountNum) REFERENCES Distributors(DistAccountNum) ON UPDATE CASCADE);");
+                    "CREATE TABLE Invoices(InvoiceID INTEGER, DistAccountNum INTEGER, Amount DECIMAL(8,2), BillingDate DATE, PaymentDate DATE, PRIMARY KEY (InvoiceID), FOREIGN KEY (DistAccountNum) REFERENCES Distributors(DistAccountNum) ON UPDATE CASCADE);");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -97,7 +97,7 @@ public class database_setup {
 
     private static void populateTables() {
         try {
-            // Populate Publication Tables
+        	// Populate Publication Tables
             statement.executeUpdate("INSERT INTO Publication VALUES (1, 'Don Quixote', 'Novel', 'Adventure');");
             statement.executeUpdate("INSERT INTO Publication VALUES (2, 'People', 'Magazine', 'Celebrity News');");
             statement.executeUpdate("INSERT INTO Publication VALUES (3, 'People', 'Magazine', 'Celebrity News');");
@@ -137,7 +137,7 @@ public class database_setup {
             statement.executeUpdate("INSERT INTO Employees VALUES (3, 'John D', 'Invited', TRUE);");
             statement.executeUpdate("INSERT INTO Employees VALUES (4, 'Pam L', 'Invited', TRUE);");
             statement.executeUpdate("INSERT INTO Employees VALUES (5, 'Don D', 'Staff', TRUE);");
-            statement.executeUpdate("INSERT INTO Employees VALUES (6, 'Tom A', 'Staff', TRUE);");
+            statement.executeUpdate("INSERT INTO Employees VALUES (6, 'Tom A', 'Invited', TRUE);");
             statement.executeUpdate("INSERT INTO Employees VALUES (7, 'Jan P', 'Staff', FALSE);");
             statement.executeUpdate("INSERT INTO Employees VALUES (8, 'Nina T', 'Invited', TRUE);");
 
@@ -173,21 +173,42 @@ public class database_setup {
             statement.executeUpdate("INSERT INTO Payments VALUES (1004, 1, 100.00, '2022-02-28', NULL);");
             statement.executeUpdate("INSERT INTO Payments VALUES (1005, 2, 1200.00, '2022-02-28', NULL);");
             statement.executeUpdate("INSERT INTO Payments VALUES (1006, 4, 800.00, '2022-02-28', NULL);");
-
+            statement.executeUpdate("INSERT INTO Payments VALUES (1007, 5, 100.00, '2022-02-28', NULL);");
+            statement.executeUpdate("INSERT INTO Payments VALUES (1008, 6, 1100.00, '2022-02-28', NULL);");
+            statement.executeUpdate("INSERT INTO Payments VALUES (1009, 7, 700.00, '2022-02-28', NULL);");
+            
+            // These Dont work for some reason
+            //statement.executeUpdate("INSERT INTO Payments VALUES (2008, 1, 1000.00, '2022-04-31', '2022-05-05');");
+            //statement.executeUpdate("INSERT INTO Payments VALUES (2009, 2, 1200.00, '2022-04-31', '2022-05-08');");
+            //statement.executeUpdate("INSERT INTO Payments VALUES (2010, 4, 800.00, '2022-04-31', '2022-05-10');");
+            //statement.executeUpdate("INSERT INTO Payments VALUES (2011, 1, 100.00, '2022-05-28', NULL);");
+            //statement.executeUpdate("INSERT INTO Payments VALUES (2012, 2, 1200.00, '2022-05-28', NULL);");
+            //statement.executeUpdate("INSERT INTO Payments VALUES (2013, 4, 800.00, '2022-05-28', NULL);");
             
             // Populate Distribution Tables
             statement.executeUpdate("INSERT INTO Distributors VALUES (1, 'Library1','Library', '100 New Street', 'Raleigh');");
             statement.executeUpdate("INSERT INTO Distributors VALUES (2, 'Library2','Library', '200 New Street', 'Durham');");
             statement.executeUpdate("INSERT INTO Distributors VALUES (3, 'Books','Store', '300 New Street', 'Cary');");
             statement.executeUpdate("INSERT INTO Distributors VALUES (4, 'BooksEtc','Store', '400 New Street', 'Durham');");
-            statement.executeUpdate("INSERT INTO Orders VALUES (1, 1, 3, 1, '2022-5-10', 5.15, 1.00);");
-            statement.executeUpdate("INSERT INTO Orders VALUES (2, 4, 2, 2, '2022-5-12', 5.15, 1.00);");
-            statement.executeUpdate("INSERT INTO Orders VALUES (3, 4, 1, 3, '2022-5-23', 5.15, 1.00);");
-            statement.executeUpdate("INSERT INTO Orders VALUES (4, 3, 4, 4, '2022-5-25', 5.15, 1.00);");
-            statement.executeUpdate("INSERT INTO Invoices VALUES (1, 3, 5.15, '2022-5-25', NULL);");
-            statement.executeUpdate("INSERT INTO Invoices VALUES (2, 3, 5.15, '2022-5-25', '2022-8-25');");
-            statement.executeUpdate("INSERT INTO Invoices VALUES (3, 3, 5.15, '2022-5-25', '2022-8-25');");
-            statement.executeUpdate("INSERT INTO Invoices VALUES (4, 3, 5.15, '2022-5-25', NULL);");
+            
+            statement.executeUpdate("INSERT INTO Orders VALUES (1, 1, 3, 1, '2022-4-10', 5.15, 1.00);");
+            statement.executeUpdate("INSERT INTO Orders VALUES (2, 4, 2, 2, '2022-4-12', 5.15, 1.00);");
+            statement.executeUpdate("INSERT INTO Orders VALUES (3, 4, 1, 3, '2022-4-23', 5.15, 1.00);");
+            statement.executeUpdate("INSERT INTO Orders VALUES (4, 3, 1, 4, '2022-4-23', 5.15, 1.00);");
+            statement.executeUpdate("INSERT INTO Orders VALUES (5, 3, 4, 4, '2022-4-25', 5.15, 1.00);");
+            statement.executeUpdate("INSERT INTO Orders VALUES (6, 1, 3, 1, '2022-5-10', 15.15, 2.00);");
+            statement.executeUpdate("INSERT INTO Orders VALUES (7, 2, 2, 2, '2022-5-12', 15.15, 2.00);");
+            statement.executeUpdate("INSERT INTO Orders VALUES (8, 2, 1, 3, '2022-5-23', 15.15, 2.00);");
+            statement.executeUpdate("INSERT INTO Orders VALUES (9, 3, 4, 4, '2022-5-25', 15.15, 2.00);");
+            
+            statement.executeUpdate("INSERT INTO Invoices VALUES (1, 1, 5.15, '2022-4-25', NULL);");
+            statement.executeUpdate("INSERT INTO Invoices VALUES (2, 4, 10.30, '2022-4-25', '2022-5-05');");
+            //statement.executeUpdate("INSERT INTO Invoices VALUES (3, 4, 5.15, '2022-4-25', '2022-5-05');");
+            statement.executeUpdate("INSERT INTO Invoices VALUES (4, 3, 10.30, '2022-4-25', NULL);");
+            statement.executeUpdate("INSERT INTO Invoices VALUES (5, 1, 15.15, '2022-5-25', NULL);");
+            statement.executeUpdate("INSERT INTO Invoices VALUES (6, 2, 30.30, '2022-5-25', '2022-6-05');");
+            //statement.executeUpdate("INSERT INTO Invoices VALUES (7, 2, 5.15, '2022-5-25', '2022-6-05');");
+            statement.executeUpdate("INSERT INTO Invoices VALUES (8, 3, 15.15, '2022-5-25', NULL);");
         } catch (SQLException e) {
             e.printStackTrace();
         }
