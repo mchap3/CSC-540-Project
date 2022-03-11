@@ -63,16 +63,16 @@ Connection connection = null;
                 " PhoneNumber VARCHAR(16) not NULL, Contact VARCHAR(128) not NULL,"+
                 " Balance DECIMAL(8,2) not NULL, PRIMARY KEY(DistAccountNum) )";
             String d2 = "CREATE TABLE Orders (OrderID INTEGER not NULL," +
-                " DistAccountNum INTEGER not NULL, PublicationID INTEGER not NULL," +
+                " DistAccountNum INTEGER, PublicationID INTEGER not NULL," +
                 " NumCopies INTEGER not NULL, ProduceByDate DATE not NULL," +
                 " Price DECIMAL(8,2) not NULL, ShippingCosts DECIMAL(8,2) not NULL," + 
                 " PRIMARY KEY(OrderID)," +
                 " FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) ON UPDATE CASCADE," +
-                " FOREIGN KEY (DistAccountNum) REFERENCES Distributors(DistAccountNum) ON UPDATE CASCADE )"; 
+                " FOREIGN KEY (DistAccountNum) REFERENCES Distributors(DistAccountNum) ON UPDATE CASCADE ON DELETE SET NULL )"; 
             String d3 = "CREATE TABLE Invoices (InvoiceID INTEGER not NULL,"+
-                " DistAccountNum INTEGER not NULL, Amount DECIMAL(8,2) not NULL," + 
+                " DistAccountNum INTEGER, Amount DECIMAL(8,2) not NULL," + 
                 " BillingDate DATE not NULL, PaymentDate DATE," +
-                " PRIMARY KEY(InvoiceID), FOREIGN KEY (DistAccountNum) REFERENCES Distributors(DistAccountNum) ON UPDATE CASCADE )";
+                " PRIMARY KEY(InvoiceID), FOREIGN KEY (DistAccountNum) REFERENCES Distributors(DistAccountNum) ON DELETE SET NULL ON UPDATE CASCADE)";
             // execute
             statement.executeUpdate(d1);
             statement.executeUpdate(d2);
