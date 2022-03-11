@@ -65,11 +65,11 @@ public class database_setup {
             statement.executeUpdate(
                     "CREATE TABLE Issues(PublicationID INT, IssueTitle VARCHAR(128) NOT NULL, IssueDate DATE NOT NULL, PRIMARY KEY (PublicationID), FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE Articles(PublicationID INT, ArticleTitle VARCHAR(128) NOT NULL, ArticleTopic VARCHAR(128) NOT NULL, ArticleText VARCHAR(128), PRIMARY KEY (PublicationID, ArticleTitle), FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) ON UPDATE CASCADE ON DELETE CASCADE);");
+                    "CREATE TABLE Articles(PublicationID INT, ArticleTitle VARCHAR(128) NOT NULL, ArticleTopic VARCHAR(128) NOT NULL, ArticleText VARCHAR(128), PRIMARY KEY (PublicationID, ArticleTitle), FOREIGN KEY (PublicationID) REFERENCES Issues(PublicationID) ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
                     "CREATE TABLE Books(PublicationID INT, EditionNumber VARCHAR(16), ISBN VARCHAR(32), PublicationDate DATE NOT NULL, PRIMARY KEY (PublicationID), UNIQUE(ISBN), FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE Chapters(PublicationID INT, ChapterTitle VARCHAR(128), PRIMARY KEY (PublicationID, ChapterTitle), FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) ON UPDATE CASCADE ON DELETE CASCADE);");
+                    "CREATE TABLE Chapters(PublicationID INT, ChapterTitle VARCHAR(128), PRIMARY KEY (PublicationID, ChapterTitle), FOREIGN KEY (PublicationID) REFERENCES Books(PublicationID) ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
                     "CREATE TABLE Employees(EmpID INT, Name VARCHAR(128) NOT NULL, Type VARCHAR(10) NOT NULL, Active BOOLEAN NOT NULL, PRIMARY KEY (EmpID));");
             statement.executeUpdate(
@@ -77,11 +77,11 @@ public class database_setup {
             statement.executeUpdate(
                     "CREATE TABLE Authors(EmpID INT, PRIMARY KEY (EmpID), FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE Edits(PublicationID INT, EmpID INT, PRIMARY KEY (PublicationID, EmpID), FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE ON DELETE CASCADE);");
+                    "CREATE TABLE Edits(PublicationID INT, EmpID INT, PRIMARY KEY (PublicationID, EmpID), FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (EmpID) REFERENCES Editors(EmpID) ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE WritesBook(PublicationID INT, EmpID INT, PRIMARY KEY (PublicationID, EmpID), FOREIGN KEY (PublicationID) REFERENCES Books(PublicationID) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE ON DELETE CASCADE);");
+                    "CREATE TABLE WritesBook(PublicationID INT, EmpID INT, PRIMARY KEY (PublicationID, EmpID), FOREIGN KEY (PublicationID) REFERENCES Books(PublicationID) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (EmpID) REFERENCES Authors(EmpID) ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE WritesArticle(PublicationID INT, ArticleTitle VARCHAR(128), EmpID INT, PRIMARY KEY (PublicationID, ArticleTitle, EmpID), FOREIGN KEY (PublicationID, ArticleTitle) REFERENCES Articles(PublicationID, ArticleTitle) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE ON DELETE CASCADE);");
+                    "CREATE TABLE WritesArticle(PublicationID INT, ArticleTitle VARCHAR(128), EmpID INT, PRIMARY KEY (PublicationID, ArticleTitle, EmpID), FOREIGN KEY (PublicationID, ArticleTitle) REFERENCES Articles(PublicationID, ArticleTitle) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (EmpID) REFERENCES Authors(EmpID) ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
                     "CREATE TABLE Payments(CheckNumber INT, EmpID INT NOT NULL, Amount DECIMAL(8,2) NOT NULL, SubmitDate DATE NOT NULL, ClaimDate DATE, PRIMARY KEY (CheckNumber), FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE ON DELETE SET NULL);");
             statement.executeUpdate(
