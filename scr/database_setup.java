@@ -83,7 +83,7 @@ public class database_setup {
             statement.executeUpdate(
                     "CREATE TABLE WritesArticle(PublicationID INT, ArticleTitle VARCHAR(128), EmpID INT, PRIMARY KEY (PublicationID, ArticleTitle, EmpID), FOREIGN KEY (PublicationID, ArticleTitle) REFERENCES Articles(PublicationID, ArticleTitle) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (EmpID) REFERENCES Authors(EmpID) ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE Payments(CheckNumber INT, EmpID INT NOT NULL, Amount DECIMAL(8,2) NOT NULL, SubmitDate DATE NOT NULL, ClaimDate DATE, PRIMARY KEY (CheckNumber), FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE ON DELETE SET NULL);");
+                    "CREATE TABLE Payments(CheckNumber INT, EmpID INT, Amount DECIMAL(8,2) NOT NULL, SubmitDate DATE NOT NULL, ClaimDate DATE, PRIMARY KEY (CheckNumber), FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE ON DELETE SET NULL);");
             statement.executeUpdate(
                     "CREATE TABLE Distributors (DistAccountNum INT, Name VARCHAR(128) NOT NULL, Type VARCHAR(128) NOT NULL, Address VARCHAR(128) NOT NULL, City VARCHAR(128) NOT NULL, PhoneNumber VARCHAR(16) NOT NULL, Contact VARCHAR(128) NOT NULL, Balance DECIMAL(8,2) NOT NULL, PRIMARY KEY (DistAccountNum));");
             statement.executeUpdate(
@@ -186,10 +186,10 @@ public class database_setup {
             //statement.executeUpdate("INSERT INTO Payments VALUES (2013, 4, 800.00, '2022-05-28', NULL);");
             
             // Populate Distribution Tables
-            statement.executeUpdate("INSERT INTO Distributors VALUES (1, 'Library1','Library', '100 New Street', 'Raleigh');");
-            statement.executeUpdate("INSERT INTO Distributors VALUES (2, 'Library2','Library', '200 New Street', 'Durham');");
-            statement.executeUpdate("INSERT INTO Distributors VALUES (3, 'Books','Store', '300 New Street', 'Cary');");
-            statement.executeUpdate("INSERT INTO Distributors VALUES (4, 'BooksEtc','Store', '400 New Street', 'Durham');");
+            statement.executeUpdate("INSERT INTO Distributors VALUES (1, 'Library1','Library', '100 New Street', 'Raleigh', '919-xxx-xxxx', 'John', 0)");
+	        statement.executeUpdate("INSERT INTO Distributors VALUES (2, 'Library2','Library', '200 New Street', 'Durham','919-xxx-xxxx', 'John', 0.00)");
+	        statement.executeUpdate("INSERT INTO Distributors VALUES (3, 'Books','Store', '300 New Street', 'Cary','919-xxx-xxxx', 'John', 0.00)");
+	        statement.executeUpdate("INSERT INTO Distributors VALUES (4, 'BooksEtc','Store', '400 New Street', 'Durham','919-xxx-xxxx', 'John', 0.00)");
             
             statement.executeUpdate("INSERT INTO Orders VALUES (1, 1, 3, 1, '2022-4-10', 5.15, 1.00);");
             statement.executeUpdate("INSERT INTO Orders VALUES (2, 4, 2, 2, '2022-4-12', 5.15, 1.00);");
