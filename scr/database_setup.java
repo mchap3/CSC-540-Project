@@ -21,7 +21,17 @@ public class database_setup {
 
             createTables();
             populateTables();
-        
+            
+            connection.setAutoCommit(false);
+          //*******************************************************
+          // Add your API objects 
+            
+            Reports report = new Reports(connection);
+            report.generateReport();
+            
+
+          //*******************************************************
+
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -237,4 +247,39 @@ public class database_setup {
             }
         }
     }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
