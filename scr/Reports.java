@@ -10,8 +10,11 @@ public class Reports {
 	private Connection connection = null;
 	private Statement statement = null;
 	private ResultSet result = null;
+	
+	private Scanner scanner = null;
 
-	public Reports(Connection con) {
+	public Reports(Connection con, Scanner s) {
+		scanner = s;
 		connection = con;
 	}
 
@@ -20,7 +23,6 @@ public class Reports {
 	public void generateReport() {
 		try {
 			statement = connection.createStatement();
-			Scanner scanner = new Scanner(System.in);
 			
 			// Only Part that needs to be changed between each method.
 			//************************************************
@@ -40,7 +42,6 @@ public class Reports {
 			DBTablePrinter.printResultSet(result);
 			//************************************************
 			connection.commit();
-			scanner.close();
 			
 		} catch (SQLException e) {
 			

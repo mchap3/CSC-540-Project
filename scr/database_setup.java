@@ -21,8 +21,6 @@ public class database_setup {
 	public static void main(String[] args) {
 
 		try {
-			boolean exit = false;
-			
 			connectToDatabase();
 			createTables();
 			populateTables();
@@ -39,17 +37,17 @@ public class database_setup {
 				String curUser = scanner.nextLine().toLowerCase();
 				
 				if (curUser.equals("publisher")|| curUser.equals("editor") || curUser.equals("distribution team")|| curUser.equals("financial team")) {
-					currentUser = new User(curUser);
+					currentUser = new User(curUser, scanner);
 					break;
 				}
 			}
 			
 			// run commands depending on user type, look at the bottom of the file to add you objects
-			while(!exit) {
+			while(true) {
 				System.out.println("Enter a Command:");
 				String command = scanner.nextLine();
 				
-				if (command.toLowerCase() == "exit") {
+				if (command.toLowerCase().contains("exit") || command.toLowerCase().contains("quit")) {
 					break;
 				} else {
 					currentUser.command(command);
@@ -295,16 +293,18 @@ public class database_setup {
 	private static class User{
 		
 		public String currUser = null;
+		public Scanner scanner = null;
 		
 		private Reports report = null;
 		// add your objects here
 		
 		
-		public User(String user) {
+		public User(String user, Scanner s) {
+			scanner = s;
 			currUser = user;
 			
 			if (currUser == "financial team") {
-				report = new Reports(connection);
+				report = new Reports(connection, scanner);
 			}
 			else if (currUser == "publisher") {
 				// publisher object
