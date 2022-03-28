@@ -20,12 +20,12 @@ public class database_setup {
 
 	public static void main(String[] args) {
 
-		
-			//connectToDatabase();
-			//createTables();
-			//populateTables();
+		try {
+			connectToDatabase();
+			createTables();
+			populateTables();
 
-			//connection.setAutoCommit(false);
+			connection.setAutoCommit(false);
 			
 			Scanner scanner = new Scanner(System.in);
 			
@@ -56,7 +56,13 @@ public class database_setup {
 			}
 
 			scanner.close();
-		
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
 	}
 
 	private static void connectToDatabase() throws ClassNotFoundException, SQLException {
