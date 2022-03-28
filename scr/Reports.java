@@ -1,6 +1,10 @@
 import java.sql.*;
 import java.util.Scanner;
-import java.io.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
 
 public class Reports {
 	private Connection connection = null;
@@ -11,6 +15,8 @@ public class Reports {
 		connection = con;
 	}
 
+	
+	// Just copy this method and change the inner stuff for each API command
 	public void generateReport() {
 		try {
 			statement = connection.createStatement();
@@ -53,6 +59,71 @@ public class Reports {
 			e.printStackTrace();
 
 		} 
+		
 	}
+	
+	private static void GUI_helper() {
+		JFrame frame = new JFrame("API Helper");
+		JPanel panel = new JPanel();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		String[][] help = {
+		         { "generate report", "Start Date, End Date" },
+		         { "total monthly publications sold", "Publication ID, Start Date, End Date" },
+		         { "total monthly publication revenue", "Start Date, End Date" },
+		         { "total monthly expenses", "Start Date, End Date" },
+		         { "total distributors", "None" },
+		         { "total city revenue", "City Name" },
+		         { "total distributor revenue", "Distributor Account Number" },
+		         { "total address revenue", "Address" },
+		         { "total payments dy time and type of employee", "Start Date, End Date" },
+		         { "total payments by type of employee and work type", "Start Date, End Date" }
+		      };
+		
+		String[] header = { "Command", "Arguments it needs" };
+		JTable table = new JTable(help, header);
+	      panel.add(new JScrollPane(table));
+	      frame.add(panel);
+	      frame.setSize(550, 400);
+		frame.setSize(550, 400);
+		frame.setVisible(true);
+		
+		
+	}
+	
+	public void command(String com) {
+		switch(com.toLowerCase()) {
+		
+		case "generate report": generateReport();
+			break;
+		
+		case "total monthly publications sold": 
+			break;
+			
+		case "total monthly publication revenue":
+			break;
+			
+		case "total monthly expenses":
+			break;
+			
+		case "total distributors":
+			break;
+		case "total city revenue":
+			break;
+		case "total distributor revenue":
+			break;
+		case "total address revenue":
+			break;
+		case "total payments dy time and type of employee":
+			break;
+		case "total payments by type of employee and work type":
+			break;
+			
+		default: System.out.println("Here are the Valid Command Strings");
+			GUI_helper();
+				break;
+		}
+	}
+	
 
 }
