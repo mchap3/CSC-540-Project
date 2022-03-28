@@ -20,12 +20,12 @@ public class database_setup {
 
 	public static void main(String[] args) {
 
-		try {
-			connectToDatabase();
-			createTables();
-			populateTables();
+		
+			//connectToDatabase();
+			//createTables();
+			//populateTables();
 
-			connection.setAutoCommit(false);
+			//connection.setAutoCommit(false);
 			
 			Scanner scanner = new Scanner(System.in);
 			
@@ -37,7 +37,7 @@ public class database_setup {
 				String curUser = scanner.nextLine().toLowerCase();
 				
 				if (curUser.equals("publisher")|| curUser.equals("editor") || curUser.equals("distribution team")|| curUser.equals("financial team")) {
-					currentUser = new User(curUser, scanner);
+					currentUser = new User(curUser, connection, scanner);
 					break;
 				}
 			}
@@ -47,22 +47,16 @@ public class database_setup {
 				System.out.println("Enter a Command:");
 				String command = scanner.nextLine();
 				
-				if (command.toLowerCase().contains("exit") || command.toLowerCase().contains("quit")) {
+				if (command.toLowerCase().equals("exit") || command.toLowerCase().equals("quit")) {
 					break;
 				} else {
-					currentUser.command(command);
+					currentUser.command(command.toLowerCase());
 				}
 
 			}
 
 			scanner.close();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close();
-		}
+		
 	}
 
 	private static void connectToDatabase() throws ClassNotFoundException, SQLException {
@@ -290,52 +284,7 @@ public class database_setup {
 		}
 	}
 	
-	private static class User{
-		
-		public String currUser = null;
-		public Scanner scanner = null;
-		
-		private Reports report = null;
-		// add your objects here
-		
-		
-		public User(String user, Scanner s) {
-			scanner = s;
-			currUser = user;
-			
-			if (currUser == "financial team") {
-				report = new Reports(connection, scanner);
-			}
-			else if (currUser == "publisher") {
-				// publisher object
-			}
-			else if (currUser == "editor") {
-				// editor object
-			}
-			else if (currUser == "distribution team") {
-				// distribution team object
-			}
-			
-		}
-		
-		public void command(String command) {
-			
-			if (currUser == "financial team") {
-				report.command(command);
-			}
-			else if (currUser == "publisher") {
-				
-			}
-			else if (currUser == "editor") {
-				
-			}
-			else if (currUser == "distribution team") {
-				
-			}
-		}
-		
-		
-	}
+	
 
 }
 

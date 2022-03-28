@@ -1,9 +1,6 @@
 import java.sql.*;
 import java.util.Scanner;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+
 
 
 public class Reports {
@@ -63,36 +60,33 @@ public class Reports {
 		
 	}
 	
-	private static void GUI_helper() {
-		JFrame frame = new JFrame("API Helper");
-		JPanel panel = new JPanel();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+	private static void helper() {
+
 		String[][] help = {
-		         { "generate report", "Start Date, End Date" },
-		         { "total monthly publications sold", "Publication ID, Start Date, End Date" },
-		         { "total monthly publication revenue", "Start Date, End Date" },
-		         { "total monthly expenses", "Start Date, End Date" },
-		         { "total distributors", "None" },
-		         { "total city revenue", "City Name" },
-		         { "total distributor revenue", "Distributor Account Number" },
-		         { "total address revenue", "Address" },
-		         { "total payments dy time and type of employee", "Start Date, End Date" },
-		         { "total payments by type of employee and work type", "Start Date, End Date" }
+
+		         { "generate report                                     | ", "Start Date, End Date" },
+		         { "total monthly publications sold                     | ", "Publication ID, Start Date, End Date" },
+		         { "total monthly publication revenue                   | ", "Start Date, End Date" },
+		         { "total monthly expenses                              | ", "Start Date, End Date" },
+		         { "total distributors                                  | ", "None" },
+		         { "total city revenue                                  | ", "City Name" },
+		         { "total distributor revenue                           | ", "Distributor Account Number" },
+		         { "total address revenue                               | ", "Address" },
+		         { "total payments dy time and type of employee         | ", "Start Date, End Date" },
+		         { "total payments by type of employee and work type    | ", "Start Date, End Date" }
 		      };
 		
-		String[] header = { "Command", "Arguments it needs" };
-		JTable table = new JTable(help, header);
-	      panel.add(new JScrollPane(table));
-	      frame.add(panel);
-	      frame.setSize(550, 400);
-		frame.setSize(550, 400);
-		frame.setVisible(true);
-		
+		System.out.println("\nCommand                                             | Arguments it needs");
+		System.out.println("----------------------------------------------------|-------------------");
+		for (int i = 0; i < 10; i++) {
+			System.out.println(help[i][0] + help[i][1]);
+		}
 		
 	}
 	
 	public void command(String com) {
+		System.out.println("Your Command: " + com);
+		
 		switch(com.toLowerCase()) {
 		
 		case "generate report": generateReport();
@@ -120,8 +114,8 @@ public class Reports {
 		case "total payments by type of employee and work type":
 			break;
 			
-		default: System.out.println("Here are the Valid Command Strings");
-			GUI_helper();
+		default: System.out.println("Here are the Valid Command Strings, and their required information");
+			helper();
 				break;
 		}
 	}
