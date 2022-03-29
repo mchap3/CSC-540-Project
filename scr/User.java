@@ -1,23 +1,25 @@
-import java.sql.Connection;
 import java.util.Scanner;
-
+//javac database_setup.java DBManager.java DBTablePrinter.java Reports.java User.java
+//java database_setup
 public class User {
 	
 	private String currUser = null;
 	private Scanner scanner = null;
-	private Connection connection = null;
+
+	private DBManager db = null;
 	
 	private Reports report = null;
 	// add your objects here
 	
 	
-	public User(String user, Connection c, Scanner s) {
+	public User(String user, Scanner s, DBManager dbM) {
+		
+		db = dbM;
 		scanner = s;
 		currUser = user;
-		connection = c;
-
+		
 		if (user.equals("financial team")) {
-			report = new Reports(connection, scanner);
+			report = new Reports(db, scanner);
 		}
 		else if (user.equals("publisher")) {
 			// publisher object

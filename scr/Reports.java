@@ -2,25 +2,27 @@ import java.sql.*;
 import java.util.Scanner;
 
 
+//javac database_setup.java DBManager.java DBTablePrinter.java Reports.java User.java
+//java database_setup
 
 public class Reports {
-	private Connection connection = null;
-	private Statement statement = null;
+
+	private DBManager db = null;
 	private ResultSet result = null;
 	
 	private Scanner scanner = null;
 
-	public Reports(Connection con, Scanner s) {
+	public Reports(DBManager dbM, Scanner s) {
+		db = dbM;
 		scanner = s;
-		connection = con;
+
 	}
 
 	
 	// Just copy this method and change the inner stuff for each API command
 	public void generateReport() {
 		try {
-			statement = connection.createStatement();
-			
+
 			// Only Part that needs to be changed between each method.
 			//************************************************
 			System.out.println("Generate Report");
@@ -34,25 +36,12 @@ public class Reports {
 					+ "FROM Publication p, Distributors d NATURAL JOIN Orders o WHERE p.PublicationID = o.PublicationID AND ProduceByDate "
 					+ ">= '"+ startDate +"' AND ProduceByDate <= '"+ endDate +"' GROUP BY DistAccountNum, p.PublicationID;";
 
-			result = statement.executeQuery(sql);
+			result = db.commit(sql);
 			
 			DBTablePrinter.printResultSet(result);
 			//************************************************
-			connection.commit();
+			// commit will happen in the command method after everything is run 
 			
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-
-			// If there is an error then rollback the changes.
-			System.out.println("Rolling back data here....");
-			try {
-				if (connection != null)
-					System.out.println("Error Generating Report, Please Check Format");
-					connection.rollback();
-			} catch (SQLException e2) {
-				e2.printStackTrace();
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -118,6 +107,7 @@ public class Reports {
 			helper();
 				break;
 		}
+		
 	}
 	
 
