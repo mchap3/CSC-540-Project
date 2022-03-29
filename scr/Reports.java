@@ -36,7 +36,8 @@ public class Reports {
 					+ "FROM Publication p, Distributors d NATURAL JOIN Orders o WHERE p.PublicationID = o.PublicationID AND ProduceByDate "
 					+ ">= '"+ startDate +"' AND ProduceByDate <= '"+ endDate +"' GROUP BY DistAccountNum, p.PublicationID;";
 
-			result = db.commit(sql);
+			// commitQuery is for querying, commitUpdate is for everything else and that wont return anything unlike this one.
+			result = db.commitQuery(sql);
 			
 			DBTablePrinter.printResultSet(result);
 			//************************************************

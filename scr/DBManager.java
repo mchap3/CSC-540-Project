@@ -55,7 +55,7 @@ public class DBManager {
 	}
 	
 	
-	public ResultSet commit(String s) {
+	public ResultSet commitQuery(String s) {
 		try {
 			createStatement();
 			result = statement.executeQuery(s);
@@ -75,6 +75,28 @@ public class DBManager {
 		}
 		
 		return null;
+	}
+	
+	public void commitUpdate(String s) {
+		try {
+			createStatement();
+			statement.executeUpdate(s);
+			connection.commit();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			try {
+				if (connection != null)
+					System.out.println("Error Generating Report, Please Check Format");
+					connection.rollback();
+			} catch (SQLException e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		
 	}
 	
 	private void connectToDatabase() {
