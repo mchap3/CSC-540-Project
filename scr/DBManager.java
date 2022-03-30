@@ -3,48 +3,47 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 //javac database_setup.java DBManager.java DBTablePrinter.java Reports.java User.java
 //java database_setup
 public class DBManager {
-	
-	static final String jdbcURL = "jdbc:mariadb://classdb2.csc.ncsu.edu:3306/mchapma6";
-	static final String user = "mchapma6";
-	static final String password = "XT2nLx78VJs6uie.";
+
+	static final String jdbcURL = "jdbc:mariadb://classdb2.csc.ncsu.edu:3306/cpatel3";
+	static final String user = "cpatel3";
+	static final String password = "200048024";
 
 	private Connection connection = null;
 	private Statement statement = null;
 	private ResultSet result = null;
-	
+
 	public DBManager() {
 		connectToDatabase();
 		createTables();
 		populateTables();
 	}
-	
-	
+
 	public Connection getConn() {
 		return connection;
 	}
-	
-	
+
 	public Statement createStatement() {
 		try {
-			
-			statement= connection.createStatement();
+
+			statement = connection.createStatement();
 			return statement;
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
+
 			return null;
 		}
 	}
-	
+
 	public ResultSet getResult() {
 		return result;
 	}
-	
+
 	public void disableAutocommit() {
 		try {
 			connection.setAutoCommit(false);
@@ -53,76 +52,84 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	public ResultSet commitQuery(String s) {
+
+	public ResultSet query(String s) {
 		try {
 			createStatement();
 			result = statement.executeQuery(s);
-			connection.commit();
+
 			return result;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
-			try {
-				if (connection != null)
-					System.out.println("Error Generating Report, Please Check Format");
-					connection.rollback();
-			} catch (SQLException e2) {
-				e2.printStackTrace();
-			}
+
 		}
-		
+
 		return null;
 	}
-	
-	public void commitUpdate(String s) {
+
+	public void update(String s) {
 		try {
 			createStatement();
 			statement.executeUpdate(s);
-			connection.commit();
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+
+		}
+
+	}
+
+	public boolean commit() {
+		
+		try {
+			connection.commit();
 			
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
 			try {
 				if (connection != null)
 					System.out.println("Error Generating Report, Please Check Format");
-					connection.rollback();
+				connection.rollback();
+				return false;
 			} catch (SQLException e2) {
 				e2.printStackTrace();
 			}
 		}
 		
-		
+		return false;
 	}
-	
+
 	private void connectToDatabase() {
-		
+
 		try {
-			
+
 			Class.forName("org.mariadb.jdbc.Driver");
 
-		connection = DriverManager.getConnection(jdbcURL, user, password);
-		statement = connection.createStatement();
-			
-			statement.executeUpdate("DROP TABLE IF EXISTS WritesBook");
-			statement.executeUpdate("DROP TABLE IF EXISTS WritesArticle");
-			statement.executeUpdate("DROP TABLE IF EXISTS Edits");
-			statement.executeUpdate("DROP TABLE IF EXISTS Articles");
-			statement.executeUpdate("DROP TABLE IF EXISTS Chapters");
-			statement.executeUpdate("DROP TABLE IF EXISTS Issues");
-			statement.executeUpdate("DROP TABLE IF EXISTS Books");
-			statement.executeUpdate("DROP TABLE IF EXISTS Editors");
-			statement.executeUpdate("DROP TABLE IF EXISTS Authors");
+			connection = DriverManager.getConnection(jdbcURL, user, password);
+			statement = connection.createStatement();
+
+			statement.executeUpdate("SET FOREIGN_KEY_CHECKS=0;");
+			statement.executeUpdate("DROP TABLE WritesBook");
+			statement.executeUpdate("DROP TABLE WritesArticle");
+			statement.executeUpdate("DROP TABLE Edits");
+			statement.executeUpdate("DROP TABLE Articles");
+			statement.executeUpdate("DROP TABLE Chapters");
+			statement.executeUpdate("DROP TABLE Issues");
+			statement.executeUpdate("DROP TABLE Books");
+			statement.executeUpdate("DROP TABLE Editors");
+			statement.executeUpdate("DROP TABLE Authors");
 			statement.executeUpdate("DROP TABLE IF EXISTS Payments");
-			statement.executeUpdate("DROP TABLE IF EXISTS Employees");
-			statement.executeUpdate("DROP TABLE IF EXISTS Invoices");
-			statement.executeUpdate("DROP TABLE IF EXISTS Orders");
-			statement.executeUpdate("DROP TABLE IF EXISTS Distributors");
-			statement.executeUpdate("DROP TABLE IF EXISTS Publication");
+			statement.executeUpdate("DROP TABLE Employees");
+			statement.executeUpdate("DROP TABLE Invoices");
+			statement.executeUpdate("DROP TABLE Orders");
+			statement.executeUpdate("DROP TABLE Distributors");
+			statement.executeUpdate("DROP TABLE Publication");
+			statement.executeUpdate("SET FOREIGN_KEY_CHECKS=1;");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -306,7 +313,7 @@ public class DBManager {
 	}
 
 	public void close() {
-		
+
 		if (connection != null) {
 			try {
 				connection.close();

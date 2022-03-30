@@ -18,16 +18,16 @@ public class User {
 		scanner = s;
 		currUser = user;
 		
-		if (user.equals("financial team")) {
+		if (user.equals("4")) { // Financial Team
 			report = new Reports(db, scanner);
 		}
-		else if (user.equals("publisher")) {
+		else if (user.equals("1")) { // publisher
 			// publisher object
 		}
-		else if (user.equals("editor")) {
+		else if (user.equals("2")) { // editor
 			// editor object
 		}
-		else if (user.equals("distribution team")) {
+		else if (user.equals("3")) { // distribution team
 			// distribution team object
 		}
 		
@@ -35,16 +35,16 @@ public class User {
 	
 	public void command(String command) {
 
-		if (currUser.equals("financial team")) {
+		if (currUser.equals("4")) { // Financial Team
 			report.command(command);
 		}
-		else if (currUser.equals("publisher")) {
+		else if (currUser.equals("1")) { // publisher
 			
 		}
-		else if (currUser.equals("editor")) {
+		else if (currUser.equals("2")) { // editor
 			
 		}
-		else if (currUser.equals("distribution team")) {
+		else if (currUser.equals("3")) { // distribution team
 			
 		}
 	}

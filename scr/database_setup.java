@@ -21,11 +21,11 @@ public class database_setup {
 			// create user;
 			while(true) {
 				
-				System.out.println("Enter a Valid User Type (Example: Publisher, Editor, Distribution Team, Financial Team)\n"
+				System.out.println("Enter a Valid User Type number (Example: \n 1 for Publisher, \n 2 for Editor, \n 3 for Distribution Team, \n 4 for Financial Team)\n"
 						+ "User Type: ");
 				String userType = scanner.nextLine().toLowerCase();
 				
-				if (userType.equals("publisher")|| userType.equals("editor") || userType.equals("distribution team")|| userType.equals("financial team")) {
+				if (userType.equals("1")|| userType.equals("2") || userType.equals("3")|| userType.equals("4")) {
 					currentUser = new User(userType, scanner, db);
 					break;
 				}
