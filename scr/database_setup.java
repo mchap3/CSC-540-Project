@@ -61,35 +61,123 @@ public class database_setup {
     private static void createTables() {
         try {
             statement.executeUpdate(
-                    "CREATE TABLE Publication(PublicationID INT, Title VARCHAR(128) NOT NULL, Type VARCHAR(128) NOT NULL, Topic VARCHAR(128) NOT NULL, PRIMARY KEY (PublicationID));");
+                    "CREATE TABLE Publication(PublicationID INT AUTO_INCREMENT, "
+                    + "Title VARCHAR(128) NOT NULL, "
+                    + "Type VARCHAR(128) NOT NULL, "
+                    + "Topic VARCHAR(128) NOT NULL, "
+                    + "PRIMARY KEY (PublicationID));");
             statement.executeUpdate(
-                    "CREATE TABLE Issues(PublicationID INT, IssueTitle VARCHAR(128) NOT NULL, IssueDate DATE NOT NULL, PRIMARY KEY (PublicationID), FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) ON UPDATE CASCADE ON DELETE CASCADE);");
+                    "CREATE TABLE Issues(PublicationID INT, "
+                    + "IssueTitle VARCHAR(128) NOT NULL, "
+                    + "IssueDate DATE NOT NULL, "
+                    + "PRIMARY KEY (PublicationID), "
+                    + "FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) "
+                    + "ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE Articles(PublicationID INT, ArticleTitle VARCHAR(128) NOT NULL, ArticleTopic VARCHAR(128) NOT NULL, ArticleText VARCHAR(128), PRIMARY KEY (PublicationID, ArticleTitle), FOREIGN KEY (PublicationID) REFERENCES Issues(PublicationID) ON UPDATE CASCADE ON DELETE CASCADE);");
+                    "CREATE TABLE Articles(PublicationID INT, "
+                    + "ArticleTitle VARCHAR(128) NOT NULL, "
+                    + "ArticleTopic VARCHAR(128) NOT NULL, "
+                    + "ArticleText VARCHAR(128), "
+                    + "PRIMARY KEY (PublicationID, ArticleTitle), "
+                    + "FOREIGN KEY (PublicationID) REFERENCES Issues(PublicationID) "
+                    + "ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE Books(PublicationID INT, EditionNumber VARCHAR(16), ISBN VARCHAR(32), PublicationDate DATE NOT NULL, PRIMARY KEY (PublicationID), UNIQUE(ISBN), FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) ON UPDATE CASCADE ON DELETE CASCADE);");
+                    "CREATE TABLE Books(PublicationID INT, "
+                    + "EditionNumber VARCHAR(16), "
+                    + "ISBN VARCHAR(32), "
+                    + "PublicationDate DATE NOT NULL, "
+                    + "PRIMARY KEY (PublicationID), "
+                    + "UNIQUE(ISBN), "
+                    + "FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) "
+                    + "ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE Chapters(PublicationID INT, ChapterTitle VARCHAR(128), PRIMARY KEY (PublicationID, ChapterTitle), FOREIGN KEY (PublicationID) REFERENCES Books(PublicationID) ON UPDATE CASCADE ON DELETE CASCADE);");
+                    "CREATE TABLE Chapters(PublicationID INT, "
+                    + "ChapterTitle VARCHAR(128), "
+                    + "PRIMARY KEY (PublicationID, ChapterTitle), "
+                    + "FOREIGN KEY (PublicationID) REFERENCES Books(PublicationID) "
+                    + "ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE Employees(EmpID INT, Name VARCHAR(128) NOT NULL, Type VARCHAR(10) NOT NULL, Active BOOLEAN NOT NULL, PRIMARY KEY (EmpID));");
+                    "CREATE TABLE Employees(EmpID INT AUTO_INCREMENT, "
+                    + "Name VARCHAR(128) NOT NULL, "
+                    + "Type VARCHAR(10) NOT NULL, "
+                    + "Active BOOLEAN NOT NULL, "
+                    + "PRIMARY KEY (EmpID));");
             statement.executeUpdate(
-                    "CREATE TABLE Editors(EmpID INT, PRIMARY KEY (EmpID), FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE ON DELETE CASCADE);");
+                    "CREATE TABLE Editors(EmpID INT, "
+                    + "PRIMARY KEY (EmpID), "
+                    + "FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) "
+                    + "ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE Authors(EmpID INT, PRIMARY KEY (EmpID), FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE ON DELETE CASCADE);");
+                    "CREATE TABLE Authors(EmpID INT, "
+                    + "PRIMARY KEY (EmpID), "
+                    + "FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) "
+                    + "ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE Edits(PublicationID INT, EmpID INT, PRIMARY KEY (PublicationID, EmpID), FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (EmpID) REFERENCES Editors(EmpID) ON UPDATE CASCADE ON DELETE CASCADE);");
+                    "CREATE TABLE Edits(PublicationID INT, "
+                    + "EmpID INT, "
+                    + "PRIMARY KEY (PublicationID, EmpID), "
+                    + "FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) "
+                    + "ON UPDATE CASCADE ON DELETE CASCADE, "
+                    + "FOREIGN KEY (EmpID) REFERENCES Editors(EmpID) "
+                    + "ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE WritesBook(PublicationID INT, EmpID INT, PRIMARY KEY (PublicationID, EmpID), FOREIGN KEY (PublicationID) REFERENCES Books(PublicationID) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (EmpID) REFERENCES Authors(EmpID) ON UPDATE CASCADE ON DELETE CASCADE);");
+                    "CREATE TABLE WritesBook(PublicationID INT, "
+                    + "EmpID INT, "
+                    + "PRIMARY KEY (PublicationID, EmpID), "
+                    + "FOREIGN KEY (PublicationID) REFERENCES Books(PublicationID) "
+                    + "ON UPDATE CASCADE ON DELETE CASCADE, "
+                    + "FOREIGN KEY (EmpID) REFERENCES Authors(EmpID) "
+                    + "ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE WritesArticle(PublicationID INT, ArticleTitle VARCHAR(128), EmpID INT, PRIMARY KEY (PublicationID, ArticleTitle, EmpID), FOREIGN KEY (PublicationID, ArticleTitle) REFERENCES Articles(PublicationID, ArticleTitle) ON UPDATE CASCADE ON DELETE CASCADE, FOREIGN KEY (EmpID) REFERENCES Authors(EmpID) ON UPDATE CASCADE ON DELETE CASCADE);");
+                    "CREATE TABLE WritesArticle(PublicationID INT, "
+                    + "ArticleTitle VARCHAR(128), "
+                    + "EmpID INT, "
+                    + "PRIMARY KEY (PublicationID, ArticleTitle, EmpID), "
+                    + "FOREIGN KEY (PublicationID, ArticleTitle) REFERENCES Articles(PublicationID, ArticleTitle) "
+                    + "ON UPDATE CASCADE ON DELETE CASCADE, "
+                    + "FOREIGN KEY (EmpID) REFERENCES Authors(EmpID) "
+                    + "ON UPDATE CASCADE ON DELETE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE Payments(CheckNumber INT, EmpID INT, Amount DECIMAL(8,2) NOT NULL, SubmitDate DATE NOT NULL, ClaimDate DATE, PRIMARY KEY (CheckNumber), FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) ON UPDATE CASCADE ON DELETE SET NULL);");
+                    "CREATE TABLE Payments(CheckNumber INT AUTO_INCREMENT, "
+                    + "EmpID INT, "
+                    + "Amount DECIMAL(8,2) NOT NULL, "
+                    + "SubmitDate DATE NOT NULL, "
+                    + "ClaimDate DATE, "
+                    + "PRIMARY KEY (CheckNumber), "
+                    + "FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) "
+                    + "ON UPDATE CASCADE ON DELETE SET NULL);");
             statement.executeUpdate(
-                    "CREATE TABLE Distributors (DistAccountNum INT, Name VARCHAR(128) NOT NULL, Type VARCHAR(128) NOT NULL, Address VARCHAR(128) NOT NULL, City VARCHAR(128) NOT NULL, PhoneNumber VARCHAR(16) NOT NULL, Contact VARCHAR(128) NOT NULL, Balance DECIMAL(8,2) NOT NULL, PRIMARY KEY (DistAccountNum));");
+                    "CREATE TABLE Distributors (DistAccountNum INT AUTO_INCREMENT, "
+                    + "Name VARCHAR(128) NOT NULL, "
+                    + "Type VARCHAR(128) NOT NULL, "
+                    + "Address VARCHAR(128) NOT NULL, "
+                    + "City VARCHAR(128) NOT NULL, "
+                    + "PhoneNumber VARCHAR(16) NOT NULL, "
+                    + "Contact VARCHAR(128) NOT NULL, "
+                    + "Balance DECIMAL(8,2) NOT NULL, "
+                    + "PRIMARY KEY (DistAccountNum));");
             statement.executeUpdate(
-                    "CREATE TABLE Orders (OrderID INT, DistAccountNum INT, PublicationID INT NOT NULL, NumCopies INT NOT NULL, ProduceByDate DATE NOT NULL, Price DECIMAL(8,2) NOT NULL, ShippingCosts DECIMAL(8,2) NOT NULL, PRIMARY KEY (OrderID), FOREIGN KEY (DistAccountNum) REFERENCES Distributors(DistAccountNum) ON UPDATE CASCADE ON DELETE SET NULL, FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) ON UPDATE CASCADE);");
+                    "CREATE TABLE Orders (OrderID INT AUTO_INCREMENT, "
+                    + "DistAccountNum INT, "
+                    + "PublicationID INT NOT NULL, "
+                    + "NumCopies INT NOT NULL, "
+                    + "ProduceByDate DATE NOT NULL, "
+                    + "Price DECIMAL(8,2) NOT NULL, "
+                    + "ShippingCosts DECIMAL(8,2) NOT NULL, "
+                    + "PRIMARY KEY (OrderID), "
+                    + "FOREIGN KEY (DistAccountNum) REFERENCES Distributors(DistAccountNum) "
+                    + "ON UPDATE CASCADE ON DELETE SET NULL, "
+                    + "FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) "
+                    + "ON UPDATE CASCADE);");
             statement.executeUpdate(
-                    "CREATE TABLE Invoices (InvoiceID INT, DistAccountNum INT, Amount DECIMAL(8,2) NOT NULL, BillingDate DATE NOT NULL, PaymentDate DATE, PRIMARY KEY (InvoiceID), FOREIGN KEY (DistAccountNum) REFERENCES Distributors(DistAccountNum) ON UPDATE CASCADE ON DELETE SET NULL);");
+                    "CREATE TABLE Invoices (InvoiceID INT AUTO_INCREMENT, "
+                    + "DistAccountNum INT, "
+                    + "Amount DECIMAL(8,2) NOT NULL, "
+                    + "BillingDate DATE NOT NULL, "
+                    + "PaymentDate DATE, "
+                    + "PRIMARY KEY (InvoiceID), "
+                    + "FOREIGN KEY (DistAccountNum) REFERENCES Distributors(DistAccountNum) "
+                    + "ON UPDATE CASCADE ON DELETE SET NULL);");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -98,25 +186,25 @@ public class database_setup {
     private static void populateTables() {
         try {
         	// Populate Publication Tables
-            statement.executeUpdate("INSERT INTO Publication VALUES (1, 'Don Quixote', 'Novel', 'Adventure');");
-            statement.executeUpdate("INSERT INTO Publication VALUES (2, 'People', 'Magazine', 'Celebrity News');");
-            statement.executeUpdate("INSERT INTO Publication VALUES (3, 'People', 'Magazine', 'Celebrity News');");
-            statement.executeUpdate("INSERT INTO Publication VALUES (4, 'The Count of Monte Cristo', 'Novel', 'Adventure');");
-            statement.executeUpdate("INSERT INTO Publication VALUES (5, 'Science', 'Journal', 'Science');");
-            statement.executeUpdate("INSERT INTO Publication VALUES (6, 'Science', 'Journal', 'Science');");
-            statement.executeUpdate("INSERT INTO Publication VALUES (7, 'Database Systems', 'Book', 'Databases');");
-            statement.executeUpdate("INSERT INTO Publication VALUES (8, 'Database Systems', 'Book', 'Databases');");
-
+            statement.executeUpdate("INSERT INTO Publication VALUES (NULL, 'Don Quixote', 'Book', 'Adventure');");
+            statement.executeUpdate("INSERT INTO Publication VALUES (NULL, 'People', 'Magazine', 'Celebrity News');");
+            statement.executeUpdate("INSERT INTO Publication VALUES (NULL, 'People', 'Magazine', 'Celebrity News');");
+            statement.executeUpdate("INSERT INTO Publication VALUES (NULL, 'The Count of Monte Cristo', 'Book', 'Adventure');");
+            statement.executeUpdate("INSERT INTO Publication VALUES (NULL, 'Science', 'Journal', 'Science');");
+            statement.executeUpdate("INSERT INTO Publication VALUES (NULL, 'Science', 'Journal', 'Science');");
+            statement.executeUpdate("INSERT INTO Publication VALUES (NULL, 'Database Systems', 'Book', 'Databases');");
+            statement.executeUpdate("INSERT INTO Publication VALUES (NULL, 'Database Systems', 'Book', 'Databases');");
+            
             statement.executeUpdate("INSERT INTO Issues VALUES (2, 'February-21', '2022-02-21');");
             statement.executeUpdate("INSERT INTO Issues VALUES (3, 'February-14', '2022-02-14');");
             statement.executeUpdate("INSERT INTO Issues VALUES (5, 'Volume 375 Issue 6584', '2022-03-04');");
             statement.executeUpdate("INSERT INTO Issues VALUES (6, 'Volume 375 Issue 6583', '2022-02-25');");
-            
+
             statement.executeUpdate("INSERT INTO Books VALUES (1, '1', '0142437239', '2003-02-25');");
             statement.executeUpdate("INSERT INTO Books VALUES (4, '1', '0140449264', '2003-05-27');");
             statement.executeUpdate("INSERT INTO Books VALUES (7, '1', '0167120441', '2022-01-31');");
             statement.executeUpdate("INSERT INTO Books VALUES (8, '2', '0335009913', '2022-02-26');");
-            
+
             statement.executeUpdate("INSERT INTO Articles VALUES (2, 'Title1', 'Celebrity News', '/Issues/1/February-21/Title1.pdf');");
             statement.executeUpdate("INSERT INTO Articles VALUES (2, 'Title2', 'Stories', '/Issues/1/February-21/Title2.pdf');");
             statement.executeUpdate("INSERT INTO Articles VALUES (3, 'Title1', 'Stories', '/Issues/1/February-14/Title1.pdf');");
