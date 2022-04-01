@@ -52,7 +52,16 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
-
+	
+	public void enableAutocommit() {
+		try {
+			connection.setAutoCommit(true);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public ResultSet query(String s) {
 		try {
 			createStatement();
