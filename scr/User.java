@@ -9,6 +9,7 @@ public class User {
 	private DBManager db = null;
 	
 	private Reports report = null;
+	private Production production = null;
 	// add your objects here
 	private Publishers publisher = null;
 	private Distributors distr_team = null;
@@ -28,6 +29,7 @@ public class User {
 		}
 		else if (user.equals("2")) { // editor
 			// editor object
+			production = new Production(db, scanner);
 		}
 		else if (user.equals("3")) { // distribution team
 			distr_team = new Distributors(db, scanner);
@@ -44,7 +46,7 @@ public class User {
 			publisher.command(command);
 		}
 		else if (currUser.equals("2")) { // editor
-			
+			production.command(command);
 		}
 		else if (currUser.equals("3")) { // distribution team
 			distr_team.command(command);			
