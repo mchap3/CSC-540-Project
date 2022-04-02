@@ -10,6 +10,8 @@ public class User {
 	
 	private Reports report = null;
 	// add your objects here
+	private Publishers publisher = null;
+	private Distributors distr_team = null;
 	
 	
 	public User(String user, Scanner s, DBManager dbM) {
@@ -22,7 +24,7 @@ public class User {
 			report = new Reports(db, scanner);
 		}
 		else if (user.equals("1")) { // publisher
-			// publisher object
+			publisher = new Publishers(db, scanner);
 		}
 		else if (user.equals("2")) { // editor
 			// editor object
@@ -39,7 +41,7 @@ public class User {
 			report.command(command);
 		}
 		else if (currUser.equals("1")) { // publisher
-			
+			publisher.command(command);
 		}
 		else if (currUser.equals("2")) { // editor
 			
