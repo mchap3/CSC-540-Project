@@ -18,10 +18,25 @@ public class Publishers {
 
 	public void assignEditorToPublication() {
 		try {
-			// Only Part that needs to be changed between each method.
-			//************************************************
-
-			//************************************************
+			// user prompt
+			System.out.println("\nAssign an Editor to a Publication");
+			System.out.println("Enter Employeee ID:");
+			int employeeID = Integer.parseInt(scanner.nextLine());
+			System.out.println("Enter Publication ID:");
+			int publicationID = Integer.parseInt(scanner.nextLine());
+			
+			// insert into Edits table
+			String sql = "INSERT INTO Edits VALUES (" + publicationID + ", " + employeeID + ");";
+			
+			// update and commit
+			db.update(sql);
+			result = db.query("SELECT * FROM Edits WHERE PublicationID = " + publicationID +
+				" AND EmpID = " + employeeID + ";");
+			if (db.commit()) {
+				System.out.println("\nSuccessfully Added Following Record");
+				DBTablePrinter.printResultSet(result);
+				System.out.println();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -29,21 +44,57 @@ public class Publishers {
 
 	public void viewEditorResponsibilities() {
 		try {
-			// Only Part that needs to be changed between each method.
-			//************************************************
+			// user prompt
+			System.out.println("\nView an Editor's Responsibilities");
+			System.out.println("Enter Employeee ID:");
+			int employeeID = Integer.parseInt(scanner.nextLine());
 
-			//************************************************
+			String sql = "SELECT * FROM Publication WHERE PublicationID IN" +
+				"(SELECT PublicationID FROM Edits WHERE EmpID = " + employeeID + ");";
+			
+			// commitQuery is for querying, commitUpdate is for everything else and that wont return anything unlike this one.
+			result = db.query(sql);
+			System.out.println();
+			// commit and if successful, print the tables
+			if (db.commit()) {
+				System.out.println("\nEditor Responsibilities:");
+				DBTablePrinter.printResultSet(result);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	// TODO: make addEditor() a transaction & figure out why last_insert_id() doesn't work
 	public void addEditor() {
 		try {
-			// Only Part that needs to be changed between each method.
-			//************************************************
+			// user prompt
+			System.out.println("\nAdd a New Editor");
+			System.out.println("Enter Name:");
+			String name = "'" + scanner.nextLine() + "'";
+			System.out.println("Enter Type (Staff/Invited):");
+			String type = "'" + scanner.nextLine() + "'";
 
-			//************************************************
+			// insert into Employees table
+			String sql = "INSERT INTO Employees(Name, Type, Active) VALUES (" 
+				+ name + "," + type + ", true);";
+			db.update(sql);
+			
+			// get ID of newly created employee
+			result = db.query("SELECT last_insert_id() FROM Employees;");
+			int employeeID = result.getInt("last_insert_id()");
+
+			// insert into Editors table
+			sql = "INSERT INTO Editors VALUES (" + employeeID + ");";
+			db.update(sql);
+
+			// commit
+			result = db.query("SELECT * FROM Employees WHERE EmpID = " + employeeID + ";");
+			if (db.commit()) {
+				System.out.println("\nSuccessfully Added Following Record");
+				DBTablePrinter.printResultSet(result);
+				System.out.println();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -112,7 +163,7 @@ public class Publishers {
 		String[][] help = {	
 		         { "  R1         | assign editor to publication    | ", "Employee ID, Publication ID" },
 		         { "  R2         | view editor responsibilities    | ", "Employee ID" },
-		         { "  R3         | add editor                      | ", "Employee ID, name, type" },
+		         { "  R3         | add editor                      | ", "name, type" },
 		         { "  R4         | update editor                   | ", "Employee ID, name, type, active" },
 		         { "  R5         | delete editor                   | ", "Employee ID" },
 		         { "  R6         | add author                      | ", "Employee ID, name, type" },
