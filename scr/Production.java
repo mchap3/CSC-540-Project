@@ -465,6 +465,76 @@ public class Production {
 		} 
 		
 	}
+	
+	public void getBookInfo() {
+		try {
+			String author;
+			String pubDate;
+			String topic;
+			
+			System.out.println("Search book catalog...");
+			System.out.print("Enter author name (or blank to skip): ");
+			author = scanner.nextLine();
+			System.out.print("Enter publication date as YYYY-MM-DD (or blank to skip): ");
+			pubDate = scanner.nextLine();
+			System.out.print("Enter book topic (or blank to skip): ");
+			topic = scanner.nextLine();
+			
+			String sql1 = "";
+			if (!author.isEmpty())
+				sql1 += String.format("PublicationID in (select PublicationID from WritesBook where EmpID in (select EmpID from Employees where name = '%s'))", author);
+			if (!pubDate.isEmpty())
+				sql1 += String.format("%sPublicationDate = '%s'", sql1.isEmpty() ? "" : " AND ", pubDate);
+			if (!topic.isEmpty())
+				sql1 += String.format("%sTopic = '%s'", sql1.isEmpty() ? "" : " AND ", topic);
+			
+			String sql2 = String.format("select * from Publication natural join Books%s;", sql1.isEmpty() ? "" : " where " + sql1);
+			
+			result = db.query(sql2);
+			if (db.commit())
+				DBTablePrinter.printResultSet(result);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} 
+		
+	}
+	
+	public void getArticleInfo() {
+		try {
+			String author;
+			String issueDate;
+			String topic;
+			
+			System.out.println("Search article catalog...");
+			System.out.print("Enter author name (or blank to skip): ");
+			author = scanner.nextLine();
+			System.out.print("Enter issue date as YYYY-MM-DD (or blank to skip): ");
+			issueDate = scanner.nextLine();
+			System.out.print("Enter article topic (or blank to skip): ");
+			topic = scanner.nextLine();
+			
+			String sql1 = "";
+			if (!author.isEmpty())
+				sql1 += String.format("(PublicationID, ArticleTitle) in (select PublicationID, ArticleTitle from WritesArticle where EmpID in (select EmpID from Employees where name = '%s'))", author);
+			if (!issueDate.isEmpty())
+				sql1 += String.format("%sIssueDate = '%s'", sql1.isEmpty() ? "" : " AND ", issueDate);
+			if (!topic.isEmpty())
+				sql1 += String.format("%sArticleTopic = '%s'", sql1.isEmpty() ? "" : " AND ", topic);
+			
+			String sql2 = String.format("select * from Publication natural join Issues natural join Articles%s;", sql1.isEmpty() ? "" : " where " + sql1);
+			
+			result = db.query(sql2);
+			if (db.commit())
+				DBTablePrinter.printResultSet(result);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} 
+		
+	}
 
 	private static void helper() {
 
@@ -482,10 +552,12 @@ public class Production {
 		         { "  P9         | add article to issue                                | ", "" },
 		         { "  P10        | edit article in issue                               | ", "" },
 		         { "  P11        | add article text                                    | ", "" },
-		         { "  P12        | update article text                                 | ", "" }
+		         { "  P12        | update article text                                 | ", "" },
+		         { "  P13        | search book catalog                                 | ", "" },
+		         { "  P14        | search article catalog                              | ", "" }
 		};
 
-		for (int i = 0; i < 12; i++) {
+		for (int i = 0; i < 14; i++) {
 			System.out.println(help[i][0] + help[i][1]);
 		}
 		System.out.println();
@@ -542,6 +614,14 @@ public class Production {
 			
 		case "p12":
 			editArticleText();
+			break;
+			
+		case "p13":
+			getBookInfo();
+			break;
+			
+		case "p14":
+			getArticleInfo();
 			break;
 
 		default:
