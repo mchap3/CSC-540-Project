@@ -1,5 +1,5 @@
 import java.util.Scanner;
-//javac database_setup.java DBManager.java DBTablePrinter.java Reports.java User.java
+//javac database_setup.java DBManager.java DBTablePrinter.java Reports.java User.java Distributors.java
 //java database_setup
 public class User {
 	
@@ -28,7 +28,7 @@ public class User {
 			// editor object
 		}
 		else if (user.equals("3")) { // distribution team
-			// distribution team object
+			distr_team = new Distributors(db, scanner);
 		}
 		
 	}
@@ -45,7 +45,7 @@ public class User {
 			
 		}
 		else if (currUser.equals("3")) { // distribution team
-			
+			distr_team.command(command);			
 		}
 	}
 }
