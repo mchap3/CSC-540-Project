@@ -535,6 +535,91 @@ public class Production {
 		} 
 		
 	}
+	
+	public void makePayment() {
+		try {
+			int checkNum;
+			int empID;
+			String amount;
+			double amt;
+			String payDate;
+			
+			System.out.println("Entering employee payment...");
+			System.out.print("Enter Employee ID number: ");
+			empID = scanner.nextInt(); scanner.nextLine();
+			System.out.print("Enter payment amount (leave blank to calculate automatically): ");
+			amount = scanner.nextLine();
+			System.out.print("Enter payment date as YYYY-MM-DD (leave blank to use current date): ");
+			payDate = scanner.nextLine();
+			
+			if (payDate.isEmpty())
+				payDate = java.time.LocalDate.now().toString();
+			if (amount.isEmpty()) {
+//				TODO: implement auto calculate payment amount
+				amt = 0;
+			} else
+				amt = Double.valueOf(amount);
+			
+			String sql = String.format("insert into Payments values(NULL, %d, %.2f, '%s', NULL);", empID, amt, payDate);
+			db.update(sql);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} 
+		
+	}
+	
+	public void updatePayment() {
+		try {
+			int checkNum;
+			int empID;
+			String claimDate;
+			
+			System.out.println("Updating employee payment...");
+			System.out.print("Enter Check Number: ");
+			checkNum = scanner.nextInt(); scanner.nextLine();
+			System.out.print("Enter Employee ID number: ");
+			empID = scanner.nextInt(); scanner.nextLine();
+			System.out.print("Enter claim date for payment as YYYY-MM-DD (leave blank to use current date): ");
+			claimDate = scanner.nextLine();
+			
+			if (claimDate.isEmpty())
+				claimDate = java.time.LocalDate.now().toString();
+			
+			String sql = String.format("update Payments set ClaimDate = '%s' where CheckNumber = %d and EmpID = %d;", claimDate, checkNum, empID);
+			db.update(sql);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} 
+		
+	}
+	
+	public void trackPayment() {
+		try {
+			int checkNum;
+			int empID;
+			
+			System.out.println("Tracking employee payment...");
+			System.out.print("Enter Check Number: ");
+			checkNum = scanner.nextInt(); scanner.nextLine();
+			System.out.print("Enter Employee ID number: ");
+			empID = scanner.nextInt(); scanner.nextLine();
+			
+			String sql = String.format("select * from Payments where CheckNumber = %d and EmpID = %d;", checkNum, empID);
+			result = db.query(sql);
+			
+			if (db.commit())
+				DBTablePrinter.printResultSet(result);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} 
+		
+	}
 
 	private static void helper() {
 
@@ -554,10 +639,13 @@ public class Production {
 		         { "  P11        | add article text                                    | ", "" },
 		         { "  P12        | update article text                                 | ", "" },
 		         { "  P13        | search book catalog                                 | ", "" },
-		         { "  P14        | search article catalog                              | ", "" }
+		         { "  P14        | search article catalog                              | ", "" },
+		         { "  P15        | make employee payment                               | ", "" },
+		         { "  P16        | update employee payment                             | ", "" },
+		         { "  P17        | track employee payment                              | ", "" }
 		};
 
-		for (int i = 0; i < 14; i++) {
+		for (int i = 0; i < 17; i++) {
 			System.out.println(help[i][0] + help[i][1]);
 		}
 		System.out.println();
@@ -622,6 +710,18 @@ public class Production {
 			
 		case "p14":
 			getArticleInfo();
+			break;
+			
+		case "p15":
+			makePayment();
+			break;
+			
+		case "p16":
+			updatePayment();
+			break;
+			
+		case "p17":
+			trackPayment();
 			break;
 
 		default:
