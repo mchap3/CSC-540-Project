@@ -146,10 +146,15 @@ public class Publishers {
 
 	public void deleteEditor() {
 		try {
-			// Only Part that needs to be changed between each method.
-			//************************************************
+			result = db.query("SELECT * FROM Employees WHERE EmpID IN (SELECT * FROM Editors);");
+			System.out.println("Editor list:");
+			DBTablePrinter.printResultSet(result);
 
-			//************************************************
+			System.out.print("Enter employee ID to delete: ");
+			int employeeID = scanner.nextInt(); scanner.nextLine();
+			
+			String sql = String.format("DELETE FROM Employees WHERE EmpID = %d;", employeeID);
+			db.update(sql);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
