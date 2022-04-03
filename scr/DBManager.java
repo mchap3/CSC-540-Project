@@ -102,7 +102,7 @@ public class DBManager {
 
 			try {
 				if (connection != null)
-					System.out.println("Error Generating Report, Please Check Format");
+					System.out.println("Error Commiting, Please Check Format");
 				connection.rollback();
 				return false;
 			} catch (SQLException e2) {

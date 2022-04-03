@@ -163,12 +163,12 @@ public class Distributors {
 					System.out.println("Updated");
 				}
 			}
-			else{
-				if (db.rollback()){
-					System.out.println("No changes made");
-				}
-				
-			}
+//			else{
+//				if (db.rollback()){
+//					System.out.println("No changes made");
+//				}
+//				
+//			}
 								
 				} catch (Exception e) {
 			e.printStackTrace();
@@ -207,12 +207,12 @@ public class Distributors {
 					System.out.println("Updated");
 				}
 			}
-			else{
-				if (db.rollback()){
-					System.out.println("No changes made");
-				}
-				
-			}
+//			else{
+//				if (db.rollback()){
+//					System.out.println("No changes made");
+//				}
+//				
+//			}
 								
 				} catch (Exception e) {
 			e.printStackTrace();
