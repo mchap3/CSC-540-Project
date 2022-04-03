@@ -27,15 +27,13 @@ public class Publishers {
 			
 			// insert into Edits table
 			String sql = String.format("INSERT INTO Edits VALUES (%d, %d);", publicationID, employeeID);
-			
-			// update and commit
 			db.update(sql);
+			
+			// print results
 			result = db.query(String.format("SELECT * FROM Edits WHERE PublicationID = %d AND EmpID = %d;", publicationID, employeeID));
-			if (db.commit()) {
-				System.out.println("\nSuccessfully Added Following Record");
-				DBTablePrinter.printResultSet(result);
-				System.out.println();
-			}
+			System.out.println("\nSuccessfully Added Following Record");
+			DBTablePrinter.printResultSet(result);
+			System.out.println();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -51,14 +49,12 @@ public class Publishers {
 			// select from Publication table
 			String sql = String.format("SELECT * FROM Publication WHERE PublicationID IN" +
 				"(SELECT PublicationID FROM Edits WHERE EmpID = %d);", employeeID);
-				
-			// update and commit
 			result = db.query(sql);
+				
+			// print results
 			System.out.println();
-			if (db.commit()) {
-				System.out.println("\nEditor Responsibilities:");
-				DBTablePrinter.printResultSet(result);
-			}
+			System.out.println("\nEditor Responsibilities:");
+			DBTablePrinter.printResultSet(result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -89,7 +85,7 @@ public class Publishers {
 			sql = String.format("INSERT INTO Editors VALUES (%d);", employeeID);
 			db.update(sql);
 
-			// commit
+			// commit and print results
 			result = db.query(String.format("SELECT * FROM Employees WHERE EmpID = %d;", employeeID));
 			if (db.commit()) {
 				System.out.println("\nSuccessfully Added Following Record");
@@ -106,10 +102,43 @@ public class Publishers {
 
 	public void updateEditor() {
 		try {
-			// Only Part that needs to be changed between each method.
-			//************************************************
-
-			//************************************************
+			// select editor to update
+			System.out.print("Enter employee ID: ");
+			int employeeID = scanner.nextInt(); scanner.nextLine();
+			
+			// enter new values
+			System.out.print("Enter new employee ID (or 0 to keep current): ");
+			int newEmployeeID = scanner.nextInt(); scanner.nextLine();
+			System.out.print("Enter new name (or blank to keep current): ");
+			String newName = scanner.nextLine();
+			System.out.print("Enter new type (Staff/Invited, or blank to keep current): ");
+			String newType = scanner.nextLine();
+			System.out.print("Enter new active status (true/false, or blank to keep current): ");
+			String newActiveStatus = scanner.nextLine();
+			
+			// create SET portion of update string
+			String sql = "";
+			if (newEmployeeID != 0)
+				sql += "EmpID = " + newEmployeeID;
+			if (!newName.isEmpty())
+				sql += String.format("%sName = '%s'", sql.isEmpty() ? "" : ", ", newName);
+			if (!newType.isEmpty())
+				sql += String.format("%sType = '%s'", sql.isEmpty() ? "" : ", ", newType);
+			if (!newActiveStatus.isEmpty())
+				sql += String.format("%sActive = %s", sql.isEmpty() ? "" : ", ", newActiveStatus);
+			
+			// update if necessary
+			if (!sql.isEmpty()) {
+				db.update(String.format("Update Employees SET %s WHERE EmpID = %d;", sql, employeeID));
+				// print results
+				result = db.query(String.format("SELECT * FROM Employees WHERE EmpID = %d;", employeeID));
+				System.out.println("\nSuccessfully Updated Following Record");
+				DBTablePrinter.printResultSet(result);
+				System.out.println();
+			} else {
+				System.out.println("No updates inputted");
+				System.out.println();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
