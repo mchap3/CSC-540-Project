@@ -3,9 +3,8 @@
  * Create and populate all database tables
  */
 import java.util.*;
-// javac database_setup.java DBManager.java DBTablePrinter.java Reports.java User.java
-// java database_setup
-
+//javac database_setup.java DBManager.java DBTablePrinter.java User.java Reports.java Distributors.java Production.java Publishers.java
+//java database_setup
 public class database_setup {
 
 	public static void main(String[] args) {
