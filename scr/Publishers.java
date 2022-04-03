@@ -18,25 +18,31 @@ public class Publishers {
 
 	public void assignEditorToPublication() {
 		try {
-			// user prompt
-			System.out.println("\nAssign an Editor to a Publication");
-			System.out.println("Enter Employeee ID:");
-			int employeeID = Integer.parseInt(scanner.nextLine());
-			System.out.println("Enter Publication ID:");
-			int publicationID = Integer.parseInt(scanner.nextLine());
+			// display editors
+			result = db.query("SELECT * FROM Employees NATURAL JOIN Editors;");
+			System.out.println("Editor list:");
+			DBTablePrinter.printResultSet(result);
+
+			// display publications
+			result = db.query("SELECT * FROM Publication;");
+			System.out.println("Publication list:");
+			DBTablePrinter.printResultSet(result);
+			
+			// select editor and publication
+			System.out.print("Enter employee ID: ");
+			int employeeID = scanner.nextInt(); scanner.nextLine();
+			System.out.print("Enter publication ID: ");
+			int publicationID = scanner.nextInt(); scanner.nextLine();
 			
 			// insert into Edits table
-			String sql = "INSERT INTO Edits VALUES (" + publicationID + ", " + employeeID + ");";
-			
-			// update and commit
+			String sql = String.format("INSERT INTO Edits VALUES (%d, %d);", publicationID, employeeID);
 			db.update(sql);
-			result = db.query("SELECT * FROM Edits WHERE PublicationID = " + publicationID +
-				" AND EmpID = " + employeeID + ";");
-			if (db.commit()) {
-				System.out.println("\nSuccessfully Added Following Record");
-				DBTablePrinter.printResultSet(result);
-				System.out.println();
-			}
+			
+			// print results
+			result = db.query(String.format("SELECT * FROM Edits WHERE PublicationID = %d AND EmpID = %d;", publicationID, employeeID));
+			System.out.println("\nSuccessfully Added Following Record");
+			DBTablePrinter.printResultSet(result);
+			System.out.println();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -44,57 +50,63 @@ public class Publishers {
 
 	public void viewEditorResponsibilities() {
 		try {
-			// user prompt
-			System.out.println("\nView an Editor's Responsibilities");
-			System.out.println("Enter Employeee ID:");
-			int employeeID = Integer.parseInt(scanner.nextLine());
-
-			String sql = "SELECT * FROM Publication WHERE PublicationID IN" +
-				"(SELECT PublicationID FROM Edits WHERE EmpID = " + employeeID + ");";
+			// display editors
+			result = db.query("SELECT * FROM Employees NATURAL JOIN Editors;");
+			System.out.println("Editor list:");
+			DBTablePrinter.printResultSet(result);
 			
-			// commitQuery is for querying, commitUpdate is for everything else and that wont return anything unlike this one.
+			// select editor to update
+			System.out.print("Enter employee ID: ");
+			int employeeID = scanner.nextInt(); scanner.nextLine();
+
+			// select from Publication table
+			String sql = String.format("SELECT * FROM Publication WHERE PublicationID IN" +
+				"(SELECT PublicationID FROM Edits WHERE EmpID = %d);", employeeID);
 			result = db.query(sql);
+				
+			// print results
 			System.out.println();
-			// commit and if successful, print the tables
-			if (db.commit()) {
-				System.out.println("\nEditor Responsibilities:");
-				DBTablePrinter.printResultSet(result);
-			}
+			System.out.println("\nEditor Responsibilities:");
+			DBTablePrinter.printResultSet(result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	// TODO: make addEditor() a transaction & figure out why last_insert_id() doesn't work
 	public void addEditor() {
 		try {
-			// user prompt
-			System.out.println("\nAdd a New Editor");
-			System.out.println("Enter Name:");
-			String name = "'" + scanner.nextLine() + "'";
-			System.out.println("Enter Type (Staff/Invited):");
-			String type = "'" + scanner.nextLine() + "'";
+			// start transaction
+			db.disableAutocommit();
+
+			// enter new values
+			System.out.print("Enter name: ");
+			String name = scanner.nextLine();
+			System.out.print("Enter type (Staff/Invited): ");
+			String type = scanner.nextLine();
 
 			// insert into Employees table
-			String sql = "INSERT INTO Employees(Name, Type, Active) VALUES (" 
-				+ name + "," + type + ", true);";
+			String sql = String.format("INSERT INTO Employees(Name, Type, Active) VALUES ('%s', '%s', true);", name, type);
 			db.update(sql);
 			
 			// get ID of newly created employee
-			result = db.query("SELECT last_insert_id() FROM Employees;");
-			int employeeID = result.getInt("last_insert_id()");
+			result = db.query("SELECT last_insert_id();");
+			result.next();
+			int employeeID = result.getInt(1);
 
 			// insert into Editors table
-			sql = "INSERT INTO Editors VALUES (" + employeeID + ");";
+			sql = String.format("INSERT INTO Editors VALUES (%d);", employeeID);
 			db.update(sql);
 
-			// commit
-			result = db.query("SELECT * FROM Employees WHERE EmpID = " + employeeID + ";");
+			// commit and print results
+			result = db.query(String.format("SELECT * FROM Employees WHERE EmpID = %d;", employeeID));
 			if (db.commit()) {
 				System.out.println("\nSuccessfully Added Following Record");
 				DBTablePrinter.printResultSet(result);
 				System.out.println();
 			}
+
+			// end transaction
+			db.enableAutocommit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -102,10 +114,48 @@ public class Publishers {
 
 	public void updateEditor() {
 		try {
-			// Only Part that needs to be changed between each method.
-			//************************************************
-
-			//************************************************
+			// display editors
+			result = db.query("SELECT * FROM Employees NATURAL JOIN Editors;");
+			System.out.println("Editor list:");
+			DBTablePrinter.printResultSet(result);
+			
+			// select editor to update
+			System.out.print("Enter employee ID to edit: ");
+			int employeeID = scanner.nextInt(); scanner.nextLine();
+			
+			// enter new values
+			System.out.print("Enter new employee ID (or 0 to keep current): ");
+			int newEmployeeID = scanner.nextInt(); scanner.nextLine();
+			System.out.print("Enter new name (or blank to keep current): ");
+			String newName = scanner.nextLine();
+			System.out.print("Enter new type (Staff/Invited, or blank to keep current): ");
+			String newType = scanner.nextLine();
+			System.out.print("Enter new active status (true/false, or blank to keep current): ");
+			String newActiveStatus = scanner.nextLine();
+			
+			// create SET portion of update string
+			String sql = "";
+			if (newEmployeeID != 0)
+				sql += "EmpID = " + newEmployeeID;
+			if (!newName.isEmpty())
+				sql += String.format("%sName = '%s'", sql.isEmpty() ? "" : ", ", newName);
+			if (!newType.isEmpty())
+				sql += String.format("%sType = '%s'", sql.isEmpty() ? "" : ", ", newType);
+			if (!newActiveStatus.isEmpty())
+				sql += String.format("%sActive = %s", sql.isEmpty() ? "" : ", ", newActiveStatus);
+			
+			// update if necessary
+			if (!sql.isEmpty()) {
+				db.update(String.format("Update Employees SET %s WHERE EmpID = %d;", sql, employeeID));
+				// print results
+				result = db.query(String.format("SELECT * FROM Employees WHERE EmpID = %d;", newEmployeeID == 0 ? employeeID : newEmployeeID));
+				System.out.println("\nSuccessfully Updated Following Record");
+				DBTablePrinter.printResultSet(result);
+				System.out.println();
+			} else {
+				System.out.println("No updates inputted");
+				System.out.println();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -113,10 +163,16 @@ public class Publishers {
 
 	public void deleteEditor() {
 		try {
-			// Only Part that needs to be changed between each method.
-			//************************************************
+			// display editors
+			result = db.query("SELECT * FROM Employees NATURAL JOIN Editors;");
+			System.out.println("Editor list:");
+			DBTablePrinter.printResultSet(result);
 
-			//************************************************
+			System.out.print("Enter employee ID to delete: ");
+			int employeeID = scanner.nextInt(); scanner.nextLine();
+			
+			String sql = String.format("DELETE FROM Employees WHERE EmpID = %d;", employeeID);
+			db.update(sql);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -124,10 +180,38 @@ public class Publishers {
 
 	public void addAuthor() {
 		try {
-			// Only Part that needs to be changed between each method.
-			//************************************************
+			// start transaction
+			db.disableAutocommit();
 
-			//************************************************
+			// enter new values
+			System.out.print("Enter name: ");
+			String name = scanner.nextLine();
+			System.out.print("Enter type (Staff/Invited): ");
+			String type = scanner.nextLine();
+
+			// insert into Employees table
+			String sql = String.format("INSERT INTO Employees(Name, Type, Active) VALUES ('%s', '%s', true);", name, type);
+			db.update(sql);
+			
+			// get ID of newly created employee
+			result = db.query("SELECT last_insert_id();");
+			result.next();
+			int employeeID = result.getInt(1);
+
+			// insert into Authors table
+			sql = String.format("INSERT INTO Authors VALUES (%d);", employeeID);
+			db.update(sql);
+
+			// commit and print results
+			result = db.query(String.format("SELECT * FROM Employees WHERE EmpID = %d;", employeeID));
+			if (db.commit()) {
+				System.out.println("\nSuccessfully Added Following Record");
+				DBTablePrinter.printResultSet(result);
+				System.out.println();
+			}
+
+			// end transaction
+			db.enableAutocommit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -135,10 +219,48 @@ public class Publishers {
 
 	public void updateAuthor() {
 		try {
-			// Only Part that needs to be changed between each method.
-			//************************************************
-
-			//************************************************
+			// display authors
+			result = db.query("SELECT * FROM Employees NATURAL JOIN Authors;");
+			System.out.println("Author list:");
+			DBTablePrinter.printResultSet(result);
+			
+			// select author to update
+			System.out.print("Enter employee ID to edit: ");
+			int employeeID = scanner.nextInt(); scanner.nextLine();
+			
+			// enter new values
+			System.out.print("Enter new employee ID (or 0 to keep current): ");
+			int newEmployeeID = scanner.nextInt(); scanner.nextLine();
+			System.out.print("Enter new name (or blank to keep current): ");
+			String newName = scanner.nextLine();
+			System.out.print("Enter new type (Staff/Invited, or blank to keep current): ");
+			String newType = scanner.nextLine();
+			System.out.print("Enter new active status (true/false, or blank to keep current): ");
+			String newActiveStatus = scanner.nextLine();
+			
+			// create SET portion of update string
+			String sql = "";
+			if (newEmployeeID != 0)
+				sql += "EmpID = " + newEmployeeID;
+			if (!newName.isEmpty())
+				sql += String.format("%sName = '%s'", sql.isEmpty() ? "" : ", ", newName);
+			if (!newType.isEmpty())
+				sql += String.format("%sType = '%s'", sql.isEmpty() ? "" : ", ", newType);
+			if (!newActiveStatus.isEmpty())
+				sql += String.format("%sActive = %s", sql.isEmpty() ? "" : ", ", newActiveStatus);
+			
+			// update if necessary
+			if (!sql.isEmpty()) {
+				db.update(String.format("Update Employees SET %s WHERE EmpID = %d;", sql, employeeID));
+				// print results
+				result = db.query(String.format("SELECT * FROM Employees WHERE EmpID = %d;", newEmployeeID == 0 ? employeeID : newEmployeeID));
+				System.out.println("\nSuccessfully Updated Following Record");
+				DBTablePrinter.printResultSet(result);
+				System.out.println();
+			} else {
+				System.out.println("No updates inputted");
+				System.out.println();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -146,10 +268,16 @@ public class Publishers {
 
 	public void deleteAuthor() {
 		try {
-			// Only Part that needs to be changed between each method.
-			//************************************************
+			// display authors
+			result = db.query("SELECT * FROM Employees NATURAL JOIN Authors;");
+			System.out.println("Author list:");
+			DBTablePrinter.printResultSet(result);
 
-			//************************************************
+			System.out.print("Enter employee ID to delete: ");
+			int employeeID = scanner.nextInt(); scanner.nextLine();
+			
+			String sql = String.format("DELETE FROM Employees WHERE EmpID = %d;", employeeID);
+			db.update(sql);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -161,14 +289,14 @@ public class Publishers {
 		System.out.println("-------------|---------------------------------|-------------------------------");
 		
 		String[][] help = {	
-		         { "  R1         | assign editor to publication    | ", "Employee ID, Publication ID" },
-		         { "  R2         | view editor responsibilities    | ", "Employee ID" },
-		         { "  R3         | add editor                      | ", "name, type" },
-		         { "  R4         | update editor                   | ", "Employee ID, name, type, active" },
-		         { "  R5         | delete editor                   | ", "Employee ID" },
-		         { "  R6         | add author                      | ", "Employee ID, name, type" },
-		         { "  R7         | update author                   | ", "Employee ID, name, type, active" },
-		         { "  R8         | delete author                   | ", "Employee ID" }
+		         { "  P1         | assign editor to publication    | ", "employee ID, publication ID" },
+		         { "  P2         | view editor responsibilities    | ", "employee ID" },
+		         { "  P3         | add editor                      | ", "name, type" },
+		         { "  P4         | update editor                   | ", "employee ID, name, type, active" },
+		         { "  P5         | delete editor                   | ", "employee ID" },
+		         { "  P6         | add author                      | ", "employee ID, name, type" },
+		         { "  P7         | update author                   | ", "employee ID, name, type, active" },
+		         { "  P8         | delete author                   | ", "employee ID" }
 		      };
 		
 		
@@ -183,28 +311,28 @@ public class Publishers {
 		
 		switch(com.toLowerCase()) {
 		
-		case "r1": assignEditorToPublication();
+		case "p1": assignEditorToPublication();
 			break;
 		
-		case "r2": viewEditorResponsibilities();
+		case "p2": viewEditorResponsibilities();
 			break;
 			
-		case "r3": addEditor();
+		case "p3": addEditor();
 			break;
 			
-		case "r4": updateEditor();
+		case "p4": updateEditor();
 			break;
 			
-		case "r5": deleteEditor();
+		case "p5": deleteEditor();
 			break;
 			
-		case "r6": addAuthor();
+		case "p6": addAuthor();
 			break;
 			
-		case "r7": updateAuthor();
+		case "p7": updateAuthor();
 			break;
 			
-		case "r8": deleteAuthor();
+		case "p8": deleteAuthor();
 			break;
 			
 		default: System.out.println("Here are the Valid Command Codes, and their required information");
