@@ -26,12 +26,11 @@ public class Publishers {
 			int publicationID = Integer.parseInt(scanner.nextLine());
 			
 			// insert into Edits table
-			String sql = "INSERT INTO Edits VALUES (" + publicationID + ", " + employeeID + ");";
+			String sql = String.format("INSERT INTO Edits VALUES (%d, %d);", publicationID, employeeID);
 			
 			// update and commit
 			db.update(sql);
-			result = db.query("SELECT * FROM Edits WHERE PublicationID = " + publicationID +
-				" AND EmpID = " + employeeID + ";");
+			result = db.query(String.format("SELECT * FROM Edits WHERE PublicationID = %d AND EmpID = %d;", publicationID, employeeID));
 			if (db.commit()) {
 				System.out.println("\nSuccessfully Added Following Record");
 				DBTablePrinter.printResultSet(result);
@@ -49,13 +48,13 @@ public class Publishers {
 			System.out.println("Enter Employeee ID:");
 			int employeeID = Integer.parseInt(scanner.nextLine());
 
-			String sql = "SELECT * FROM Publication WHERE PublicationID IN" +
-				"(SELECT PublicationID FROM Edits WHERE EmpID = " + employeeID + ");";
-			
-			// commitQuery is for querying, commitUpdate is for everything else and that wont return anything unlike this one.
+			// select from Publication table
+			String sql = String.format("SELECT * FROM Publication WHERE PublicationID IN" +
+				"(SELECT PublicationID FROM Edits WHERE EmpID = %d);", employeeID);
+				
+			// update and commit
 			result = db.query(sql);
 			System.out.println();
-			// commit and if successful, print the tables
 			if (db.commit()) {
 				System.out.println("\nEditor Responsibilities:");
 				DBTablePrinter.printResultSet(result);
@@ -65,36 +64,41 @@ public class Publishers {
 		}
 	}
 
-	// TODO: make addEditor() a transaction & figure out why last_insert_id() doesn't work
 	public void addEditor() {
 		try {
+			// start transaction
+			db.disableAutocommit();
+
 			// user prompt
 			System.out.println("\nAdd a New Editor");
 			System.out.println("Enter Name:");
-			String name = "'" + scanner.nextLine() + "'";
+			String name = scanner.nextLine();
 			System.out.println("Enter Type (Staff/Invited):");
-			String type = "'" + scanner.nextLine() + "'";
+			String type = scanner.nextLine();
 
 			// insert into Employees table
-			String sql = "INSERT INTO Employees(Name, Type, Active) VALUES (" 
-				+ name + "," + type + ", true);";
+			String sql = String.format("INSERT INTO Employees(Name, Type, Active) VALUES ('%s', '%s', true);", name, type);
 			db.update(sql);
 			
 			// get ID of newly created employee
-			result = db.query("SELECT last_insert_id() FROM Employees;");
-			int employeeID = result.getInt("last_insert_id()");
+			result = db.query("SELECT last_insert_id();");
+			result.next();
+			int employeeID = result.getInt(1);
 
 			// insert into Editors table
-			sql = "INSERT INTO Editors VALUES (" + employeeID + ");";
+			sql = String.format("INSERT INTO Editors VALUES (%d);", employeeID);
 			db.update(sql);
 
 			// commit
-			result = db.query("SELECT * FROM Employees WHERE EmpID = " + employeeID + ";");
+			result = db.query(String.format("SELECT * FROM Employees WHERE EmpID = %d;", employeeID));
 			if (db.commit()) {
 				System.out.println("\nSuccessfully Added Following Record");
 				DBTablePrinter.printResultSet(result);
 				System.out.println();
 			}
+
+			// end transaction
+			db.enableAutocommit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
