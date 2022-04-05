@@ -256,6 +256,7 @@ public class DBManager {
                     + "DistAccountNum INT, "
                     + "PublicationID INT NOT NULL, "
                     + "NumCopies INT NOT NULL, "
+		    + "OrderDate DATE NOT NULL, "
                     + "ProduceByDate DATE NOT NULL, "
                     + "Price DECIMAL(8,2) NOT NULL, "
                     + "ShippingCosts DECIMAL(8,2) NOT NULL, "
@@ -289,6 +290,9 @@ public class DBManager {
             statement.executeUpdate("INSERT INTO Publication VALUES (NULL, 'Science', 'Journal', 'Science');");
             statement.executeUpdate("INSERT INTO Publication VALUES (NULL, 'Database Systems', 'Book', 'Databases');");
             statement.executeUpdate("INSERT INTO Publication VALUES (NULL, 'Database Systems', 'Book', 'Databases');");
+			statement.executeUpdate("INSERT INTO Publication VALUES (1001, 'Introduction to database', 'Book', 'technology');");
+			statement.executeUpdate("INSERT INTO Publication VALUES (1002, 'Healthy Diet', 'Magazine', 'health');");
+			statement.executeUpdate("INSERT INTO Publication VALUES (1003, 'Animal Science', 'Journal', 'science');");
 
 			statement.executeUpdate("INSERT INTO Issues VALUES (2, 'February-21', '2022-02-21');");
 			statement.executeUpdate("INSERT INTO Issues VALUES (3, 'February-14', '2022-02-14');");
@@ -394,16 +398,23 @@ public class DBManager {
 					"INSERT INTO Distributors VALUES (3, 'Books','Store', '300 New Street', 'Cary','919-xxx-xxxx', 'John', 0.00)");
 			statement.executeUpdate(
 					"INSERT INTO Distributors VALUES (4, 'BooksEtc','Store', '400 New Street', 'Durham','919-xxx-xxxx', 'John', 0.00)");
+			statement.executeUpdate(
+					"INSERT INTO Distributors VALUES (2001, 'BookSell','bookstore', '2200, A Street, NC', 'charlotte','9191234567', 'Jason', 215)");
+			statement.executeUpdate(
+					"INSERT INTO Distributors VALUES (2002, 'BooksDist','wholesaler', '2200, B Street, NC', 'Raleigh','9291234568', 'Alex', 0.00)");
 
-			statement.executeUpdate("INSERT INTO Orders VALUES (1, 1, 3, 1, '2022-4-10', 5.15, 1.00);");
-			statement.executeUpdate("INSERT INTO Orders VALUES (2, 4, 2, 2, '2022-4-12', 5.15, 1.00);");
-			statement.executeUpdate("INSERT INTO Orders VALUES (3, 4, 1, 3, '2022-4-23', 5.15, 1.00);");
-			statement.executeUpdate("INSERT INTO Orders VALUES (4, 3, 1, 4, '2022-4-23', 5.15, 1.00);");
-			statement.executeUpdate("INSERT INTO Orders VALUES (5, 3, 4, 4, '2022-4-25', 5.15, 1.00);");
-			statement.executeUpdate("INSERT INTO Orders VALUES (6, 1, 3, 1, '2022-5-10', 15.15, 2.00);");
-			statement.executeUpdate("INSERT INTO Orders VALUES (7, 2, 2, 2, '2022-5-12', 15.15, 2.00);");
-			statement.executeUpdate("INSERT INTO Orders VALUES (8, 2, 1, 3, '2022-5-23', 15.15, 2.00);");
-			statement.executeUpdate("INSERT INTO Orders VALUES (9, 3, 4, 4, '2022-5-25', 15.15, 2.00);");
+			statement.executeUpdate("INSERT INTO Orders VALUES (1, 1, 3, 1, '2022-3-25', '2022-4-10', 5.15, 1.00);");
+			statement.executeUpdate("INSERT INTO Orders VALUES (2, 4, 2, 2, '2022-3-25', '2022-4-12', 5.15, 1.00);");
+			statement.executeUpdate("INSERT INTO Orders VALUES (3, 4, 1, 3, '2022-3-25', '2022-4-23', 5.15, 1.00);");
+			statement.executeUpdate("INSERT INTO Orders VALUES (4, 3, 1, 4, '2022-3-25', '2022-4-23', 5.15, 1.00);");
+			statement.executeUpdate("INSERT INTO Orders VALUES (5, 3, 4, 4, '2022-3-25', '2022-4-25', 5.15, 1.00);");
+			statement.executeUpdate("INSERT INTO Orders VALUES (6, 1, 3, 1, '2022-4-25', '2022-5-10', 15.15, 2.00);");
+			statement.executeUpdate("INSERT INTO Orders VALUES (7, 2, 2, 2, '2022-4-25', '2022-5-12', 15.15, 2.00);");
+			statement.executeUpdate("INSERT INTO Orders VALUES (8, 2, 1, 3, '2022-4-25', '2022-5-23', 15.15, 2.00);");
+			statement.executeUpdate("INSERT INTO Orders VALUES (9, 3, 4, 4, '2022-4-25', '2022-5-25', 15.15, 2.00);");
+			statement.executeUpdate("INSERT INTO Orders VALUES (4001, 2001, 1001, 30, '2020-01-02', '2020-01-15', 20, 30);");
+			statement.executeUpdate("INSERT INTO Orders VALUES (4002, 2001, 1001, 10, '2020-02-05', '2020-02-15', 20, 15);");
+			statement.executeUpdate("INSERT INTO Orders VALUES (4003, 2002, 1003, 10, '2020-02-10', '2020-02-25', 10, 15);");
 
 			statement.executeUpdate("INSERT INTO Invoices VALUES (1, 1, 5.15, '2022-4-25', NULL);");
 			statement.executeUpdate("INSERT INTO Invoices VALUES (2, 4, 10.30, '2022-4-25', '2022-5-05');");
