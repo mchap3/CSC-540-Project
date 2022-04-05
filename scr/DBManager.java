@@ -189,7 +189,12 @@ public class DBManager {
             statement.executeUpdate(
                     "CREATE TABLE Employees(EmpID INT AUTO_INCREMENT, "
                     + "Name VARCHAR(128) NOT NULL, "
+		    + "Age INT NOT NULL, "
+		    + "Gender VARCHAR(10) NOT NULL, "
                     + "Type VARCHAR(10) NOT NULL, "
+		    + "Phone VARCHAR(16) NOT NULL, "
+		    + "Email VARCHAR(128) NOT NULL, "
+		    + "Address VARCHAR(128) NOT NULL, " 
                     + "Active BOOLEAN NOT NULL, "
                     + "PRIMARY KEY (EmpID));");
             statement.executeUpdate(
@@ -315,14 +320,17 @@ public class DBManager {
 			statement.executeUpdate("INSERT INTO Chapters VALUES (8, 'The Relational Model - Expanded');");
 
 			// Populate Staff Tables
-			statement.executeUpdate("INSERT INTO Employees VALUES (1, 'Sam T', 'Staff', TRUE);");
-			statement.executeUpdate("INSERT INTO Employees VALUES (2, 'Mary S', 'Staff', TRUE);");
-			statement.executeUpdate("INSERT INTO Employees VALUES (3, 'John D', 'Invited', TRUE);");
-			statement.executeUpdate("INSERT INTO Employees VALUES (4, 'Pam L', 'Invited', TRUE);");
-			statement.executeUpdate("INSERT INTO Employees VALUES (5, 'Don D', 'Staff', TRUE);");
-			statement.executeUpdate("INSERT INTO Employees VALUES (6, 'Tom A', 'Invited', TRUE);");
-			statement.executeUpdate("INSERT INTO Employees VALUES (7, 'Jan P', 'Staff', FALSE);");
-			statement.executeUpdate("INSERT INTO Employees VALUES (8, 'Nina T', 'Invited', TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (1, 'Sam T', '50', 'M', 'Staff','919-xxx-xxxx', 'name@email.com', '400 New Street', TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (2, 'Mary S', '50', 'F', 'Staff', '919-xxx-xxxx', 'name@email.com','400 New Street', TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (3, 'John D', '50', 'M', 'Invited', '919-xxx-xxxx', 'name@email.com','400 New Street',TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (4, 'Pam L', '50', 'F', 'Invited', '919-xxx-xxxx', 'name@email.com','400 New Street',TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (5, 'Don D', '50', 'M', 'Staff', '919-xxx-xxxx', 'name@email.com','400 New Street',TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (6, 'Tom A', '50', 'M', 'Invited', '919-xxx-xxxx', 'name@email.com','400 New Street',TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (7, 'Jan P', '50', 'M', 'Staff', '919-xxx-xxxx', 'name@email.com','400 New Street',FALSE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (8, 'Nina T', '50', 'F', 'Invited', '919-xxx-xxxx', 'name@email.com','400 New Street',TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (3001, 'John', '36', 'M', 'Staff', '9391234567', '3001@gmail.com','21 ABC St, NC 27',TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (3002, 'Ethen', '30', 'M', 'Staff', '9491234567', '3002@gmail.com','21 ABC St, NC 27606',TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (3003, 'Cathy', '28', 'F', 'Invited', '9591234567', '3003@gmail.com','3300 AAA St, NC 27606',TRUE);");
 
 			statement.executeUpdate("INSERT INTO Authors VALUES (1);");
 			statement.executeUpdate("INSERT INTO Authors VALUES (2);");
@@ -359,6 +367,9 @@ public class DBManager {
 			statement.executeUpdate("INSERT INTO Payments VALUES (1007, 5, 100.00, '2022-02-28', NULL);");
 			statement.executeUpdate("INSERT INTO Payments VALUES (1008, 6, 1100.00, '2022-02-28', NULL);");
 			statement.executeUpdate("INSERT INTO Payments VALUES (1009, 7, 700.00, '2022-02-28', NULL);");
+			statement.executeUpdate("INSERT INTO Payments VALUES (1010, 3001, 1000.00, '2020-04-01', '2020-05-01');");
+			statement.executeUpdate("INSERT INTO Payments VALUES (1011, 3002, 1000.00, '2020-04-01', '2020-05-01');");
+			statement.executeUpdate("INSERT INTO Payments VALUES (1012, 3003, 1200.00, '2020-04-01', '2020-05-01');");
 
 			// These Dont work for some reason
 			// statement.executeUpdate("INSERT INTO Payments VALUES (2008, 1, 1000.00,
