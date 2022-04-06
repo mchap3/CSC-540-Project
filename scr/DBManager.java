@@ -298,11 +298,14 @@ public class DBManager {
 			statement.executeUpdate("INSERT INTO Issues VALUES (3, 'February-14', '2022-02-14');");
 			statement.executeUpdate("INSERT INTO Issues VALUES (5, 'Volume 375 Issue 6584', '2022-03-04');");
 			statement.executeUpdate("INSERT INTO Issues VALUES (6, 'Volume 375 Issue 6583', '2022-02-25');");
+			statement.executeUpdate("INSERT INTO Issues VALUES (1002, 'February-24', '2020-02-24');");
+			statement.executeUpdate("INSERT INTO Issues VALUES (1003, 'Volume 3 Issue 1', '2020-03-01');");
 
 			statement.executeUpdate("INSERT INTO Books VALUES (1, '1', '0142437239', '2003-02-25');");
 			statement.executeUpdate("INSERT INTO Books VALUES (4, '1', '0140449264', '2003-05-27');");
 			statement.executeUpdate("INSERT INTO Books VALUES (7, '1', '0167120441', '2022-01-31');");
 			statement.executeUpdate("INSERT INTO Books VALUES (8, '2', '0335009913', '2022-02-26');");
+			statement.executeUpdate("INSERT INTO Books VALUES (1001, '2ed', '12345', '2018-10-10');");
 
 			statement.executeUpdate(
 					"INSERT INTO Articles VALUES (2, 'Title1', 'Celebrity News', '/Issues/1/February-21/Title1.pdf');");
@@ -314,6 +317,10 @@ public class DBManager {
 					"INSERT INTO Articles VALUES (6, 'Structure of Omicron', 'Coronavirus', 'structure_of_omicron.txt');");
 			statement.executeUpdate(
 					"INSERT INTO Articles VALUES (6, 'Fly Cell Atlas', 'Genetics', 'fly_cell_atlas.txt');");
+			statement.executeUpdate(
+					"INSERT INTO Articles VALUES (1002, 'Unknown', 'Unknown', 'ABC');");
+			statement.executeUpdate(
+					"INSERT INTO Articles VALUES (1003, 'Unknown', 'Unknown', 'AAA');");
 
 			statement.executeUpdate("INSERT INTO Chapters VALUES (1, 'Chapter 1');");
 			statement.executeUpdate("INSERT INTO Chapters VALUES (1, 'Chapter 2');");
@@ -345,11 +352,17 @@ public class DBManager {
 			statement.executeUpdate("INSERT INTO Editors VALUES (6);");
 			statement.executeUpdate("INSERT INTO Editors VALUES (7);");
 			statement.executeUpdate("INSERT INTO Editors VALUES (8);");
+			statement.executeUpdate("INSERT INTO Editors VALUES (3001);");
+			statement.executeUpdate("INSERT INTO Editors VALUES (3002);");
+			statement.executeUpdate("INSERT INTO Editors VALUES (3003);");
 
 			statement.executeUpdate("INSERT INTO Edits VALUES (1, 5);");
 			statement.executeUpdate("INSERT INTO Edits VALUES (2, 6);");
 			statement.executeUpdate("INSERT INTO Edits VALUES (5, 7);");
 			statement.executeUpdate("INSERT INTO Edits VALUES (8, 8);");
+			statement.executeUpdate("INSERT INTO Edits VALUES (1001, 3001);");
+			statement.executeUpdate("INSERT INTO Edits VALUES (1002, 3002);");
+			statement.executeUpdate("INSERT INTO Edits VALUES (1003, 3003);");
 
 			statement.executeUpdate("INSERT INTO WritesBook VALUES (7, 1);");
 			statement.executeUpdate("INSERT INTO WritesBook VALUES (7, 4);");
