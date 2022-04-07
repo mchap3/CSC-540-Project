@@ -366,7 +366,7 @@ public class Distributors {
 		      };
 		
 		
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < help.length; i++) {
 			System.out.println(help[i][0] + help[i][1]);
 		}
 		System.out.println();
