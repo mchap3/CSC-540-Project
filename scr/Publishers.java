@@ -207,9 +207,16 @@ public class Publishers {
 			String name = scanner.nextLine();
 			System.out.print("Enter type (Staff/Invited): ");
 			String type = scanner.nextLine();
+			System.out.print("Enter Phone Number: ");
+			String phone = scanner.nextLine();
+			System.out.print("Enter Email: ");
+			String email = scanner.nextLine();
+			System.out.print("Enter Address: ");
+			String address = scanner.nextLine();
 
 			// insert into Employees table
-			String sql = String.format("INSERT INTO Employees(Name, Type, Active) VALUES ('%s', '%s', true);", name, type);
+			String sql = String.format("INSERT INTO Employees(Name, Type, Phone, Email, Address, Active)"
+				+ "VALUES ('%s', '%s', '%s', '%s', '%s', true);", name, type, phone, email, address);
 			db.update(sql);
 			
 			// get ID of newly created employee
