@@ -178,7 +178,7 @@ public class Publishers {
 		}
 	}
 
-	public void addAuthor() {
+	public int addAuthor() {
 		try {
 			// start transaction
 			db.disableAutocommit();
@@ -212,8 +212,11 @@ public class Publishers {
 
 			// end transaction
 			db.enableAutocommit();
+			
+			return employeeID;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return 0;
 		}
 	}
 
