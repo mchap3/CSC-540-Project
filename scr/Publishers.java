@@ -261,6 +261,12 @@ public class Publishers {
 			String newName = scanner.nextLine();
 			System.out.print("Enter new type (Staff/Invited, or blank to keep current): ");
 			String newType = scanner.nextLine();
+			System.out.print("Enter new phone (or blank to keep current): ");
+			String newPhone = scanner.nextLine();
+			System.out.print("Enter new email (or blank to keep current): ");
+			String newEmail = scanner.nextLine();
+			System.out.print("Enter new address (or blank to keep current): ");
+			String newAddress = scanner.nextLine();
 			System.out.print("Enter new active status (true/false, or blank to keep current): ");
 			String newActiveStatus = scanner.nextLine();
 			
@@ -272,6 +278,12 @@ public class Publishers {
 				sql += String.format("%sName = '%s'", sql.isEmpty() ? "" : ", ", newName);
 			if (!newType.isEmpty())
 				sql += String.format("%sType = '%s'", sql.isEmpty() ? "" : ", ", newType);
+			if (!newPhone.isEmpty())
+				sql += String.format("%sPhone = '%s'", sql.isEmpty() ? "" : ", ", newPhone);
+			if (!newEmail.isEmpty())
+				sql += String.format("%sEmail = '%s'", sql.isEmpty() ? "" : ", ", newEmail);
+			if (!newAddress.isEmpty())
+				sql += String.format("%sAddress = '%s'", sql.isEmpty() ? "" : ", ", newAddress);
 			if (!newActiveStatus.isEmpty())
 				sql += String.format("%sActive = %s", sql.isEmpty() ? "" : ", ", newActiveStatus);
 			
