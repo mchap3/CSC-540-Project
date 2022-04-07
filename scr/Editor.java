@@ -4,7 +4,6 @@ public class Editor {
 	private DBManager db = null;
 	private Scanner scanner = null;
 	
-	
 	private Production production = null;
 	private Publishers publisher = null;
 	
@@ -15,7 +14,6 @@ public class Editor {
 		production = new Production(db, scanner);
 		publisher = new Publishers(db, scanner);
 	}
-
 	
 	private static void helper() {
 
