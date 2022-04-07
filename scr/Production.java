@@ -266,6 +266,7 @@ public class Production {
 			String newTopic;
 			String newIssueTitle;
 			String newIssueDate;
+			String newPeriodicity;
 			
 			System.out.println("Editing issue...");
 			result = db.query("select * from Publication natural join Issues;");
@@ -296,6 +297,8 @@ public class Production {
 			newIssueTitle = scanner.nextLine();
 			System.out.print("Enter new issue date in YYYY-MM-DD format (or blank to keep current): ");
 			newIssueDate = scanner.nextLine();
+			System.out.print("Enter new issue periodicity (or blank to keep current): ");
+			newPeriodicity = scanner.nextLine();
 			
 			String sql3 = "";
 			if (newPubID != 0)
@@ -312,6 +315,8 @@ public class Production {
 				sql5 += String.format("IssueTitle = '%s'", newIssueTitle);
 			if (!newIssueDate.isEmpty())
 				sql5 += String.format("%sIssueDate = '%s'", sql5.isEmpty() ? "" : ", ", newIssueDate);
+			if (!newPeriodicity.isEmpty())
+				sql5 += String.format("%sPeriodicity = '%s'", sql5.isEmpty() ? "" : ", ", newPeriodicity);
 			
 			if (!sql5.isEmpty()) {
 				String sql6 = String.format("update Issues set %s where PublicationID = %d;", sql5, pubID);
