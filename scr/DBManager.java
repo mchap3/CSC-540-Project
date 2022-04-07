@@ -189,8 +189,8 @@ public class DBManager {
             statement.executeUpdate(
                     "CREATE TABLE Employees(EmpID INT AUTO_INCREMENT, "
                     + "Name VARCHAR(128) NOT NULL, "
-		    + "Age INT NOT NULL, "
-		    + "Gender VARCHAR(10) NOT NULL, "
+		    //+ "Age INT NOT NULL, "
+		    //+ "Gender VARCHAR(10) NOT NULL, "
                     + "Type VARCHAR(10) NOT NULL, "
 		    + "Phone VARCHAR(16) NOT NULL, "
 		    + "Email VARCHAR(128) NOT NULL, "
@@ -331,17 +331,17 @@ public class DBManager {
 			statement.executeUpdate("INSERT INTO Chapters VALUES (8, 'The Relational Model - Expanded');");
 
 			// Populate Staff Tables
-			statement.executeUpdate("INSERT INTO Employees VALUES (1, 'Sam T', '50', 'M', 'Staff','919-xxx-xxxx', 'name@email.com', '400 New Street', TRUE);");
-			statement.executeUpdate("INSERT INTO Employees VALUES (2, 'Mary S', '50', 'F', 'Staff', '919-xxx-xxxx', 'name@email.com','400 New Street', TRUE);");
-			statement.executeUpdate("INSERT INTO Employees VALUES (3, 'John D', '50', 'M', 'Invited', '919-xxx-xxxx', 'name@email.com','400 New Street',TRUE);");
-			statement.executeUpdate("INSERT INTO Employees VALUES (4, 'Pam L', '50', 'F', 'Invited', '919-xxx-xxxx', 'name@email.com','400 New Street',TRUE);");
-			statement.executeUpdate("INSERT INTO Employees VALUES (5, 'Don D', '50', 'M', 'Staff', '919-xxx-xxxx', 'name@email.com','400 New Street',TRUE);");
-			statement.executeUpdate("INSERT INTO Employees VALUES (6, 'Tom A', '50', 'M', 'Invited', '919-xxx-xxxx', 'name@email.com','400 New Street',TRUE);");
-			statement.executeUpdate("INSERT INTO Employees VALUES (7, 'Jan P', '50', 'M', 'Staff', '919-xxx-xxxx', 'name@email.com','400 New Street',FALSE);");
-			statement.executeUpdate("INSERT INTO Employees VALUES (8, 'Nina T', '50', 'F', 'Invited', '919-xxx-xxxx', 'name@email.com','400 New Street',TRUE);");
-			statement.executeUpdate("INSERT INTO Employees VALUES (3001, 'John', '36', 'M', 'Staff', '9391234567', '3001@gmail.com','21 ABC St, NC 27',TRUE);");
-			statement.executeUpdate("INSERT INTO Employees VALUES (3002, 'Ethen', '30', 'M', 'Staff', '9491234567', '3002@gmail.com','21 ABC St, NC 27606',TRUE);");
-			statement.executeUpdate("INSERT INTO Employees VALUES (3003, 'Cathy', '28', 'F', 'Invited', '9591234567', '3003@gmail.com','3300 AAA St, NC 27606',TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (1, 'Sam T', 'Staff','919-xxx-xxxx', 'name@email.com', '400 New Street', TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (2, 'Mary S', 'Staff', '919-xxx-xxxx', 'name@email.com','400 New Street', TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (3, 'John D', 'Invited', '919-xxx-xxxx', 'name@email.com','400 New Street',TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (4, 'Pam L', 'Invited', '919-xxx-xxxx', 'name@email.com','400 New Street',TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (5, 'Don D', 'Staff', '919-xxx-xxxx', 'name@email.com','400 New Street',TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (6, 'Tom A', 'Invited', '919-xxx-xxxx', 'name@email.com','400 New Street',TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (7, 'Jan P', 'Staff', '919-xxx-xxxx', 'name@email.com','400 New Street',FALSE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (8, 'Nina T', 'Invited', '919-xxx-xxxx', 'name@email.com','400 New Street',TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (3001, 'John', 'Staff', '9391234567', '3001@gmail.com','21 ABC St, NC 27',TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (3002, 'Ethen', 'Staff', '9491234567', '3002@gmail.com','21 ABC St, NC 27606',TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (3003, 'Cathy',  'Invited', '9591234567', '3003@gmail.com','3300 AAA St, NC 27606',TRUE);");
 
 			statement.executeUpdate("INSERT INTO Authors VALUES (1);");
 			statement.executeUpdate("INSERT INTO Authors VALUES (2);");
