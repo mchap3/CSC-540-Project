@@ -222,6 +222,7 @@ public class Production {
 			String topic;
 			String issueTitle;
 			String issueDate;
+			String periodicity;
 			
 			System.out.println("Creating issue...");
 //			System.out.print("Enter a publication ID: ");
@@ -236,6 +237,8 @@ public class Production {
 			issueTitle = scanner.nextLine();
 			System.out.print("Enter issue date (YYYY-MM-DD): ");
 			issueDate = scanner.nextLine();
+			System.out.print("Enter issue periodicity (Weekly/Monthly): ");
+			periodicity = scanner.nextLine();
 			
 			String sql1 = String.format("insert into Publication values(NULL, '%s', '%s', '%s');", title, type, topic);
 			db.update(sql1);
@@ -243,7 +246,7 @@ public class Production {
 			result.next();
 			pubID = result.getInt(1);
 
-			String sql2 = String.format("insert into Issues values(%d, '%s', '%s');", pubID, issueTitle, issueDate);
+			String sql2 = String.format("insert into Issues values(%d, '%s', '%s', '%s');", pubID, issueTitle, issueDate, periodicity);
 
 			db.update(sql2);
 			
