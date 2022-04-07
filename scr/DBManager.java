@@ -9,9 +9,12 @@ import java.sql.Statement;
 
 public class DBManager {
 
-	static final String jdbcURL = "jdbc:mariadb://classdb2.csc.ncsu.edu:3306/cpatel3";
-	static final String user = "cpatel3";
-	static final String password = "200048024";
+	//static final String jdbcURL = "jdbc:mariadb://classdb2.csc.ncsu.edu:3306/cpatel3";
+	//static final String user = "cpatel3";
+	//static final String password = "200048024";
+	static final String jdbcURL = "jdbc:mariadb://classdb2.csc.ncsu.edu:3306/iarakel";
+	static final String user = "iarakel";
+	static final String password = "Cehtycehty00";
 
 	private Connection connection = null;
 	private Statement statement = null;
@@ -160,6 +163,7 @@ public class DBManager {
                     "CREATE TABLE Issues(PublicationID INT, "
                     + "IssueTitle VARCHAR(128) NOT NULL, "
                     + "IssueDate DATE NOT NULL, "
+					+ "Periodicity VARCHAR(128) NOT NULL,"
                     + "PRIMARY KEY (PublicationID), "
                     + "FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) "
                     + "ON UPDATE CASCADE ON DELETE CASCADE);");
@@ -294,12 +298,12 @@ public class DBManager {
 			statement.executeUpdate("INSERT INTO Publication VALUES (1002, 'Healthy Diet', 'Magazine', 'health');");
 			statement.executeUpdate("INSERT INTO Publication VALUES (1003, 'Animal Science', 'Journal', 'science');");
 
-			statement.executeUpdate("INSERT INTO Issues VALUES (2, 'February-21', '2022-02-21');");
-			statement.executeUpdate("INSERT INTO Issues VALUES (3, 'February-14', '2022-02-14');");
-			statement.executeUpdate("INSERT INTO Issues VALUES (5, 'Volume 375 Issue 6584', '2022-03-04');");
-			statement.executeUpdate("INSERT INTO Issues VALUES (6, 'Volume 375 Issue 6583', '2022-02-25');");
-			statement.executeUpdate("INSERT INTO Issues VALUES (1002, 'February-24', '2020-02-24');");
-			statement.executeUpdate("INSERT INTO Issues VALUES (1003, 'Volume 3 Issue 1', '2020-03-01');");
+			statement.executeUpdate("INSERT INTO Issues VALUES (2, 'February-21', '2022-02-21', 'weekly');");
+			statement.executeUpdate("INSERT INTO Issues VALUES (3, 'February-14', '2022-02-14', 'weekly');");
+			statement.executeUpdate("INSERT INTO Issues VALUES (5, 'Volume 375 Issue 6584', '2022-03-04', 'monthly');");
+			statement.executeUpdate("INSERT INTO Issues VALUES (6, 'Volume 375 Issue 6583', '2022-02-25', 'monthly');");
+			statement.executeUpdate("INSERT INTO Issues VALUES (1002, 'February-24', '2020-02-24', 'weekly');");
+			statement.executeUpdate("INSERT INTO Issues VALUES (1003, 'Volume 3 Issue 1', '2020-03-01', 'monthly');");
 
 			statement.executeUpdate("INSERT INTO Books VALUES (1, '1', '0142437239', '2003-02-25');");
 			statement.executeUpdate("INSERT INTO Books VALUES (4, '1', '0140449264', '2003-05-27');");
