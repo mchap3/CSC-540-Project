@@ -357,6 +357,8 @@ public class Production {
 			String issueTitle = scanner.nextLine();
 			System.out.print("Enter issue date (YYYY-MM-DD): ");
 			String issueDate = scanner.nextLine();
+			System.out.print("Enter issue periodicity (Weekly/Monthly): ");
+			String periodicity = scanner.nextLine();
 			
 			// INSERT INTO Publication
 			String sql1 = String.format("insert into Publication values(NULL, '%s', '%s', '%s');", title, type, topic);
@@ -368,7 +370,7 @@ public class Production {
 			int pubID = result.getInt(1);
 
 			// INSERT INTO Issues
-			String sql2 = String.format("insert into Issues values(%d, '%s', '%s');", pubID, issueTitle, issueDate);
+			String sql2 = String.format("insert into Issues values(%d, '%s', '%s', '%s');", pubID, issueTitle, issueDate, periodicity);
 			db.update(sql2);
 			
 			// commit and display confirmation
@@ -420,6 +422,8 @@ public class Production {
 			String newIssueTitle = scanner.nextLine();
 			System.out.print("Enter new issue date in YYYY-MM-DD format (or blank to keep current): ");
 			String newIssueDate = scanner.nextLine();
+			System.out.print("Enter new issue periodicity (or blank to keep current): ");
+			String newPeriodicity = scanner.nextLine();
 			
 			// start update transaction
 			db.disableAutocommit();
@@ -441,6 +445,8 @@ public class Production {
 				sql5 += String.format("IssueTitle = '%s'", newIssueTitle);
 			if (!newIssueDate.isEmpty())
 				sql5 += String.format("%sIssueDate = '%s'", sql5.isEmpty() ? "" : ", ", newIssueDate);
+			if (!newPeriodicity.isEmpty())
+				sql5 += String.format("%sPeriodicity = '%s'", sql5.isEmpty() ? "" : ", ", newPeriodicity);
 			
 			// UPDATE Issues
 			if (!sql5.isEmpty()) {

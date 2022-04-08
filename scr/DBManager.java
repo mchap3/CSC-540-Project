@@ -9,9 +9,12 @@ import java.sql.Statement;
 
 public class DBManager {
 
-	static final String jdbcURL = "jdbc:mariadb://classdb2.csc.ncsu.edu:3306/cpatel3";
-	static final String user = "cpatel3";
-	static final String password = "200048024";
+	//static final String jdbcURL = "jdbc:mariadb://classdb2.csc.ncsu.edu:3306/cpatel3";
+	//static final String user = "cpatel3";
+	//static final String password = "200048024";
+	static final String jdbcURL = "jdbc:mariadb://classdb2.csc.ncsu.edu:3306/iarakel";
+	static final String user = "iarakel";
+	static final String password = "Cehtycehty00";
 
 	private Connection connection = null;
 	private Statement statement = null;
@@ -160,6 +163,7 @@ public class DBManager {
                     "CREATE TABLE Issues(PublicationID INT, "
                     + "IssueTitle VARCHAR(128) NOT NULL, "
                     + "IssueDate DATE NOT NULL, "
+					+ "Periodicity VARCHAR(128) NOT NULL,"
                     + "PRIMARY KEY (PublicationID), "
                     + "FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) "
                     + "ON UPDATE CASCADE ON DELETE CASCADE);");
@@ -189,7 +193,12 @@ public class DBManager {
             statement.executeUpdate(
                     "CREATE TABLE Employees(EmpID INT AUTO_INCREMENT, "
                     + "Name VARCHAR(128) NOT NULL, "
+		    //+ "Age INT NOT NULL, "
+		    //+ "Gender VARCHAR(10) NOT NULL, "
                     + "Type VARCHAR(10) NOT NULL, "
+		    + "Phone VARCHAR(16) NOT NULL, "
+		    + "Email VARCHAR(128) NOT NULL, "
+		    + "Address VARCHAR(128) NOT NULL, " 
                     + "Active BOOLEAN NOT NULL, "
                     + "PRIMARY KEY (EmpID));");
             statement.executeUpdate(
@@ -251,6 +260,7 @@ public class DBManager {
                     + "DistAccountNum INT, "
                     + "PublicationID INT NOT NULL, "
                     + "NumCopies INT NOT NULL, "
+		    + "OrderDate DATE NOT NULL, "
                     + "ProduceByDate DATE NOT NULL, "
                     + "Price DECIMAL(8,2) NOT NULL, "
                     + "ShippingCosts DECIMAL(8,2) NOT NULL, "
@@ -284,16 +294,22 @@ public class DBManager {
             statement.executeUpdate("INSERT INTO Publication VALUES (NULL, 'Science', 'Journal', 'Science');");
             statement.executeUpdate("INSERT INTO Publication VALUES (NULL, 'Database Systems', 'Book', 'Databases');");
             statement.executeUpdate("INSERT INTO Publication VALUES (NULL, 'Database Systems', 'Book', 'Databases');");
+			statement.executeUpdate("INSERT INTO Publication VALUES (1001, 'Introduction to database', 'Book', 'technology');");
+			statement.executeUpdate("INSERT INTO Publication VALUES (1002, 'Healthy Diet', 'Magazine', 'health');");
+			statement.executeUpdate("INSERT INTO Publication VALUES (1003, 'Animal Science', 'Journal', 'science');");
 
-			statement.executeUpdate("INSERT INTO Issues VALUES (2, 'February-21', '2022-02-21');");
-			statement.executeUpdate("INSERT INTO Issues VALUES (3, 'February-14', '2022-02-14');");
-			statement.executeUpdate("INSERT INTO Issues VALUES (5, 'Volume 375 Issue 6584', '2022-03-04');");
-			statement.executeUpdate("INSERT INTO Issues VALUES (6, 'Volume 375 Issue 6583', '2022-02-25');");
+			statement.executeUpdate("INSERT INTO Issues VALUES (2, 'February-21', '2022-02-21', 'weekly');");
+			statement.executeUpdate("INSERT INTO Issues VALUES (3, 'February-14', '2022-02-14', 'weekly');");
+			statement.executeUpdate("INSERT INTO Issues VALUES (5, 'Volume 375 Issue 6584', '2022-03-04', 'monthly');");
+			statement.executeUpdate("INSERT INTO Issues VALUES (6, 'Volume 375 Issue 6583', '2022-02-25', 'monthly');");
+			statement.executeUpdate("INSERT INTO Issues VALUES (1002, 'February-24', '2020-02-24', 'weekly');");
+			statement.executeUpdate("INSERT INTO Issues VALUES (1003, 'Volume 3 Issue 1', '2020-03-01', 'monthly');");
 
 			statement.executeUpdate("INSERT INTO Books VALUES (1, '1', '0142437239', '2003-02-25');");
 			statement.executeUpdate("INSERT INTO Books VALUES (4, '1', '0140449264', '2003-05-27');");
 			statement.executeUpdate("INSERT INTO Books VALUES (7, '1', '0167120441', '2022-01-31');");
 			statement.executeUpdate("INSERT INTO Books VALUES (8, '2', '0335009913', '2022-02-26');");
+			statement.executeUpdate("INSERT INTO Books VALUES (1001, '2ed', '12345', '2018-10-10');");
 
 			statement.executeUpdate(
 					"INSERT INTO Articles VALUES (2, 'Title1', 'Celebrity News', '/Issues/1/February-21/Title1.pdf');");
@@ -305,6 +321,10 @@ public class DBManager {
 					"INSERT INTO Articles VALUES (6, 'Structure of Omicron', 'Coronavirus', 'structure_of_omicron.txt');");
 			statement.executeUpdate(
 					"INSERT INTO Articles VALUES (6, 'Fly Cell Atlas', 'Genetics', 'fly_cell_atlas.txt');");
+			statement.executeUpdate(
+					"INSERT INTO Articles VALUES (1002, 'Unknown', 'Unknown', 'ABC');");
+			statement.executeUpdate(
+					"INSERT INTO Articles VALUES (1003, 'Unknown', 'Unknown', 'AAA');");
 
 			statement.executeUpdate("INSERT INTO Chapters VALUES (1, 'Chapter 1');");
 			statement.executeUpdate("INSERT INTO Chapters VALUES (1, 'Chapter 2');");
@@ -315,14 +335,17 @@ public class DBManager {
 			statement.executeUpdate("INSERT INTO Chapters VALUES (8, 'The Relational Model - Expanded');");
 
 			// Populate Staff Tables
-			statement.executeUpdate("INSERT INTO Employees VALUES (1, 'Sam T', 'Staff', TRUE);");
-			statement.executeUpdate("INSERT INTO Employees VALUES (2, 'Mary S', 'Staff', TRUE);");
-			statement.executeUpdate("INSERT INTO Employees VALUES (3, 'John D', 'Invited', TRUE);");
-			statement.executeUpdate("INSERT INTO Employees VALUES (4, 'Pam L', 'Invited', TRUE);");
-			statement.executeUpdate("INSERT INTO Employees VALUES (5, 'Don D', 'Staff', TRUE);");
-			statement.executeUpdate("INSERT INTO Employees VALUES (6, 'Tom A', 'Invited', TRUE);");
-			statement.executeUpdate("INSERT INTO Employees VALUES (7, 'Jan P', 'Staff', FALSE);");
-			statement.executeUpdate("INSERT INTO Employees VALUES (8, 'Nina T', 'Invited', TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (1, 'Sam T', 'Staff','919-xxx-xxxx', 'name@email.com', '400 New Street', TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (2, 'Mary S', 'Staff', '919-xxx-xxxx', 'name@email.com','400 New Street', TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (3, 'John D', 'Invited', '919-xxx-xxxx', 'name@email.com','400 New Street',TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (4, 'Pam L', 'Invited', '919-xxx-xxxx', 'name@email.com','400 New Street',TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (5, 'Don D', 'Staff', '919-xxx-xxxx', 'name@email.com','400 New Street',TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (6, 'Tom A', 'Invited', '919-xxx-xxxx', 'name@email.com','400 New Street',TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (7, 'Jan P', 'Staff', '919-xxx-xxxx', 'name@email.com','400 New Street',FALSE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (8, 'Nina T', 'Invited', '919-xxx-xxxx', 'name@email.com','400 New Street',TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (3001, 'John', 'Staff', '9391234567', '3001@gmail.com','21 ABC St, NC 27',TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (3002, 'Ethen', 'Staff', '9491234567', '3002@gmail.com','21 ABC St, NC 27606',TRUE);");
+			statement.executeUpdate("INSERT INTO Employees VALUES (3003, 'Cathy',  'Invited', '9591234567', '3003@gmail.com','3300 AAA St, NC 27606',TRUE);");
 
 			statement.executeUpdate("INSERT INTO Authors VALUES (1);");
 			statement.executeUpdate("INSERT INTO Authors VALUES (2);");
@@ -333,11 +356,17 @@ public class DBManager {
 			statement.executeUpdate("INSERT INTO Editors VALUES (6);");
 			statement.executeUpdate("INSERT INTO Editors VALUES (7);");
 			statement.executeUpdate("INSERT INTO Editors VALUES (8);");
+			statement.executeUpdate("INSERT INTO Editors VALUES (3001);");
+			statement.executeUpdate("INSERT INTO Editors VALUES (3002);");
+			statement.executeUpdate("INSERT INTO Editors VALUES (3003);");
 
 			statement.executeUpdate("INSERT INTO Edits VALUES (1, 5);");
 			statement.executeUpdate("INSERT INTO Edits VALUES (2, 6);");
 			statement.executeUpdate("INSERT INTO Edits VALUES (5, 7);");
 			statement.executeUpdate("INSERT INTO Edits VALUES (8, 8);");
+			statement.executeUpdate("INSERT INTO Edits VALUES (1001, 3001);");
+			statement.executeUpdate("INSERT INTO Edits VALUES (1002, 3002);");
+			statement.executeUpdate("INSERT INTO Edits VALUES (1003, 3003);");
 
 			statement.executeUpdate("INSERT INTO WritesBook VALUES (7, 1);");
 			statement.executeUpdate("INSERT INTO WritesBook VALUES (7, 4);");
@@ -359,6 +388,9 @@ public class DBManager {
 			statement.executeUpdate("INSERT INTO Payments VALUES (1007, 5, 100.00, '2022-02-28', NULL);");
 			statement.executeUpdate("INSERT INTO Payments VALUES (1008, 6, 1100.00, '2022-02-28', NULL);");
 			statement.executeUpdate("INSERT INTO Payments VALUES (1009, 7, 700.00, '2022-02-28', NULL);");
+			statement.executeUpdate("INSERT INTO Payments VALUES (1010, 3001, 1000.00, '2020-04-01', '2020-05-01');");
+			statement.executeUpdate("INSERT INTO Payments VALUES (1011, 3002, 1000.00, '2020-04-01', '2020-05-01');");
+			statement.executeUpdate("INSERT INTO Payments VALUES (1012, 3003, 1200.00, '2020-04-01', '2020-05-01');");
 
 			// These Dont work for some reason
 			// statement.executeUpdate("INSERT INTO Payments VALUES (2008, 1, 1000.00,
@@ -383,16 +415,23 @@ public class DBManager {
 					"INSERT INTO Distributors VALUES (3, 'Books','Store', '300 New Street', 'Cary','919-xxx-xxxx', 'John', 0.00)");
 			statement.executeUpdate(
 					"INSERT INTO Distributors VALUES (4, 'BooksEtc','Store', '400 New Street', 'Durham','919-xxx-xxxx', 'John', 0.00)");
+			statement.executeUpdate(
+					"INSERT INTO Distributors VALUES (2001, 'BookSell','bookstore', '2200, A Street, NC', 'charlotte','9191234567', 'Jason', 215)");
+			statement.executeUpdate(
+					"INSERT INTO Distributors VALUES (2002, 'BooksDist','wholesaler', '2200, B Street, NC', 'Raleigh','9291234568', 'Alex', 0.00)");
 
-			statement.executeUpdate("INSERT INTO Orders VALUES (1, 1, 3, 1, '2022-4-10', 5.15, 1.00);");
-			statement.executeUpdate("INSERT INTO Orders VALUES (2, 4, 2, 2, '2022-4-12', 5.15, 1.00);");
-			statement.executeUpdate("INSERT INTO Orders VALUES (3, 4, 1, 3, '2022-4-23', 5.15, 1.00);");
-			statement.executeUpdate("INSERT INTO Orders VALUES (4, 3, 1, 4, '2022-4-23', 5.15, 1.00);");
-			statement.executeUpdate("INSERT INTO Orders VALUES (5, 3, 4, 4, '2022-4-25', 5.15, 1.00);");
-			statement.executeUpdate("INSERT INTO Orders VALUES (6, 1, 3, 1, '2022-5-10', 15.15, 2.00);");
-			statement.executeUpdate("INSERT INTO Orders VALUES (7, 2, 2, 2, '2022-5-12', 15.15, 2.00);");
-			statement.executeUpdate("INSERT INTO Orders VALUES (8, 2, 1, 3, '2022-5-23', 15.15, 2.00);");
-			statement.executeUpdate("INSERT INTO Orders VALUES (9, 3, 4, 4, '2022-5-25', 15.15, 2.00);");
+			statement.executeUpdate("INSERT INTO Orders VALUES (1, 1, 3, 1, '2022-3-25', '2022-4-10', 5.15, 1.00);");
+			statement.executeUpdate("INSERT INTO Orders VALUES (2, 4, 2, 2, '2022-3-25', '2022-4-12', 5.15, 1.00);");
+			statement.executeUpdate("INSERT INTO Orders VALUES (3, 4, 1, 3, '2022-3-25', '2022-4-23', 5.15, 1.00);");
+			statement.executeUpdate("INSERT INTO Orders VALUES (4, 3, 1, 4, '2022-3-25', '2022-4-23', 5.15, 1.00);");
+			statement.executeUpdate("INSERT INTO Orders VALUES (5, 3, 4, 4, '2022-3-25', '2022-4-25', 5.15, 1.00);");
+			statement.executeUpdate("INSERT INTO Orders VALUES (6, 1, 3, 1, '2022-4-25', '2022-5-10', 15.15, 2.00);");
+			statement.executeUpdate("INSERT INTO Orders VALUES (7, 2, 2, 2, '2022-4-25', '2022-5-12', 15.15, 2.00);");
+			statement.executeUpdate("INSERT INTO Orders VALUES (8, 2, 1, 3, '2022-4-25', '2022-5-23', 15.15, 2.00);");
+			statement.executeUpdate("INSERT INTO Orders VALUES (9, 3, 4, 4, '2022-4-25', '2022-5-25', 15.15, 2.00);");
+			statement.executeUpdate("INSERT INTO Orders VALUES (4001, 2001, 1001, 30, '2020-01-02', '2020-01-15', 20, 30);");
+			statement.executeUpdate("INSERT INTO Orders VALUES (4002, 2001, 1001, 10, '2020-02-05', '2020-02-15', 20, 15);");
+			statement.executeUpdate("INSERT INTO Orders VALUES (4003, 2002, 1003, 10, '2020-02-10', '2020-02-25', 10, 15);");
 
 			statement.executeUpdate("INSERT INTO Invoices VALUES (1, 1, 5.15, '2022-4-25', NULL);");
 			statement.executeUpdate("INSERT INTO Invoices VALUES (2, 4, 10.30, '2022-4-25', '2022-5-05');");
