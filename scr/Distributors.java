@@ -345,7 +345,7 @@ public class Distributors {
 			// update and commit
 			String sql = "INSERT INTO Invoices VALUES (" + newID_str + "," + d_id + "," + invoice_total
 				+ "," + end_date + ", NULL);";
-			System.out.println(sql);			
+			//System.out.println(sql);			
 			db.update(sql);
 			result = db.query("SELECT * FROM Invoices WHERE InvoiceID =" + newID + ";");
 			if (db.commit()) {
@@ -387,14 +387,14 @@ public class Distributors {
 
 	private static void helper() {
 		
-		System.out.println("\nCommand Code | Command Description           | Arguments it needs");
+		System.out.println("\nCommand Code | Command Description             | Arguments it needs");
 		System.out.println("-------------|---------------------------------|-------------------");
 		
 		String[][] help = {	
 		         { "  D1         | print distributor               | ", "Distributor ID" },
 		         { "  D2         | add distributor                 | ", "Distributor ID, Name, Type, Street Address, City Address, Phone, Contact, Balance" },
 		         { "  D3         | delete distributor              | ", "Distributor ID" },
-		         { "  D4         | update distributor        | ", "Selection Attribute/Value, Update Attribute/Value" },
+		         { "  D4         | update distributor              | ", "Selection Attribute/Value, Update Attribute/Value" },
 		         { "  D5         | update distributor balance      | ", "Distributor ID" },
 		         { "  D6         | place publication order         | ", "Order ID, Dist ID, Pub ID, #Copies, Order Date, Production Date, Price, Shipping" },
 		         { "  D7         | bill distributor (new invoice)  | ", "Distributor ID, invoice year-month" },
