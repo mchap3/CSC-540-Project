@@ -296,6 +296,7 @@ public class Distributors {
 			if (db.commit()){
 				if (result.next()) {
 					maxID = result.getInt("MaxID");
+					System.out.println(maxID);
 				}
 			}
 			// user prompt
@@ -325,14 +326,26 @@ public class Distributors {
 			int month_int =  Integer.parseInt(split_date[1]);
 			String end_date =  split_date[0] + "-" + Integer.toString(month_int+1) + "-" + split_date[2];
 
-			// update string
-			// calculate total from Orders
-			String sum_str = "(SELECT SUM(Price) FROM Orders WHERE DistAccountNum = " + d_id + 
-				" AND ProduceByDate >= " + start_date + " AND ProduceByDate < " + end_date + ")";
-			String sql = "INSERT INTO Invoices VALUES (" + newID_str + "," + d_id + "," + sum_str
+			// calculate total from Orders - original query
+			//String sum_str = "(SELECT SUM(Price) FROM Orders WHERE DistAccountNum = " + d_id + 
+			//	" AND ProduceByDate >= " + start_date + " AND ProduceByDate < " + end_date + ")";
+			//String sql = "INSERT INTO Invoices VALUES (" + newID_str + "," + d_id + "," + sum_str
+			//	+ "," + end_date + ", NULL);";
+
+			// calculate total from Orders: NumCopies*Price + Shipping
+			String sql5 = "(SELECT NumCopies, Price, ShippingCosts as ShC FROM Orders WHERE DistAccountNum = " + d_id + 
+				" AND ProduceByDate >= " + start_date + " AND ProduceByDate < " + end_date + ");";
+			result = db.query(sql5);
+			float invoice_total = 0;
+			if (db.commit()){
+				while (result.next()) {
+					invoice_total = invoice_total + result.getInt("NumCopies")*result.getFloat("Price") + result.getFloat("ShC");					
+				}
+			}
+			// update and commit
+			String sql = "INSERT INTO Invoices VALUES (" + newID_str + "," + d_id + "," + invoice_total
 				+ "," + end_date + ", NULL);";
-			System.out.println(sql);
-			// update and commit			
+			System.out.println(sql);			
 			db.update(sql);
 			result = db.query("SELECT * FROM Invoices WHERE InvoiceID =" + newID + ";");
 			if (db.commit()) {
@@ -347,7 +360,7 @@ public class Distributors {
 		} 
 	}
 
-	// update invoice payment status API: change payment date from NULL 
+	// update invoice payment status API: change payment date from NULL to entered
 	public void paymentInvoice() {
 		try {
 			// user prompt
@@ -374,16 +387,16 @@ public class Distributors {
 
 	private static void helper() {
 		
-		System.out.println("\nCommand Code | Command Description                   | Arguments it needs");
-		System.out.println("-------------|---------------------------------------|-------------------");
+		System.out.println("\nCommand Code | Command Description           | Arguments it needs");
+		System.out.println("-------------|---------------------------------|-------------------");
 		
 		String[][] help = {	
 		         { "  D1         | print distributor               | ", "Distributor ID" },
 		         { "  D2         | add distributor                 | ", "Distributor ID, Name, Type, Street Address, City Address, Phone, Contact, Balance" },
 		         { "  D3         | delete distributor              | ", "Distributor ID" },
-		         { "  D4         | update distributor        	 | ", "Selection Attribute/Value, Update Attribute/Value" },
+		         { "  D4         | update distributor        | ", "Selection Attribute/Value, Update Attribute/Value" },
 		         { "  D5         | update distributor balance      | ", "Distributor ID" },
-		         { "  D6         | place publication order         | ", "Order ID, Dist ID, Pub ID, #Copies, Production Date, Price, Shipping" },
+		         { "  D6         | place publication order         | ", "Order ID, Dist ID, Pub ID, #Copies, Order Date, Production Date, Price, Shipping" },
 		         { "  D7         | bill distributor (new invoice)  | ", "Distributor ID, invoice year-month" },
 		         { "  D8         | update invoice payment status   | ", "Invoice ID, payment date" }		         
 		      };
