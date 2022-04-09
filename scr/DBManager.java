@@ -435,14 +435,12 @@ public class DBManager {
 
 			statement.executeUpdate("INSERT INTO Invoices VALUES (1, 1, 5.15, '2022-4-25', NULL);");
 			statement.executeUpdate("INSERT INTO Invoices VALUES (2, 4, 10.30, '2022-4-25', '2022-5-05');");
-			// statement.executeUpdate("INSERT INTO Invoices VALUES (3, 4, 5.15,
-			// '2022-4-25', '2022-5-05');");
 			statement.executeUpdate("INSERT INTO Invoices VALUES (4, 3, 10.30, '2022-4-25', NULL);");
 			statement.executeUpdate("INSERT INTO Invoices VALUES (5, 1, 15.15, '2022-5-25', NULL);");
 			statement.executeUpdate("INSERT INTO Invoices VALUES (6, 2, 30.30, '2022-5-25', '2022-6-05');");
-			// statement.executeUpdate("INSERT INTO Invoices VALUES (7, 2, 5.15,
-			// '2022-5-25', '2022-6-05');");
 			statement.executeUpdate("INSERT INTO Invoices VALUES (8, 3, 15.15, '2022-5-25', NULL);");
+			statement.executeUpdate("INSERT INTO Invoices VALUES (5001, 2001, 630.00, '2020-02-01', NULL);");
+			statement.executeUpdate("INSERT INTO Invoices VALUES (5002, 2002, 115.00, '2020-03-01', NULL);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
