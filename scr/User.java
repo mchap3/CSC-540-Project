@@ -1,5 +1,5 @@
 import java.util.Scanner;
-//javac database_setup.java DBManager.java DBTablePrinter.java User.java Reports.java Distributors.java Production.java Publishers.java Publisher.java Distribution.java Editor.java Financial.java
+//javac database_setup.java DBManager.java DBTablePrinter.java User.java Reports.java Distribution.java Production.java Publishing.java Publisher.java DistributionTeam.java Editor.java FinancialTeam.java
 //java database_setup
 public class User {
 	
