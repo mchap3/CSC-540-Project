@@ -5,13 +5,13 @@ import java.util.Scanner;
 //javac database_setup.java DBManager.java DBTablePrinter.java User.java Reports.java Distributors.java Production.java Publishers.java
 //java database_setup
 
-public class Publishers {
+public class Publishing {
 
 	private DBManager db = null;
 	private ResultSet result = null;
 	private Scanner scanner = null;
 
-	public Publishers(DBManager dbM, Scanner s) {
+	public Publishing(DBManager dbM, Scanner s) {
 		db = dbM;
 		scanner = s;
 	}

@@ -1,22 +1,22 @@
 import java.util.Scanner;
 
-public class Financial {
+public class FinancialTeam {
 	
 	private DBManager db = null;
 	private Scanner scanner = null;
 	
-	private Publishers publisher = null;
+//	private Publishers publisher = null;
 	private Production production = null;
-	private Distributors distributor = null;
+	private Distribution distributor = null;
 	private Reports report = null;
 	
-	public Financial(DBManager dbM, Scanner s) {
+	public FinancialTeam(DBManager dbM, Scanner s) {
 		db = dbM;
 		scanner = s;
 		
-		publisher = new Publishers(db, scanner);
+//		publisher = new Publishers(db, scanner);
 		production = new Production(db, scanner);
-		distributor = new Distributors(db, scanner);
+		distributor = new Distribution(db, scanner);
 		report = new Reports(db, scanner);
 	}
 	
@@ -37,7 +37,12 @@ private static void helper() {
 		         { "  R9         | total payments dy time and type of employee         | ", "Start Date, End Date" },
 		         { "  R10        | total payments by type of employee and work type    | ", "Start Date, End Date" },
 		         { "  R11        | List of all Distributors                            | ", "None" },
-		         { "  R12        | List of all Employees                               | ", "None" }
+		         { "  R12        | List of all Employees                               | ", "None" },
+		         { "  D7         | bill distributor (new invoice)                      | ", "Distributor ID, invoice year-month" },
+		         { "  D8         | update invoice payment status                       | ", "Invoice ID, payment date" },
+		         { "  P15        | make employee payment                               | ", "" },
+		         { "  P16        | update employee payment                             | ", "" },
+		         { "  P17        | track employee payment                              | ", "" }
 		      };
 		
 		

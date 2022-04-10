@@ -5,14 +5,14 @@ public class Editor {
 	private Scanner scanner = null;
 	
 	private Production production = null;
-	private Publishers publisher = null;
+	private Publishing publisher = null;
 	
 	public Editor(DBManager dbM, Scanner s) {
 		db = dbM;
 		scanner = s;
 		
 		production = new Production(db, scanner);
-		publisher = new Publishers(db, scanner);
+		publisher = new Publishing(db, scanner);
 	}
 	
 	private static void helper() {
@@ -68,20 +68,14 @@ public class Editor {
 			break;
 			
 		case "e6":
-		case "b8":
-		case "i10":
 			publisher.addAuthor();
 			break;
 
 		case "e7":
-		case "b9":
-		case "i11":
 			publisher.updateAuthor();
 			break;
 
 		case "e8":
-		case "b10":
-		case "i12":
 			publisher.deleteAuthor();
 			break;
 			
@@ -154,9 +148,6 @@ public class Editor {
 		         { "  B5         | delete book                     | ", "" },
 		         { "  B6         | add book chapter                | ", "" },
 		         { "  B7         | edit book chapter               | ", "" },
-		         { "  B8         | add author                      | ", "employee ID, name, type" },
-		         { "  B9         | update author                   | ", "employee ID, name, type, active" },
-		         { "  B10        | delete author                   | ", "employee ID" },
 		         { "  back       | return to editor menu           | ", "" }
 		};
 
@@ -180,9 +171,6 @@ public class Editor {
 		         { "  I7         | edit article in issue           | ", "" },
 		         { "  I8         | add article text                | ", "" },
 		         { "  I9         | update article text             | ", "" },
-		         { "  I10        | add author                      | ", "employee ID, name, type" },
-		         { "  I11        | update author                   | ", "employee ID, name, type, active" },
-		         { "  I12        | delete author                   | ", "employee ID" },
 		         { "  back       | return to editor menu           | ", "" }
 		};
 

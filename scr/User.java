@@ -8,11 +8,11 @@ public class User {
 
 	private DBManager db = null;
 	
-	private Financial financial = null;
+	private FinancialTeam financial = null;
 	private Editor editor = null;
 	// add your objects here
 	private Publisher publisher = null;
-	private Distribution distr_team = null;
+	private DistributionTeam distr_team = null;
 	
 	
 	public User(String user, Scanner s, DBManager dbM) {
@@ -22,7 +22,7 @@ public class User {
 		currUser = user;
 		
 		if (user.equals("4")) { // Financial Team
-			financial = new Financial(db, scanner);
+			financial = new FinancialTeam(db, scanner);
 		}
 		else if (user.equals("1")) { // publisher
 			publisher = new Publisher(db, scanner);
@@ -32,7 +32,7 @@ public class User {
 			editor = new Editor(db, scanner);
 		}
 		else if (user.equals("3")) { // distribution team
-			distr_team = new Distribution(db, scanner);
+			distr_team = new DistributionTeam(db, scanner);
 		}
 		
 	}
