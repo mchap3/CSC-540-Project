@@ -47,7 +47,7 @@ public class Production {
 			String sql2 = String.format("insert into Books values(%d, '%s', '%s', '%s');", pubID, editionNum, isbn, pubDate);
 			db.update(sql2);
 
-//			TODO: TEST adding author information
+			// add optional author information
 			System.out.print("Add optional author information (y/n): ");
 			if (scanner.nextLine().toLowerCase().startsWith("y")) {
 				// display author list
@@ -161,7 +161,6 @@ public class Production {
 				db.update(sql4);
 			}
 			
-//			TODO: TEST changing author information
 			// display current author information
 			DBTablePrinter.printResultSet(result2);
 			
@@ -536,7 +535,6 @@ public class Production {
 			String sql1 = String.format("insert into Articles values(%d, '%s', '%s', NULL);", pubID, articleTitle, articleTopic);
 			db.update(sql1);
 			
-//			TODO: deal with article authors
 			System.out.print("Add optional author information (y/n): ");
 			if (scanner.nextLine().toLowerCase().startsWith("y")) {
 				// display author list
@@ -784,10 +782,73 @@ public class Production {
 				payDate = java.time.LocalDate.now().toString();
 			double amt;
 			if (amount.isEmpty()) {
-//				TODO: implement auto calculate payment amount
-				amt = 0;
+				// get employee type (staff/invited)
+				result = db.query(String.format("select Type from Employees where EmpID = %d;", empID));
+				result.next();
+				String empType = result.getString(1);
+				
+				// if staff employee pay based on default salary
+				if (empType.equals("Staff"))
+					amt = 2000;
+				
+				// get most recent payment date
+				result = db.query(String.format("select max(SubmitDate) from Payments where EmpID = %d;", empID));
+				result.next();
+				String lastPayDate = result.getString(1);
+				
+				// get work done since last payment
+				int pubEdits = 0, bookWrites = 0, artWrites = 0;
+				ResultSet result2;
+				String sql2;
+				
+				// if an editor count publications edited
+				result = db.query(String.format("select * from Editors where EmpID = %d;", empID));
+				if (result.next()) {
+					// count books edited
+					sql2 = String.format("select count(*) from Publication natural join Books natural join Edits where EmpID = %d and PublicationDate > '%s' and PublicationDate <= '%s';", empID, lastPayDate, payDate);
+					result2 = db.query(sql2);
+					result2.next();
+					pubEdits += result2.getInt(1);
+					
+					// count issues edited
+					sql2 = String.format("select count(*) from Publication natural join Issues natural join Edits where EmpID = %d and IssueDate > '%s' and IssueDate <= '%s';", empID, lastPayDate, payDate);
+					result2 = db.query(sql2);
+					result2.next();
+					pubEdits += result2.getInt(1);
+				}
+				
+				// if an author count publications written
+				result = db.query(String.format("select * from Authors where EmpID = %d;", empID));
+				if (result.next()) {
+					// count books written
+					sql2 = String.format("select count(*) from Publication natural join Books natural join WritesBook where EmpID = %d and PublicationDate > '%s' and PublicationDate <= '%s';", empID, lastPayDate, payDate);
+					result2 = db.query(sql2);
+					result2.next();
+					bookWrites += result2.getInt(1);
+					
+					// count articles written
+					sql2 = String.format("select count(*) from Publication natural join Issues natural join Articles natural join WritesArticle where EmpID = %d and IssueDate > '%s' and IssueDate <= '%s';", empID, lastPayDate, payDate);
+					result2 = db.query(sql2);
+					result2.next();
+					artWrites += result2.getInt(1);
+				}
+
+				// set default pay rates
+				final int PER_PUB_EDIT = 500;
+				final int PER_BOOK_WRITE = 1000;
+				final int PER_ARTICLE_WRITE = 200;
+				
+				// calculate payment amount
+				amt = pubEdits * PER_PUB_EDIT + bookWrites * PER_BOOK_WRITE + artWrites * PER_ARTICLE_WRITE;
+				
 			} else
 				amt = Double.valueOf(amount);
+			
+			// exit if no payment required
+			if (amt == 0) {
+				System.out.println("No payment required to employee.");
+				return;
+			}
 			
 			// start transaction
 			db.disableAutocommit();
