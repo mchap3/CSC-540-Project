@@ -46,7 +46,7 @@ private static void helper() {
 		      };
 		
 		
-		for (int i = 0; i < 12; i++) {
+		for (int i = 0; i < help.length; i++) {
 			System.out.println(help[i][0] + help[i][1]);
 		}
 		System.out.println();
