@@ -4,18 +4,18 @@ public class Publisher {
 	private DBManager db = null;
 	private Scanner scanner = null;
 
-	private Publishing publisher = null;
+	private Publishing publish = null;
 	private Production production = null;
-	private Distribution distributor = null;
+	private Distribution distribution = null;
 	private Reports report = null;
 
 	public Publisher(DBManager dbM, Scanner s) {
 		db = dbM;
 		scanner = s;
 
-		publisher = new Publishing(db, scanner);
+		publish = new Publishing(db, scanner);
 		production = new Production(db, scanner);
-		distributor = new Distribution(db, scanner);
+		distribution = new Distribution(db, scanner);
 		report = new Reports(db, scanner);
 	}
 
@@ -85,35 +85,185 @@ public class Publisher {
 		switch (com.toLowerCase()) {
 
 		case "p1":
-			publisher.assignEditorToPublication();
+			publish.assignEditorToPublication();
 			break;
 
 		case "p2":
-			publisher.viewEditorResponsibilities();
+			publish.viewEditorResponsibilities();
 			break;
 
 		case "p3":
-			publisher.addEditor();
+			publish.addEditor();
 			break;
 
 		case "p4":
-			publisher.updateEditor();
+			publish.updateEditor();
 			break;
 
 		case "p5":
-			publisher.deleteEditor();
+			publish.deleteEditor();
 			break;
 
 		case "p6":
-			publisher.addAuthor();
+			publish.addAuthor();
 			break;
 
 		case "p7":
-			publisher.updateAuthor();
+			publish.updateAuthor();
 			break;
 
 		case "p8":
-			publisher.deleteAuthor();
+			publish.deleteAuthor();
+			break;
+			
+		case "e4":
+			production.getBookInfo();
+			break;
+			
+		case "e5":
+			production.getArticleInfo();
+			break;
+			
+		// book menu commands
+		case "b3":
+			production.createBook();
+			break;
+
+		case "b4":
+			production.editBook();
+			break;
+
+		case "b5":
+			production.deleteBook();
+			break;
+
+		case "b6":
+			production.addChapter();
+			break;
+
+		case "b7":
+			production.editChapter();
+			break;
+			
+		// issue menu commands
+		case "i3":
+			production.createIssue();
+			break;
+
+		case "i4":
+			production.editIssue();
+			break;
+
+		case "i5":
+			production.deleteIssue();
+			break;
+
+		case "i6":
+			production.addArticle();
+			break;
+
+		case "i7":
+			production.editArticle();
+			break;
+
+		case "i8":
+			production.addArticleText();
+			break;
+
+		case "i9":
+			production.editArticleText();
+			break;
+			
+		case "d1":
+			distribution.printDistributor();
+			break;
+
+		case "d2":
+			distribution.addDistributor();
+			break;
+
+		case "d3":
+			distribution.delDistributor();
+			break;
+
+		case "d4":
+			distribution.updateDistributor();
+			break;
+
+		case "d5":
+			distribution.balanceDistributor();
+			break;
+
+		case "d6":
+			distribution.placeOrder();
+			break;
+		
+		case "d7":
+			distribution.newInvoice();
+			break;
+
+		case "d8":
+			distribution.paymentInvoice();
+			break;
+			
+		case "r1":
+			report.generateReport();
+			break;
+
+		case "r2":
+			report.totalPublicationsSold();
+			break;
+
+		case "r3":
+			report.totalRevenue();
+			break;
+
+		case "r4":
+			report.totalExpenses();
+			break;
+
+		case "r5":
+			report.totalDistributors();
+			break;
+
+		case "r6":
+			report.totalCityRevenue();
+			break;
+
+		case "r7":
+			report.totalDistributorRevenue();
+			break;
+
+		case "r8":
+			report.totalAddressRevenue();
+			break;
+
+		case "r9":
+			report.totalPaymentsByTimeAndTypeofEmployee();
+			break;
+
+		case "r10":
+			report.totalPaymentsByTypeOfEmployeeAndWorkType();
+			break;
+
+		case "r11":
+			report.listOfAllDistributors();
+			break;
+
+		case "r12":
+			report.listOfAllEmployees();
+			break;
+			
+		case "p15":
+			production.makePayment();
+			break;
+			
+		case "p16":
+			production.updatePayment();
+			break;
+			
+		case "p17":
+			production.trackPayment();
 			break;
 
 		default:

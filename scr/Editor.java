@@ -5,14 +5,14 @@ public class Editor {
 	private Scanner scanner = null;
 	
 	private Production production = null;
-	private Publishing publisher = null;
+	private Publishing publish = null;
 	
 	public Editor(DBManager dbM, Scanner s) {
 		db = dbM;
 		scanner = s;
 		
 		production = new Production(db, scanner);
-		publisher = new Publishing(db, scanner);
+		publish = new Publishing(db, scanner);
 	}
 	
 	private static void helper() {
@@ -54,7 +54,7 @@ public class Editor {
 		case "e3":
 		case "b1":
 		case "i1":
-			publisher.viewEditorResponsibilities();
+			publish.viewEditorResponsibilities();
 			break;
 			
 		case "e4":
@@ -68,15 +68,15 @@ public class Editor {
 			break;
 			
 		case "e6":
-			publisher.addAuthor();
+			publish.addAuthor();
 			break;
 
 		case "e7":
-			publisher.updateAuthor();
+			publish.updateAuthor();
 			break;
 
 		case "e8":
-			publisher.deleteAuthor();
+			publish.deleteAuthor();
 			break;
 			
 		// book menu commands

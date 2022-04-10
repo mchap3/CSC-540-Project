@@ -7,7 +7,7 @@ public class FinancialTeam {
 	
 //	private Publishers publisher = null;
 	private Production production = null;
-	private Distribution distributor = null;
+	private Distribution distribution = null;
 	private Reports report = null;
 	
 	public FinancialTeam(DBManager dbM, Scanner s) {
@@ -16,7 +16,7 @@ public class FinancialTeam {
 		
 //		publisher = new Publishers(db, scanner);
 		production = new Production(db, scanner);
-		distributor = new Distribution(db, scanner);
+		distribution = new Distribution(db, scanner);
 		report = new Reports(db, scanner);
 	}
 	
@@ -66,7 +66,7 @@ private static void helper() {
 		case "r3": report.totalRevenue();
 			break;
 			
-		case "rR4": report.totalExpenses();
+		case "r4": report.totalExpenses();
 			break;
 			
 		case "r5": report.totalDistributors();
@@ -91,6 +91,24 @@ private static void helper() {
 			break;
 			
 		case "r12": report.listOfAllEmployees();
+			break;
+			
+		case "d7": distribution.newInvoice();
+			break;
+		
+		case "d8": distribution.paymentInvoice();
+			break;	
+			
+		case "p15":
+			production.makePayment();
+			break;
+			
+		case "p16":
+			production.updatePayment();
+			break;
+			
+		case "p17":
+			production.trackPayment();
 			break;
 			
 		default: System.out.println("Here are the Valid Command Codes, and their required information");

@@ -5,13 +5,13 @@ public class DistributionTeam {
 	private DBManager db = null;
 	private Scanner scanner = null;
 	
-	private Distribution distributor = null;
+	private Distribution distribution = null;
 	
 	public DistributionTeam(DBManager dbM, Scanner s) {
 		db = dbM;
 		scanner = s;
 		
-		distributor = new Distribution(db, scanner);
+		distribution = new Distribution(db, scanner);
 	}
 	
 private static void helper() {
@@ -40,29 +40,23 @@ private static void helper() {
 		
 		switch(com.toLowerCase()) {
 		
-		case "d2": distributor.addDistributor();
+		case "d1": distribution.printDistributor();
+		break;
+		
+		case "d2": distribution.addDistributor();
 			break;
 		
-		case "d3": distributor.delDistributor();
+		case "d3": distribution.delDistributor();
 			break;
 			
-		case "d1": distributor.printDistributor();
+		case "d4": distribution.updateDistributor();
 			break;
 			
-		case "d4": distributor.updateDistributor();
+		case "d5": distribution.balanceDistributor();
 			break;
 			
-		case "d5": distributor.balanceDistributor();
+		case "d6": distribution.placeOrder();
 			break;
-			
-		case "d6": distributor.placeOrder();
-			break;
-			
-		case "d7": distributor.newInvoice();
-			break;
-			
-		case "d8": distributor.paymentInvoice();
-			break;		
 			
 		default: System.out.println("Here are the Valid Command Codes, and their required information");
 			helper();
