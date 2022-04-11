@@ -26,23 +26,23 @@ private static void helper() {
 		System.out.println("-------------|-----------------------------------------------------|-------------------");
 		
 		String[][] help = {	
-		         { "  R1         | generate report                                     | ", "Start Date, End Date" },
-		         { "  R2         | total publications sold                             | ", "Publication ID, Start Date, End Date" },
-		         { "  R3         | total publication revenue                           | ", "Start Date, End Date" },
-		         { "  R4         | total expenses                                      | ", "Start Date, End Date" },
-		         { "  R5         | total distributors                                  | ", "None" },
-		         { "  R6         | total city revenue                                  | ", "City Name" },
-		         { "  R7         | total distributor revenue                           | ", "Distributor Account Number" },
-		         { "  R8         | total address revenue                               | ", "Address" },
-		         { "  R9         | total payments dy time and type of employee         | ", "Start Date, End Date" },
-		         { "  R10        | total payments by type of employee and work type    | ", "Start Date, End Date" },
-		         { "  R11        | List of all Distributors                            | ", "None" },
-		         { "  R12        | List of all Employees                               | ", "None" },
-		         { "  D7         | bill distributor (new invoice)                      | ", "Distributor ID, invoice year-month" },
-		         { "  D8         | update invoice payment status                       | ", "Invoice ID, payment date" },
-		         { "  P15        | make employee payment                               | ", "" },
-		         { "  P16        | update employee payment                             | ", "" },
-		         { "  P17        | track employee payment                              | ", "" }
+		         { "  F1         | generate report                                     | ", "Start Date, End Date" },
+		         { "  F2         | total publications sold                             | ", "Publication ID, Start Date, End Date" },
+		         { "  F3         | total publication revenue                           | ", "Start Date, End Date" },
+		         { "  F4         | total expenses                                      | ", "Start Date, End Date" },
+		         { "  F5         | total distributors                                  | ", "None" },
+		         { "  F6         | total city revenue                                  | ", "City Name" },
+		         { "  F7         | total distributor revenue                           | ", "Distributor Account Number" },
+		         { "  F8         | total address revenue                               | ", "Address" },
+		         { "  F9         | total payments dy time and type of employee         | ", "Start Date, End Date" },
+		         { "  F10        | total payments by type of employee and work type    | ", "Start Date, End Date" },
+		         { "  F11        | List of all Distributors                            | ", "None" },
+		         { "  F12        | List of all Employees                               | ", "None" },
+		         { "  F13        | bill distributor (new invoice)                      | ", "Distributor ID, invoice year-month" },
+		         { "  F14        | update invoice payment status                       | ", "Invoice ID, payment date" },
+		         { "  F15        | make employee payment                               | ", "employee ID, amount, payment date" },
+		         { "  F16        | update employee payment                             | ", "check number, claim date" },
+		         { "  F17        | track employee payment                              | ", "check number" }
 		      };
 		
 		
@@ -57,57 +57,57 @@ private static void helper() {
 		
 		switch(com.toLowerCase()) {
 		
-		case "r1": report.generateReport();
+		case "f1": report.generateReport();
 			break;
 		
-		case "r2": report.totalPublicationsSold();
+		case "f2": report.totalPublicationsSold();
 			break;
 			
-		case "r3": report.totalRevenue();
+		case "f3": report.totalRevenue();
 			break;
 			
-		case "r4": report.totalExpenses();
+		case "f4": report.totalExpenses();
 			break;
 			
-		case "r5": report.totalDistributors();
+		case "f5": report.totalDistributors();
 			break;
 			
-		case "r6": report.totalCityRevenue();
+		case "f6": report.totalCityRevenue();
 			break;
 			
-		case "r7": report.totalDistributorRevenue();
+		case "f7": report.totalDistributorRevenue();
 			break;
 			
-		case "r8": report.totalAddressRevenue();
+		case "f8": report.totalAddressRevenue();
 			break;
 			
-		case "r9": report.totalPaymentsByTimeAndTypeofEmployee();
+		case "f9": report.totalPaymentsByTimeAndTypeofEmployee();
 			break;
 			
-		case "r10": report.totalPaymentsByTypeOfEmployeeAndWorkType();
+		case "f10": report.totalPaymentsByTypeOfEmployeeAndWorkType();
 			break;
 			
-		case "r11": report.listOfAllDistributors();
+		case "f11": report.listOfAllDistributors();
 			break;
 			
-		case "r12": report.listOfAllEmployees();
+		case "f12": report.listOfAllEmployees();
 			break;
 			
-		case "d7": distribution.newInvoice();
+		case "f13": distribution.newInvoice();
 			break;
 		
-		case "d8": distribution.paymentInvoice();
+		case "f14": distribution.paymentInvoice();
 			break;	
 			
-		case "p15":
+		case "f15":
 			production.makePayment();
 			break;
 			
-		case "p16":
+		case "f16":
 			production.updatePayment();
 			break;
 			
-		case "p17":
+		case "f17":
 			production.trackPayment();
 			break;
 			

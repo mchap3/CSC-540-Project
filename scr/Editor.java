@@ -23,8 +23,8 @@ public class Editor {
 		String[][] help = { { "  E1         | menu for books                  | ", "" },
 		         { "  E2         | menu for issues                 | ", "" },
 		         { "  E3         | view editor responsibilities    | ", "employee ID" },
-		         { "  E4         | search book catalog             | ", "" },
-		         { "  E5         | search article catalog          | ", "" },
+		         { "  E4         | search book catalog             | ", "author, publication date, topic" },
+		         { "  E5         | search article catalog          | ", "author, issue date, topic" },
 		         { "  E6         | add author                      | ", "employee ID, name, type" },
 		         { "  E7         | update author                   | ", "employee ID, name, type, active" },
 		         { "  E8         | delete author                   | ", "employee ID" },
@@ -142,12 +142,12 @@ public class Editor {
 		System.out.println("-------------|---------------------------------|-------------------");
 
 		String[][] help = { { "  B1         | view editor responsibilities    | ", "employee ID" },
-				 { "  B2         | search book catalog             | ", "" },
-				 { "  B3         | create book                     | ", "" },
-		         { "  B4         | edit book                       | ", "" },
-		         { "  B5         | delete book                     | ", "" },
-		         { "  B6         | add book chapter                | ", "" },
-		         { "  B7         | edit book chapter               | ", "" },
+				 { "  B2         | search book catalog             | ", "author, publication date, topic" },
+				 { "  B3         | create book                     | ", "title, topic, edition, ISBN, publication date, author(s)" },
+		         { "  B4         | edit book                       | ", "publication ID, title, topic, edition, ISBN, publication date, author(s)" },
+		         { "  B5         | delete book                     | ", "publciation ID" },
+		         { "  B6         | add book chapter                | ", "publication ID, chapter title" },
+		         { "  B7         | edit book chapter               | ", "publication ID, chapter title" },
 		         { "  back       | return to editor menu           | ", "" }
 		};
 
@@ -163,14 +163,14 @@ public class Editor {
 		System.out.println("-------------|---------------------------------|-------------------");
 
 		String[][] help = { { "  I1         | view editor responsibilities    | ", "employee ID" },
-				 { "  I2         | search article catalog          | ", "" },
-				 { "  I3         | create periodical issue         | ", "" },
-		         { "  I4         | edit periodical issue           | ", "" },
-		         { "  I5         | delete periodical issue         | ", "" },
-		         { "  I6         | add article to issue            | ", "" },
-		         { "  I7         | edit article in issue           | ", "" },
-		         { "  I8         | add article text                | ", "" },
-		         { "  I9         | update article text             | ", "" },
+				 { "  I2         | search article catalog          | ", "author, issue date, topic" },
+				 { "  I3         | create periodical issue         | ", "title, type, topic, issue title, issue date, periodicity" },
+		         { "  I4         | edit periodical issue           | ", "publication ID, title, type, topic, issue title, issue date, periodicity" },
+		         { "  I5         | delete periodical issue         | ", "publication ID" },
+		         { "  I6         | add article to issue            | ", "publication ID, article title, article topic, author(s)" },
+		         { "  I7         | edit article in issue           | ", "publication ID, article title, article topic, author(s)" },
+		         { "  I8         | add article text                | ", "publication ID, article title, article text" },
+		         { "  I9         | update article text             | ", "publication ID, article title, article text" },
 		         { "  back       | return to editor menu           | ", "" }
 		};
 

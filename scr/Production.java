@@ -623,113 +623,113 @@ public class Production {
 		
 	}
 
-//	private static void helper() {
-//
-//		System.out.println("\nCommand Code | Command Description                                 | Arguments it needs");
-//		System.out.println("-------------|-----------------------------------------------------|-------------------");
-//
-//		String[][] help = { { "  P1         | create book                                         | ", "" },
-//		         { "  P2         | edit book                                           | ", "" },
-//		         { "  P3         | delete book                                         | ", "" },
-//		         { "  P4         | add book chapter                                    | ", "" },
-//		         { "  P5         | edit book chapter                                   | ", "" },
-//		         { "  P6         | create periodical issue                             | ", "" },
-//		         { "  P7         | edit periodical issue                               | ", "" },
-//		         { "  P8         | delete periodical issue                             | ", "" },
-//		         { "  P9         | add article to issue                                | ", "" },
-//		         { "  P10        | edit article in issue                               | ", "" },
-//		         { "  P11        | add article text                                    | ", "" },
-//		         { "  P12        | update article text                                 | ", "" },
-//		         { "  P13        | search book catalog                                 | ", "" },
-//		         { "  P14        | search article catalog                              | ", "" },
-//		         { "  P15        | make employee payment                               | ", "" },
-//		         { "  P16        | update employee payment                             | ", "" },
-//		         { "  P17        | track employee payment                              | ", "" }
-//		};
-//
-//		for (int i = 0; i < 17; i++) {
-//			System.out.println(help[i][0] + help[i][1]);
-//		}
-//		System.out.println();
-//	}
-//
-//	public void command(String com) {
-//		System.out.println("Your Command: " + com + "\n");
-//
-//		switch (com.toLowerCase()) {
-//
-//		case "p1":
-//			createBook();
-//			break;
-//			
-//		case "p2":
-//			editBook();
-//			break;
-//			
-//		case "p3":
-//			deleteBook();
-//			break;
-//			
-//		case "p4":
-//			addChapter();
-//			break;
-//			
-//		case "p5":
-//			editChapter();
-//			break;
-//			
-//		case "p6":
-//			createIssue();
-//			break;
-//			
-//		case "p7":
-//			editIssue();
-//			break;
-//			
-//		case "p8":
-//			deleteIssue();
-//			break;
-//			
-//		case "p9":
-//			addArticle();
-//			break;
-//			
-//		case "p10":
-//			editArticle();
-//			break;
-//			
-//		case "p11":
-//			addArticleText();
-//			break;
-//			
-//		case "p12":
-//			editArticleText();
-//			break;
-//			
-//		case "p13":
-//			getBookInfo();
-//			break;
-//			
-//		case "p14":
-//			getArticleInfo();
-//			break;
-//			
-//		case "p15":
-//			makePayment();
-//			break;
-//			
-//		case "p16":
-//			updatePayment();
-//			break;
-//			
-//		case "p17":
-//			trackPayment();
-//			break;
-//
-//		default:
-//			System.out.println("Here are the Valid Command Codes, and their required information");
-//			helper();
-//			break;
-//		}
-//	}
+	private static void helper() {
+
+		System.out.println("\nCommand Code | Command Description                                 | Arguments it needs");
+		System.out.println("-------------|-----------------------------------------------------|-------------------");
+
+		String[][] help = { { "  P1         | create book                                         | ", "" },
+		         { "  P2         | edit book                                           | ", "" },
+		         { "  P3         | delete book                                         | ", "" },
+		         { "  P4         | add book chapter                                    | ", "" },
+		         { "  P5         | edit book chapter                                   | ", "" },
+		         { "  P6         | create periodical issue                             | ", "" },
+		         { "  P7         | edit periodical issue                               | ", "" },
+		         { "  P8         | delete periodical issue                             | ", "" },
+		         { "  P9         | add article to issue                                | ", "" },
+		         { "  P10        | edit article in issue                               | ", "" },
+		         { "  P11        | add article text                                    | ", "" },
+		         { "  P12        | update article text                                 | ", "" },
+		         { "  P13        | search book catalog                                 | ", "" },
+		         { "  P14        | search article catalog                              | ", "" },
+		         { "  P15        | make employee payment                               | ", "" },
+		         { "  P16        | update employee payment                             | ", "" },
+		         { "  P17        | track employee payment                              | ", "" }
+		};
+
+		for (int i = 0; i < help.length; i++) {
+			System.out.println(help[i][0] + help[i][1]);
+		}
+		System.out.println();
+	}
+
+	public void command(String com) {
+		System.out.println("Your Command: " + com + "\n");
+
+		switch (com.toLowerCase()) {
+
+		case "p1":
+			createBook();
+			break;
+			
+		case "p2":
+			editBook();
+			break;
+			
+		case "p3":
+			deleteBook();
+			break;
+			
+		case "p4":
+			addChapter();
+			break;
+			
+		case "p5":
+			editChapter();
+			break;
+			
+		case "p6":
+			createIssue();
+			break;
+			
+		case "p7":
+			editIssue();
+			break;
+			
+		case "p8":
+			deleteIssue();
+			break;
+			
+		case "p9":
+			addArticle();
+			break;
+			
+		case "p10":
+			editArticle();
+			break;
+			
+		case "p11":
+			addArticleText();
+			break;
+			
+		case "p12":
+			editArticleText();
+			break;
+			
+		case "p13":
+			getBookInfo();
+			break;
+			
+		case "p14":
+			getArticleInfo();
+			break;
+			
+		case "p15":
+			makePayment();
+			break;
+			
+		case "p16":
+			updatePayment();
+			break;
+			
+		case "p17":
+			trackPayment();
+			break;
+
+		default:
+			System.out.println("Here are the Valid Command Codes, and their required information");
+			helper();
+			break;
+		}
+	}
 }

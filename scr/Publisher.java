@@ -21,56 +21,57 @@ public class Publisher {
 
 	private static void helper() {
 
-		System.out.println("\nCommand Code | Command Description             | Arguments it needs");
-		System.out.println("-------------|---------------------------------|-------------------------------");
+		System.out.println("\nCommand Code | Command Description                              | Arguments it needs");
+		System.out.println("-------------|--------------------------------------------------|-------------------------------");
 
-		String[][] help = { { "  P1         | assign editor to publication    | ", "employee ID, publication ID" },
-				{ "  P2         | view editor responsibilities    | ", "employee ID" },
-				{ "  P3         | add editor                      | ", "name, type" },
-				{ "  P4         | update editor                   | ", "employee ID, name, type, active" },
-				{ "  P5         | delete editor                   | ", "employee ID" },
-				{ "  P6         | add author                      | ", "employee ID, name, type" },
-				{ "  P7         | update author                   | ", "employee ID, name, type, active" },
-				{ "  P8         | delete author                   | ", "employee ID" },
-				{ "  E4         | search book catalog             | ", "" },
-				{ "  E5         | search article catalog          | ", "" },
-				{ "  B3         | create book                     | ", "" },
-				{ "  B4         | edit book                       | ", "" },
-				{ "  B5         | delete book                     | ", "" },
-				{ "  B6         | add book chapter                | ", "" },
-				{ "  B7         | edit book chapter               | ", "" },
-				{ "  I3         | create periodical issue         | ", "" },
-				{ "  I4         | edit periodical issue           | ", "" },
-				{ "  I5         | delete periodical issue         | ", "" },
-				{ "  I6         | add article to issue            | ", "" },
-				{ "  I7         | edit article in issue           | ", "" },
-				{ "  I8         | add article text                | ", "" },
-				{ "  I9         | update article text             | ", "" },
-				{ "  D1         | print distributor                     | ", "Distributor ID" },
-		        { "  D2         | add distributor                       | ", "Distributor ID, Name, Type, Street Address, City Address, Phone, Contact, Balance" },
-		        { "  D3         | delete distributor                    | ", "Distributor ID" },
-		        { "  D4         | update distributor        	     | ", "Selection Attribute/Value, Update Attribute/Value" },
-		        { "  D5         | update distributor balance            | ", "Distributor ID" },
-		        { "  D6         | place publication order               | ", "Order ID, Dist ID, Pub ID, #Copies, Production Date, Price, Shipping" },
-		        { "  D7         | bill distributor (new invoice)        | ", "Distributor ID, invoice year-month" },
-		        { "  D8         | update invoice payment status         | ", "Invoice ID, payment date" },
-		        { "  R1         | generate report                                     | ", "Start Date, End Date" },
-		        { "  R2         | total publications sold                             | ", "Publication ID, Start Date, End Date" },
-		        { "  R3         | total publication revenue                           | ", "Start Date, End Date" },
-		        { "  R4         | total expenses                                      | ", "Start Date, End Date" },
-		        { "  R5         | total distributors                                  | ", "None" },
-		        { "  R6         | total city revenue                                  | ", "City Name" },
-		        { "  R7         | total distributor revenue                           | ", "Distributor Account Number" },
-		        { "  R8         | total address revenue                               | ", "Address" },
-		        { "  R9         | total payments dy time and type of employee         | ", "Start Date, End Date" },
-		        { "  R10        | total payments by type of employee and work type    | ", "Start Date, End Date" },
-		        { "  R11        | List of all Distributors                            | ", "None" },
-		        { "  R12        | List of all Employees                               | ", "None" },
-		        { "  D7         | bill distributor (new invoice)                      | ", "Distributor ID, invoice year-month" },
-		        { "  D8         | update invoice payment status                       | ", "Invoice ID, payment date" },
-		        { "  P15        | make employee payment                               | ", "" },
-		        { "  P16        | update employee payment                             | ", "" },
-		        { "  P17        | track employee payment                              | ", "" }
+		String[][] help = { { "  P1         | assign editor to publication                     | ", "employee ID, publication ID" },
+				{ "  P2         | view editor responsibilities                     | ", "employee ID" },
+				{ "  P3         | add editor                                       | ", "name, type" },
+				{ "  P4         | update editor                                    | ", "employee ID, name, type, active" },
+				{ "  P5         | delete editor                                    | ", "employee ID" },
+				{ "  P6         | add author                                       | ", "employee ID, name, type" },
+				{ "  P7         | update author                                    | ", "employee ID, name, type, active" },
+				{ "  P8         | delete author                                    | ", "employee ID" },
+				{ "-------------|--------------------------------------------------|-------------------------------", ""},
+				{ "  B1         | search book catalog                              | ", "author, publication date, topic" },
+				{ "  B2         | create book                                      | ", "title, topic, edition, ISBN, publication date, author(s)" },
+				{ "  B3         | edit book                                        | ", "publication ID, title, topic, edition, ISBN, publication date, author(s)" },
+				{ "  B4         | delete book                                      | ", "publciation ID" },
+				{ "  B5         | add book chapter                                 | ", "publication ID, chapter title" },
+				{ "  B6         | edit book chapter                                | ", "publication ID, chapter title" },
+				{ "  I1         | search article catalog                           | ", "author, issue date, topic" },
+				{ "  I2         | create periodical issue                          | ", "title, type, topic, issue title, issue date, periodicity" },
+				{ "  I3         | edit periodical issue                            | ", "publication ID, title, type, topic, issue title, issue date, periodicity" },
+				{ "  I4         | delete periodical issue                          | ", "publication ID" },
+				{ "  I5         | add article to issue                             | ", "publication ID, article title, article topic, author(s)" },
+				{ "  I6         | edit article in issue                            | ", "publication ID, article title, article topic, author(s)" },
+				{ "  I7         | add article text                                 | ", "publication ID, article title, article text" },
+				{ "  I8         | update article text                              | ", "publication ID, article title, article text" },
+				{ "-------------|--------------------------------------------------|-------------------------------", ""},
+				{ "  D1         | print distributor                                | ", "Distributor ID" },
+		        { "  D2         | add distributor                                  | ", "Distributor ID, Name, Type, Street Address, City Address, Phone, Contact, Balance" },
+		        { "  D3         | delete distributor                               | ", "Distributor ID" },
+		        { "  D4         | update distributor        	                   | ", "Selection Attribute/Value, Update Attribute/Value" },
+		        { "  D5         | update distributor balance                       | ", "Distributor ID" },
+		        { "  D6         | place publication order                          | ", "Order ID, Dist ID, Pub ID, #Copies, Production Date, Price, Shipping" },
+		        { "  D7         | bill distributor (new invoice)                   | ", "Distributor ID, invoice year-month" },
+		        { "  D8         | update invoice payment status                    | ", "Invoice ID, payment date" },
+		        { "-------------|--------------------------------------------------|-------------------------------", ""},
+		        { "  F1         | generate report                                  | ", "Start Date, End Date" },
+		        { "  F2         | total publications sold                          | ", "Publication ID, Start Date, End Date" },
+		        { "  F3         | total publication revenue                        | ", "Start Date, End Date" },
+		        { "  F4         | total expenses                                   | ", "Start Date, End Date" },
+		        { "  F5         | total distributors                               | ", "None" },
+		        { "  F6         | total city revenue                               | ", "City Name" },
+		        { "  F7         | total distributor revenue                        | ", "Distributor Account Number" },
+		        { "  F8         | total address revenue                            | ", "Address" },
+		        { "  F9         | total payments dy time and type of employee      | ", "Start Date, End Date" },
+		        { "  F10        | total payments by type of employee and work type | ", "Start Date, End Date" },
+		        { "  F11        | List of all Distributors                         | ", "None" },
+		        { "  F12        | List of all Employees                            | ", "None" },
+		        { "  F13        | make employee payment                            | ", "employee ID, amount, payment date" },
+		        { "  F14        | update employee payment                          | ", "check number, claim date" },
+		        { "  F15        | track employee payment                           | ", "check number" }
 			};
 
 		for (int i = 0; i < help.length; i++) {
@@ -116,61 +117,61 @@ public class Publisher {
 			publish.deleteAuthor();
 			break;
 			
-		case "e4":
+		// book menu commands
+		case "b1":
 			production.getBookInfo();
 			break;
 			
-		case "e5":
+		case "i1":
 			production.getArticleInfo();
 			break;
 			
-		// book menu commands
-		case "b3":
+		case "b2":
 			production.createBook();
 			break;
 
-		case "b4":
+		case "b3":
 			production.editBook();
 			break;
 
-		case "b5":
+		case "b4":
 			production.deleteBook();
 			break;
 
-		case "b6":
+		case "b5":
 			production.addChapter();
 			break;
 
-		case "b7":
+		case "b6":
 			production.editChapter();
 			break;
 			
 		// issue menu commands
-		case "i3":
+		case "i2":
 			production.createIssue();
 			break;
 
-		case "i4":
+		case "i3":
 			production.editIssue();
 			break;
 
-		case "i5":
+		case "i4":
 			production.deleteIssue();
 			break;
 
-		case "i6":
+		case "i5":
 			production.addArticle();
 			break;
 
-		case "i7":
+		case "i6":
 			production.editArticle();
 			break;
 
-		case "i8":
+		case "i7":
 			production.addArticleText();
 			break;
 
-		case "i9":
+		case "i8":
 			production.editArticleText();
 			break;
 			
@@ -206,63 +207,63 @@ public class Publisher {
 			distribution.paymentInvoice();
 			break;
 			
-		case "r1":
+		case "f1":
 			report.generateReport();
 			break;
 
-		case "r2":
+		case "f2":
 			report.totalPublicationsSold();
 			break;
 
-		case "r3":
+		case "f3":
 			report.totalRevenue();
 			break;
 
-		case "r4":
+		case "f4":
 			report.totalExpenses();
 			break;
 
-		case "r5":
+		case "f5":
 			report.totalDistributors();
 			break;
 
-		case "r6":
+		case "f6":
 			report.totalCityRevenue();
 			break;
 
-		case "r7":
+		case "f7":
 			report.totalDistributorRevenue();
 			break;
 
-		case "r8":
+		case "f8":
 			report.totalAddressRevenue();
 			break;
 
-		case "r9":
+		case "f9":
 			report.totalPaymentsByTimeAndTypeofEmployee();
 			break;
 
-		case "r10":
+		case "f10":
 			report.totalPaymentsByTypeOfEmployeeAndWorkType();
 			break;
 
-		case "r11":
+		case "f11":
 			report.listOfAllDistributors();
 			break;
 
-		case "r12":
+		case "f12":
 			report.listOfAllEmployees();
 			break;
 			
-		case "p15":
+		case "f13":
 			production.makePayment();
 			break;
 			
-		case "p16":
+		case "f14":
 			production.updatePayment();
 			break;
 			
-		case "p17":
+		case "f15":
 			production.trackPayment();
 			break;
 
