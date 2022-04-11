@@ -7,12 +7,16 @@ public class Editor {
 	private Production production = null;
 	private Publishing publish = null;
 	
+	private int menu;
+	
 	public Editor(DBManager dbM, Scanner s) {
 		db = dbM;
 		scanner = s;
 		
 		production = new Production(db, scanner);
 		publish = new Publishing(db, scanner);
+		
+		menu = 0;
 	}
 	
 	private static void helper() {
@@ -44,10 +48,12 @@ public class Editor {
 
 		// editor menu commands
 		case "e1":
+			menu = 1;
 			bookHelper();
 			break;
 			
 		case "e2":
+			menu = 2;
 			issueHelper();
 			break;
 			
@@ -129,9 +135,19 @@ public class Editor {
 			production.editArticleText();
 			break;
 			
+		case "back":
+			menu = 0;
+			helper();
+			break;
+			
 		default:
 			System.out.println("Here are the Valid Command Codes, and their required information");
-			helper();
+			if (menu == 1)
+				bookHelper();
+			else if (menu == 2)
+				issueHelper();
+			else
+				helper();
 			break;
 		}
 	}
