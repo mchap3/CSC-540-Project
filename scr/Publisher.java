@@ -8,6 +8,9 @@ public class Publisher {
 	private Production production = null;
 	private Distribution distribution = null;
 	private Reports report = null;
+	
+	private enum Menu {MAIN, PUB, PROD, DIST, FIN}
+	private Menu menu;
 
 	public Publisher(DBManager dbM, Scanner s) {
 		db = dbM;
@@ -17,61 +20,21 @@ public class Publisher {
 		production = new Production(db, scanner);
 		distribution = new Distribution(db, scanner);
 		report = new Reports(db, scanner);
+		
+		menu = Menu.MAIN;
 	}
 
 	private static void helper() {
+		System.out.printf("%35s\n", "PUBLISHER MENU");
+		System.out.println("\nCommand Code | Command Description             | Arguments it needs");
+		System.out.println("-------------|---------------------------------|-------------------");
 
-		System.out.println("\nCommand Code | Command Description                              | Arguments it needs");
-		System.out.println("-------------|--------------------------------------------------|-------------------------------");
-
-		String[][] help = { { "  P1         | assign editor to publication                     | ", "employee ID, publication ID" },
-				{ "  P2         | view editor responsibilities                     | ", "employee ID" },
-				{ "  P3         | add editor                                       | ", "name, type" },
-				{ "  P4         | update editor                                    | ", "employee ID, name, type, active" },
-				{ "  P5         | delete editor                                    | ", "employee ID" },
-				{ "  P6         | add author                                       | ", "employee ID, name, type" },
-				{ "  P7         | update author                                    | ", "employee ID, name, type, active" },
-				{ "  P8         | delete author                                    | ", "employee ID" },
-				{ "-------------|--------------------------------------------------|-------------------------------", ""},
-				{ "  B1         | search book catalog                              | ", "author, publication date, topic" },
-				{ "  B2         | create book                                      | ", "title, topic, edition, ISBN, publication date, author(s)" },
-				{ "  B3         | edit book                                        | ", "publication ID, title, topic, edition, ISBN, publication date, author(s)" },
-				{ "  B4         | delete book                                      | ", "publciation ID" },
-				{ "  B5         | add book chapter                                 | ", "publication ID, chapter title" },
-				{ "  B6         | edit book chapter                                | ", "publication ID, chapter title" },
-				{ "  I1         | search article catalog                           | ", "author, issue date, topic" },
-				{ "  I2         | create periodical issue                          | ", "title, type, topic, issue title, issue date, periodicity" },
-				{ "  I3         | edit periodical issue                            | ", "publication ID, title, type, topic, issue title, issue date, periodicity" },
-				{ "  I4         | delete periodical issue                          | ", "publication ID" },
-				{ "  I5         | add article to issue                             | ", "publication ID, article title, article topic, author(s)" },
-				{ "  I6         | edit article in issue                            | ", "publication ID, article title, article topic, author(s)" },
-				{ "  I7         | add article text                                 | ", "publication ID, article title, article text" },
-				{ "  I8         | update article text                              | ", "publication ID, article title, article text" },
-				{ "-------------|--------------------------------------------------|-------------------------------", ""},
-				{ "  D1         | print distributor                                | ", "Distributor ID" },
-		        { "  D2         | add distributor                                  | ", "Distributor ID, Name, Type, Street Address, City Address, Phone, Contact, Balance" },
-		        { "  D3         | delete distributor                               | ", "Distributor ID" },
-		        { "  D4         | update distributor        	                   | ", "Selection Attribute/Value, Update Attribute/Value" },
-		        { "  D5         | update distributor balance                       | ", "Distributor ID" },
-		        { "  D6         | place publication order                          | ", "Order ID, Dist ID, Pub ID, #Copies, Production Date, Price, Shipping" },
-		        { "  D7         | bill distributor (new invoice)                   | ", "Distributor ID, invoice year-month" },
-		        { "  D8         | update invoice payment status                    | ", "Invoice ID, payment date" },
-		        { "-------------|--------------------------------------------------|-------------------------------", ""},
-		        { "  F1         | generate report                                  | ", "Start Date, End Date" },
-		        { "  F2         | total publications sold                          | ", "Publication ID, Start Date, End Date" },
-		        { "  F3         | total publication revenue                        | ", "Start Date, End Date" },
-		        { "  F4         | total expenses                                   | ", "Start Date, End Date" },
-		        { "  F5         | total distributors                               | ", "None" },
-		        { "  F6         | total city revenue                               | ", "City Name" },
-		        { "  F7         | total distributor revenue                        | ", "Distributor Account Number" },
-		        { "  F8         | total address revenue                            | ", "Address" },
-		        { "  F9         | total payments dy time and type of employee      | ", "Start Date, End Date" },
-		        { "  F10        | total payments by type of employee and work type | ", "Start Date, End Date" },
-		        { "  F11        | List of all Distributors                         | ", "None" },
-		        { "  F12        | List of all Employees                            | ", "None" },
-		        { "  F13        | make employee payment                            | ", "employee ID, amount, payment date" },
-		        { "  F14        | update employee payment                          | ", "check number, claim date" },
-		        { "  F15        | track employee payment                           | ", "check number" }
+		String[][] help = { 
+				 { "  M1         | publishing menu                 | ", "" },
+		         { "  M2         | publication/editing menu        | ", "" },
+		         { "  M3         | distribution menu               | ", "" },
+		         { "  M4         | financial menu                  | ", "" },
+		         { "  logout     | return to user selection        | ", "" }
 			};
 
 		for (int i = 0; i < help.length; i++) {
@@ -84,6 +47,26 @@ public class Publisher {
 		System.out.println("Your Command: " + com + "\n");
 
 		switch (com.toLowerCase()) {
+		
+		case "m1":
+			menu = Menu.PUB;
+			pubHelper();
+			break;
+			
+		case "m2":
+			menu = Menu.PROD;
+			prodHelper();
+			break;
+			
+		case "m3":
+			menu = Menu.DIST;
+			distHelper();
+			break;
+			
+		case "m4":
+			menu = Menu.FIN;
+			finHelper();
+			break;
 
 		case "p1":
 			publish.assignEditorToPublication();
@@ -266,12 +249,129 @@ public class Publisher {
 		case "f15":
 			production.trackPayment();
 			break;
+			
+		case "back":
+			menu = Menu.MAIN;
+			helper();
+			break;
 
 		default:
-			System.out.println("Here are the Valid Command Codes, and their required information");
-			helper();
+//			System.out.println("Here are the Valid Command Codes, and their required information");
+			switch (menu) {
+			case PUB: pubHelper(); break;
+			case PROD: prodHelper(); break;
+			case DIST: distHelper(); break;
+			case FIN: finHelper(); break;
+			default: helper(); break;
+			}
 			break;
 		}
 
+	}
+	
+	private static void pubHelper() {
+		System.out.printf("%36s\n", "PUBLISHING MENU");
+		System.out.println("\nCommand Code | Command Description             | Arguments it needs");
+		System.out.println("-------------|---------------------------------|-------------------");
+
+		String[][] help = { 
+				{ "  P1         | assign editor to publication    | ", "employee ID, publication ID" },
+				{ "  P2         | view editor responsibilities    | ", "employee ID" },
+				{ "  P3         | add editor                      | ", "name, type" },
+				{ "  P4         | update editor                   | ", "employee ID, name, type, active" },
+				{ "  P5         | delete editor                   | ", "employee ID" },
+				{ "  P6         | add author                      | ", "employee ID, name, type" },
+				{ "  P7         | update author                   | ", "employee ID, name, type, active" },
+				{ "  P8         | delete author                   | ", "employee ID" },
+				{ "  back       | return to publisher menu        | ", "" }
+		};
+
+		for (int i = 0; i < help.length; i++) {
+			System.out.println(help[i][0] + help[i][1]);
+		}
+		System.out.println();
+	}
+	
+	private static void prodHelper() {
+		System.out.printf("%36s\n", "PRODUCTION MENU");
+		System.out.println("\nCommand Code | Command Description             | Arguments it needs");
+		System.out.println("-------------|---------------------------------|-------------------");
+
+		String[][] help = { 
+				{ "  B1         | search book catalog             | ", "author, publication date, topic" },
+				{ "  B2         | create book                     | ", "title, topic, edition, ISBN, publication date, author(s)" },
+				{ "  B3         | edit book                       | ", "publication ID, title, topic, edition, ISBN, publication date, author(s)" },
+				{ "  B4         | delete book                     | ", "publication ID" },
+				{ "  B5         | add book chapter                | ", "publication ID, chapter title" },
+				{ "  B6         | edit book chapter               | ", "publication ID, chapter title" },
+				{ "-------------|---------------------------------|-------------------", ""},
+				{ "  I1         | search article catalog          | ", "author, issue date, topic" },
+				{ "  I2         | create periodical issue         | ", "title, type, topic, issue title, issue date, periodicity" },
+				{ "  I3         | edit periodical issue           | ", "publication ID, title, type, topic, issue title, issue date, periodicity" },
+				{ "  I4         | delete periodical issue         | ", "publication ID" },
+				{ "  I5         | add article to issue            | ", "publication ID, article title, article topic, author(s)" },
+				{ "  I6         | edit article in issue           | ", "publication ID, article title, article topic, author(s)" },
+				{ "  I7         | add article text                | ", "publication ID, article title, article text" },
+				{ "  I8         | update article text             | ", "publication ID, article title, article text" },
+				{ "  back       | return to publisher menu        | ", "" }
+		};
+
+		for (int i = 0; i < help.length; i++) {
+			System.out.println(help[i][0] + help[i][1]);
+		}
+		System.out.println();
+	}
+	
+	private static void distHelper() {
+		System.out.printf("%36s\n", "DISTRIBUTION MENU");
+		System.out.println("\nCommand Code | Command Description             | Arguments it needs");
+		System.out.println("-------------|---------------------------------|-------------------");
+
+		String[][] help = { 
+				{ "  D1         | print distributor               | ", "Distributor ID" },
+		        { "  D2         | add distributor                 | ", "Distributor ID, Name, Type, Street Address, City Address, Phone, Contact, Balance" },
+		        { "  D3         | delete distributor              | ", "Distributor ID" },
+		        { "  D4         | update distributor              | ", "Selection Attribute/Value, Update Attribute/Value" },
+		        { "  D5         | update distributor balance      | ", "Distributor ID" },
+		        { "  D6         | place publication order         | ", "Order ID, Dist ID, Pub ID, #Copies, Production Date, Price, Shipping" },
+		        { "  D7         | bill distributor (new invoice)  | ", "Distributor ID, invoice year-month" },
+		        { "  D8         | update invoice payment status   | ", "Invoice ID, payment date" },
+				{ "  back       | return to publisher menu        | ", "" }
+		};
+
+		for (int i = 0; i < help.length; i++) {
+			System.out.println(help[i][0] + help[i][1]);
+		}
+		System.out.println();
+	}
+	
+	private static void finHelper() {
+		System.out.printf("%44s\n", "FINANCIAL MENU");
+		System.out.println("\nCommand Code | Command Description                              | Arguments it needs");
+		System.out.println("-------------|--------------------------------------------------|-------------------");
+
+		String[][] help = { 
+				{ "  F1         | generate report                                  | ", "Start Date, End Date" },
+		        { "  F2         | total publications sold                          | ", "Publication ID, Start Date, End Date" },
+		        { "  F3         | total publication revenue                        | ", "Start Date, End Date" },
+		        { "  F4         | total expenses                                   | ", "Start Date, End Date" },
+		        { "  F5         | total distributors                               | ", "None" },
+		        { "  F6         | total city revenue                               | ", "City Name" },
+		        { "  F7         | total distributor revenue                        | ", "Distributor Account Number" },
+		        { "  F8         | total address revenue                            | ", "Address" },
+		        { "  F9         | total payments by time and type of employee      | ", "Start Date, End Date" },
+		        { "  F10        | total payments by type of employee and work type | ", "Start Date, End Date" },
+		        { "  F11        | List of all Distributors                         | ", "None" },
+		        { "  F12        | List of all Employees                            | ", "None" },
+		        { "  F13        | make employee payment                            | ", "employee ID, amount, payment date" },
+		        { "  F14        | update employee payment                          | ", "check number, claim date" },
+		        { "  F15        | track employee payment                           | ", "check number" },
+				{ "  back       | return to publisher menu                         | ", "" }
+		};
+
+		for (int i = 0; i < help.length; i++) {
+			System.out.println(help[i][0] + help[i][1]);
+		}
+		System.out.println();
 	}
 }
