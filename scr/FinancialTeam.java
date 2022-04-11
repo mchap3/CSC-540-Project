@@ -21,28 +21,29 @@ public class FinancialTeam {
 	}
 	
 private static void helper() {
-		
-		System.out.println("\nCommand Code | Command Description                                 | Arguments it needs");
-		System.out.println("-------------|-----------------------------------------------------|-------------------");
+		System.out.printf("%49s\n", "FINANCIAL TEAM MENU");
+		System.out.println("\nCommand Code | Command Description                              | Arguments it needs");
+		System.out.println("-------------|--------------------------------------------------|-------------------");
 		
 		String[][] help = {	
-		         { "  F1         | generate report                                     | ", "Start Date, End Date" },
-		         { "  F2         | total publications sold                             | ", "Publication ID, Start Date, End Date" },
-		         { "  F3         | total publication revenue                           | ", "Start Date, End Date" },
-		         { "  F4         | total expenses                                      | ", "Start Date, End Date" },
-		         { "  F5         | total distributors                                  | ", "None" },
-		         { "  F6         | total city revenue                                  | ", "City Name" },
-		         { "  F7         | total distributor revenue                           | ", "Distributor Account Number" },
-		         { "  F8         | total address revenue                               | ", "Address" },
-		         { "  F9         | total payments dy time and type of employee         | ", "Start Date, End Date" },
-		         { "  F10        | total payments by type of employee and work type    | ", "Start Date, End Date" },
-		         { "  F11        | List of all Distributors                            | ", "None" },
-		         { "  F12        | List of all Employees                               | ", "None" },
-		         { "  F13        | bill distributor (new invoice)                      | ", "Distributor ID, invoice year-month" },
-		         { "  F14        | update invoice payment status                       | ", "Invoice ID, payment date" },
-		         { "  F15        | make employee payment                               | ", "employee ID, amount, payment date" },
-		         { "  F16        | update employee payment                             | ", "check number, claim date" },
-		         { "  F17        | track employee payment                              | ", "check number" }
+		         { "  F1         | generate report                                  | ", "Start Date, End Date" },
+		         { "  F2         | total publications sold                          | ", "Publication ID, Start Date, End Date" },
+		         { "  F3         | total publication revenue                        | ", "Start Date, End Date" },
+		         { "  F4         | total expenses                                   | ", "Start Date, End Date" },
+		         { "  F5         | total distributors                               | ", "None" },
+		         { "  F6         | total city revenue                               | ", "City Name" },
+		         { "  F7         | total distributor revenue                        | ", "Distributor Account Number" },
+		         { "  F8         | total address revenue                            | ", "Address" },
+		         { "  F9         | total payments by time and type of employee      | ", "Start Date, End Date" },
+		         { "  F10        | total payments by type of employee and work type | ", "Start Date, End Date" },
+		         { "  F11        | List of all Distributors                         | ", "None" },
+		         { "  F12        | List of all Employees                            | ", "None" },
+		         { "  F13        | bill distributor (new invoice)                   | ", "Distributor ID, invoice year-month" },
+		         { "  F14        | update invoice payment status                    | ", "Invoice ID, payment date" },
+		         { "  F15        | make employee payment                            | ", "employee ID, amount, payment date" },
+		         { "  F16        | update employee payment                          | ", "check number, claim date" },
+		         { "  F17        | track employee payment                           | ", "check number" },
+		         { "  logout     | return to user selection                         | ", "" }
 		      };
 		
 		
@@ -111,7 +112,8 @@ private static void helper() {
 			production.trackPayment();
 			break;
 			
-		default: System.out.println("Here are the Valid Command Codes, and their required information");
+		default: 
+//			System.out.println("Here are the Valid Command Codes, and their required information");
 			helper();
 				break;
 		}

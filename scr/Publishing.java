@@ -286,7 +286,7 @@ public class Publishing {
 	private static void helper() {
 		
 		System.out.println("\nCommand Code | Command Description             | Arguments it needs");
-		System.out.println("-------------|---------------------------------|-------------------------------");
+		System.out.println("-------------|---------------------------------|-------------------");
 		
 		String[][] help = {	
 		         { "  P1         | assign editor to publication    | ", "employee ID, publication ID" },

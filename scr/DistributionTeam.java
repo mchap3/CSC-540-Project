@@ -15,17 +15,18 @@ public class DistributionTeam {
 	}
 	
 private static void helper() {
-		
-		System.out.println("\nCommand Code | Command Description                   | Arguments it needs");
-		System.out.println("-------------|---------------------------------------|-------------------");
+		System.out.printf("%40s\n", "DISTRIBUTION TEAM MENU");
+		System.out.println("\nCommand Code | Command Description             | Arguments it needs");
+		System.out.println("-------------|---------------------------------|-------------------");
 		
 		String[][] help = {	
-		         { "  D1         | print distributor                     | ", "Distributor ID" },
-		         { "  D2         | add distributor                       | ", "Distributor ID, Name, Type, Street Address, City Address, Phone, Contact, Balance" },
-		         { "  D3         | delete distributor                    | ", "Distributor ID" },
-		         { "  D4         | update distributor        	     | ", "Selection Attribute/Value, Update Attribute/Value" },
-		         { "  D5         | update distributor balance            | ", "Distributor ID" },
-		         { "  D6         | place publication order               | ", "Order ID, Dist ID, Pub ID, #Copies, Production Date, Price, Shipping" }
+		         { "  D1         | print distributor               | ", "Distributor ID" },
+		         { "  D2         | add distributor                 | ", "Distributor ID, Name, Type, Street Address, City Address, Phone, Contact, Balance" },
+		         { "  D3         | delete distributor              | ", "Distributor ID" },
+		         { "  D4         | update distributor              | ", "Selection Attribute/Value, Update Attribute/Value" },
+		         { "  D5         | update distributor balance      | ", "Distributor ID" },
+		         { "  D6         | place publication order         | ", "Order ID, Dist ID, Pub ID, #Copies, Production Date, Price, Shipping" },
+		         { "  logout     | return to user selection        | ", "" }
 		      };
 		
 		
@@ -58,7 +59,8 @@ private static void helper() {
 		case "d6": distribution.placeOrder();
 			break;
 			
-		default: System.out.println("Here are the Valid Command Codes, and their required information");
+		default: 
+//			System.out.println("Here are the Valid Command Codes, and their required information");
 			helper();
 				break;
 		}

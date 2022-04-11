@@ -7,7 +7,8 @@ public class Editor {
 	private Production production = null;
 	private Publishing publish = null;
 	
-	private int menu;
+	private enum Menu {MAIN, BOOK, ISSUE}
+	private Menu menu;
 	
 	public Editor(DBManager dbM, Scanner s) {
 		db = dbM;
@@ -16,15 +17,16 @@ public class Editor {
 		production = new Production(db, scanner);
 		publish = new Publishing(db, scanner);
 		
-		menu = 0;
+		menu = Menu.MAIN;
 	}
 	
 	private static void helper() {
-		System.out.printf("\n%35s\n", "EDITOR MENU");
+		System.out.printf("%35s\n", "EDITOR MENU");
 		System.out.println("\nCommand Code | Command Description             | Arguments it needs");
 		System.out.println("-------------|---------------------------------|-------------------");
 
-		String[][] help = { { "  E1         | menu for books                  | ", "" },
+		String[][] help = { 
+				 { "  E1         | menu for books                  | ", "" },
 		         { "  E2         | menu for issues                 | ", "" },
 		         { "  E3         | view editor responsibilities    | ", "employee ID" },
 		         { "  E4         | search book catalog             | ", "author, publication date, topic" },
@@ -48,12 +50,12 @@ public class Editor {
 
 		// editor menu commands
 		case "e1":
-			menu = 1;
+			menu = Menu.BOOK;
 			bookHelper();
 			break;
 			
 		case "e2":
-			menu = 2;
+			menu = Menu.ISSUE;
 			issueHelper();
 			break;
 			
@@ -136,15 +138,15 @@ public class Editor {
 			break;
 			
 		case "back":
-			menu = 0;
+			menu = Menu.MAIN;
 			helper();
 			break;
 			
 		default:
-			System.out.println("Here are the Valid Command Codes, and their required information");
-			if (menu == 1)
+//			System.out.println("Here are the Valid Command Codes, and their required information");
+			if (menu == Menu.BOOK)
 				bookHelper();
-			else if (menu == 2)
+			else if (menu == Menu.ISSUE)
 				issueHelper();
 			else
 				helper();
@@ -153,7 +155,7 @@ public class Editor {
 	}
 	
 	private static void bookHelper() {
-		System.out.printf("\n%35s\n", "BOOK MENU");
+		System.out.printf("%35s\n", "BOOK MENU");
 		System.out.println("\nCommand Code | Command Description             | Arguments it needs");
 		System.out.println("-------------|---------------------------------|-------------------");
 
@@ -161,7 +163,7 @@ public class Editor {
 				 { "  B2         | search book catalog             | ", "author, publication date, topic" },
 				 { "  B3         | create book                     | ", "title, topic, edition, ISBN, publication date, author(s)" },
 		         { "  B4         | edit book                       | ", "publication ID, title, topic, edition, ISBN, publication date, author(s)" },
-		         { "  B5         | delete book                     | ", "publciation ID" },
+		         { "  B5         | delete book                     | ", "publication ID" },
 		         { "  B6         | add book chapter                | ", "publication ID, chapter title" },
 		         { "  B7         | edit book chapter               | ", "publication ID, chapter title" },
 		         { "  back       | return to editor menu           | ", "" }
@@ -174,7 +176,7 @@ public class Editor {
 	}
 	
 	private static void issueHelper() {
-		System.out.printf("\n%35s\n", "ISSUE MENU");
+		System.out.printf("%35s\n", "ISSUE MENU");
 		System.out.println("\nCommand Code | Command Description             | Arguments it needs");
 		System.out.println("-------------|---------------------------------|-------------------");
 
