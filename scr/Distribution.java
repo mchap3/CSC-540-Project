@@ -137,7 +137,7 @@ public class Distribution {
 	//e.g., Change the Contact attribute (from 'John' to 'Jane') of a distributor specified by Name ('Library').
 	public void updateDistributor() {
 		try {
-			db.disableAutocommit();
+			//db.disableAutocommit();
 			// user prompt for what to update
 			String sql = null;
 			System.out.println("\nUpdate Distributor");
@@ -156,35 +156,32 @@ public class Distribution {
 			String up_value = "'" + scanner.nextLine() + "'";
 			String sql1 = "UPDATE Distributors SET " + up_attr + " = " +  up_value + " WHERE " + sel_attr + " = " + sel_value + ";";
 			//System.out.println(sql1);
-			db.update(sql1);
-			// pull updated record and confirm the change
-			System.out.println("Updated records:");
-			result = db.query("SELECT * FROM Distributors WHERE " + up_attr + " = " + up_value + ";");
-			DBTablePrinter.printResultSet(result);
+			
+			// confirm the change and pull updated record
 			System.out.println("Confirm changes? (yes/no)");
 			String userType = scanner.nextLine().toLowerCase();
 			if (userType.equals("yes")){
-				if (db.commit()){
-					System.out.println("Updated");
+				db.update(sql1);
+				System.out.println("Updated records:");
+				result = db.query("SELECT * FROM Distributors WHERE " + up_attr + " = " + up_value + ";");
+				if (db.commit()) {
+					DBTablePrinter.printResultSet(result);
 				}
 			}
-//			else{
-//				if (db.rollback()){
-//					System.out.println("No changes made");
-//				}
-//				
-//			}
+			else{
+				System.out.println("No changes made");								
+			}
 								
 				} catch (Exception e) {
 			e.printStackTrace();
 		} 
-			db.enableAutocommit();
+			//db.enableAutocommit();
 	}
 
 	// change distributor balance API
 	public void balanceDistributor() {
 		try {
-			db.disableAutocommit();
+			//db.disableAutocommit();
 			// user prompt for which account to update
 			String sql = null;
 			System.out.println("\nUpdate Distributor Balance");
@@ -197,32 +194,28 @@ public class Distribution {
 			DBTablePrinter.printResultSet(result);
 			// user prompt for new values
 			System.out.println("Enter New Balance:");
-			String up_value = scanner.nextLine();
-			String sql1 = "UPDATE Distributors SET Balance = " + up_value + " WHERE DistAccountNum = " + sel_id + ";";
-			System.out.println(sql1);
-			db.update(sql1);
-			// pull updated record and confirm the change
-			System.out.println("Updated records:");
-			result = db.query(sql);
-			DBTablePrinter.printResultSet(result);
+			String up_value = scanner.nextLine();		
+			
+			// confirm the change and pull updated record		
 			System.out.println("Confirm changes? (yes/no)");
 			String userType = scanner.nextLine().toLowerCase();
 			if (userType.equals("yes")){
+				String sql1 = "UPDATE Distributors SET Balance = " + up_value + " WHERE DistAccountNum = " + sel_id + ";";
+				db.update(sql1);
+				result = db.query(sql);
 				if (db.commit()){
-					System.out.println("Updated");
+					System.out.println("Updated records:");
+					DBTablePrinter.printResultSet(result);
 				}
 			}
-//			else{
-//				if (db.rollback()){
-//					System.out.println("No changes made");
-//				}
-//				
-//			}
+			else{
+				System.out.println("No changes made");								
+			}
 								
 				} catch (Exception e) {
 			e.printStackTrace();
 		} 
-			db.enableAutocommit();
+			//db.enableAutocommit();
 	}
 
 	// place publication order API
