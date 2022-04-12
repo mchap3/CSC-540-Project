@@ -30,11 +30,16 @@ public class Distribution {
 				}
 			}
 			// user prompt
-			System.out.println("\nAdd New Distributor (current max ID is " + maxID + "), enter NULL for auto increment");
-			System.out.println("Enter New Account ID:");
-			int newID = Integer.parseInt(scanner.nextLine());
+			System.out.println("\nAdd New Distributor");
+			System.out.println("Enter New Account ID(current max ID is " + maxID + ", use 0 for auto increment");
+			String newID_str = scanner.nextLine();
+			int newID = Integer.parseInt(newID_str);
+			if (newID == 0){
+				newID_str = "NULL";
+			}			
 			if (newID<=maxID) {
 				newID = maxID + 1;
+				newID_str = Integer.toString(newID);
 			}
 			System.out.println("Enter New Account Name:");
 			String d_name = "'" + scanner.nextLine() + "'";
@@ -52,11 +57,11 @@ public class Distribution {
 			String d_balance = scanner.nextLine();
 			// update string
 			String sql = "INSERT INTO Distributors VALUES (" 
-				+ newID + "," + d_name + "," + d_type + "," + d_street + "," + d_city + "," + d_phone + ","
+				+ newID_str + "," + d_name + "," + d_type + "," + d_street + "," + d_city + "," + d_phone + ","
 				+ d_contact + "," + d_balance + ");";
 			// update and commit
 			db.update(sql);
-			result = db.query("SELECT * FROM Distributors WHERE DistAccountNum =" + newID + " ;");
+			result = db.query("SELECT * FROM Distributors WHERE DistAccountNum =" + newID_str + " ;");
 			if (db.commit()) {
 				System.out.println("\nSuccessfully Added Following Record");
 				DBTablePrinter.printResultSet(result);
@@ -150,7 +155,7 @@ public class Distribution {
 			System.out.println("Enter new value:");
 			String up_value = "'" + scanner.nextLine() + "'";
 			String sql1 = "UPDATE Distributors SET " + up_attr + " = " +  up_value + " WHERE " + sel_attr + " = " + sel_value + ";";
-			System.out.println(sql1);
+			//System.out.println(sql1);
 			db.update(sql1);
 			// pull updated record and confirm the change
 			System.out.println("Updated records:");
@@ -232,11 +237,16 @@ public class Distribution {
 				}
 			}
 			// user prompt
-			System.out.println("\nAdd New Order (current max ID is " + maxID + ")");
-			System.out.println("Enter New Order ID (NULL for auto increment):");
-			int newID = Integer.parseInt(scanner.nextLine());
+			System.out.println("\nAdd New Order");
+			System.out.println("Enter New Order ID (current max ID is " + maxID + ", use 0 for auto increment):");
+			String newID_str = scanner.nextLine();
+			int newID = Integer.parseInt(newID_str);
+			if (newID == 0){
+				newID_str = "NULL";
+			}			
 			if (newID<=maxID) {
 				newID = maxID + 1;
+				newID_str = Integer.toString(newID);
 			}
 			System.out.println("Enter Distributor Account:");
 			String d_id = scanner.nextLine();
@@ -244,6 +254,11 @@ public class Distribution {
 			String pub_ID = scanner.nextLine();
 			System.out.println("Enter Number of Copies:");
 			String num_copies = scanner.nextLine();
+			System.out.println("Enter Order Date (year-month-date) or leave blank for today's date:");
+			String order_date = scanner.nextLine();
+			if (order_date.isEmpty())
+				order_date = java.time.LocalDate.now().toString();
+			order_date = "'" + order_date + "'";
 			System.out.println("Enter Production Date (year-month-date):");
 			String prod_date = "'" + scanner.nextLine() + "'";
 			System.out.println("Enter Price");
@@ -252,8 +267,8 @@ public class Distribution {
 			String ship_cost = scanner.nextLine();
 			// update string
 			String sql = "INSERT INTO Orders VALUES (" 
-				+ newID + "," + d_id + "," + pub_ID + "," + num_copies + "," + prod_date + "," + order_price + "," + ship_cost + ");";
-			//System.out.println(sql);
+				+ newID_str + "," + d_id + "," + pub_ID + "," + num_copies + "," + order_date + "," + prod_date + "," + order_price + "," + ship_cost + ");";
+			System.out.println(sql);
 			// update and commit
 			db.update(sql);
 			result = db.query("SELECT * FROM Orders WHERE OrderID =" + newID + ";");
@@ -270,8 +285,9 @@ public class Distribution {
 	}
 
 	// bill distributor (create new invocie) API
-	// enter month-year manually in oppose to determining the current month and using previous month to query
-	// the invoice date is set by the end date
+	// enter month-year manually in oppose to determining the current month; 
+	// the invoice start date is the first of the entered month (>=)
+	// end date - the first of the next month (<)
 	public void newInvoice() {
 		try {
 			//Get the highest ID from the Invoice table
@@ -280,15 +296,22 @@ public class Distribution {
 			if (db.commit()){
 				if (result.next()) {
 					maxID = result.getInt("MaxID");
+					System.out.println(maxID);
 				}
 			}
 			// user prompt
-			System.out.println("\nGenerate New Invoice (current max ID is " + maxID + ")");
-			System.out.println("Enter New Invoice ID (NULL for auto increment):");
-			int newID = Integer.parseInt(scanner.nextLine());
+			System.out.println("\nGenerate New Invoice");
+			System.out.println("Enter New Invoice ID (current max ID is " + maxID + ", use 0 for auto increment):");
+				String newID_str = scanner.nextLine();
+			int newID = Integer.parseInt(newID_str);
+			if (newID == 0){
+				newID_str = "NULL";
+			}			
 			if (newID<=maxID) {
 				newID = maxID + 1;
+				newID_str = Integer.toString(newID);
 			}
+
 			System.out.println("Enter Distributor Account:");
 			String d_id = scanner.nextLine();
 			result = db.query("SELECT * FROM Orders WHERE DistAccountNum =" + d_id + ";");
@@ -303,13 +326,26 @@ public class Distribution {
 			int month_int =  Integer.parseInt(split_date[1]);
 			String end_date =  split_date[0] + "-" + Integer.toString(month_int+1) + "-" + split_date[2];
 
-			// update string
-			String sum_str = "(SELECT SUM(Price) FROM Orders WHERE DistAccountNum = " + d_id + 
-				" AND ProduceByDate >= " + start_date + " AND ProduceByDate < " + end_date + ")";
-			String sql = "INSERT INTO Invoices VALUES (" + newID + "," + d_id + "," + sum_str
+			// calculate total from Orders - original query
+			//String sum_str = "(SELECT SUM(Price) FROM Orders WHERE DistAccountNum = " + d_id + 
+			//	" AND ProduceByDate >= " + start_date + " AND ProduceByDate < " + end_date + ")";
+			//String sql = "INSERT INTO Invoices VALUES (" + newID_str + "," + d_id + "," + sum_str
+			//	+ "," + end_date + ", NULL);";
+
+			// calculate total from Orders: NumCopies*Price + Shipping
+			String sql5 = "(SELECT NumCopies, Price, ShippingCosts as ShC FROM Orders WHERE DistAccountNum = " + d_id + 
+				" AND ProduceByDate >= " + start_date + " AND ProduceByDate < " + end_date + ");";
+			result = db.query(sql5);
+			float invoice_total = 0;
+			if (db.commit()){
+				while (result.next()) {
+					invoice_total = invoice_total + result.getInt("NumCopies")*result.getFloat("Price") + result.getFloat("ShC");					
+				}
+			}
+			// update and commit
+			String sql = "INSERT INTO Invoices VALUES (" + newID_str + "," + d_id + "," + invoice_total
 				+ "," + end_date + ", NULL);";
-			System.out.println(sql);
-			// update and commit			
+			//System.out.println(sql);			
 			db.update(sql);
 			result = db.query("SELECT * FROM Invoices WHERE InvoiceID =" + newID + ";");
 			if (db.commit()) {
@@ -324,7 +360,7 @@ public class Distribution {
 		} 
 	}
 
-	// update invoice payment status API: change payment date from NULL 
+	// update invoice payment status API: change payment date from NULL to entered
 	public void paymentInvoice() {
 		try {
 			// user prompt
@@ -351,22 +387,22 @@ public class Distribution {
 
 	private static void helper() {
 		
-		System.out.println("\nCommand Code | Command Description                   | Arguments it needs");
-		System.out.println("-------------|---------------------------------------|-------------------");
+		System.out.println("\nCommand Code | Command Description             | Arguments it needs");
+		System.out.println("-------------|---------------------------------|-------------------");
 		
 		String[][] help = {	
-		         { "  D1         | print distributor                     | ", "Distributor ID" },
-		         { "  D2         | add distributor                       | ", "Distributor ID, Name, Type, Street Address, City Address, Phone, Contact, Balance" },
-		         { "  D3         | delete distributor                    | ", "Distributor ID" },
-		         { "  D4         | update distributor        	     | ", "Selection Attribute/Value, Update Attribute/Value" },
-		         { "  D5         | update distributor balance            | ", "Distributor ID" },
-		         { "  D6         | place publication order               | ", "Order ID, Dist ID, Pub ID, #Copies, Production Date, Price, Shipping" },
-		         { "  D7         | bill distributor (new invoice)        | ", "Distributor ID, invoice year-month" },
-		         { "  D8         | update invoice payment status         | ", "Invoice ID, payment date" }		         
+		         { "  D1         | print distributor               | ", "Distributor ID" },
+		         { "  D2         | add distributor                 | ", "Distributor ID, Name, Type, Street Address, City Address, Phone, Contact, Balance" },
+		         { "  D3         | delete distributor              | ", "Distributor ID" },
+		         { "  D4         | update distributor              | ", "Selection Attribute/Value, Update Attribute/Value" },
+		         { "  D5         | update distributor balance      | ", "Distributor ID" },
+		         { "  D6         | place publication order         | ", "Order ID, Dist ID, Pub ID, #Copies, Order Date, Production Date, Price, Shipping" },
+		         { "  D7         | bill distributor (new invoice)  | ", "Distributor ID, invoice year-month" },
+		         { "  D8         | update invoice payment status   | ", "Invoice ID, payment date" }		         
 		      };
 		
 		
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < help.length; i++) {
 			System.out.println(help[i][0] + help[i][1]);
 		}
 		System.out.println();

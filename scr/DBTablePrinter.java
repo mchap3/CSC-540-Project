@@ -479,7 +479,7 @@ public class DBTablePrinter {
                             // improved to be CONFIGURABLE.
                             if (!value.equals("NULL")) {
                                 Double dValue = rs.getDouble(i+1);
-                                value = String.format("%.3f", dValue);
+                                value = String.format("%.2f", dValue);
                             }
                             break;
 

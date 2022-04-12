@@ -83,9 +83,16 @@ public class Publishing {
 			String name = scanner.nextLine();
 			System.out.print("Enter type (Staff/Invited): ");
 			String type = scanner.nextLine();
+			System.out.print("Enter Phone Number: ");
+			String phone = scanner.nextLine();
+			System.out.print("Enter Email: ");
+			String email = scanner.nextLine();
+			System.out.print("Enter Address: ");
+			String address = scanner.nextLine();
 
 			// insert into Employees table
-			String sql = String.format("INSERT INTO Employees(Name, Type, Active) VALUES ('%s', '%s', true);", name, type);
+			String sql = String.format("INSERT INTO Employees(Name, Type, Phone, Email, Address, Active)"
+				+ "VALUES ('%s', '%s', '%s', '%s', '%s', true);", name, type, phone, email, address);
 			db.update(sql);
 			
 			// get ID of newly created employee
@@ -130,6 +137,12 @@ public class Publishing {
 			String newName = scanner.nextLine();
 			System.out.print("Enter new type (Staff/Invited, or blank to keep current): ");
 			String newType = scanner.nextLine();
+			System.out.print("Enter new phone (or blank to keep current): ");
+			String newPhone = scanner.nextLine();
+			System.out.print("Enter new email (or blank to keep current): ");
+			String newEmail = scanner.nextLine();
+			System.out.print("Enter new address (or blank to keep current): ");
+			String newAddress = scanner.nextLine();
 			System.out.print("Enter new active status (true/false, or blank to keep current): ");
 			String newActiveStatus = scanner.nextLine();
 			
@@ -141,6 +154,12 @@ public class Publishing {
 				sql += String.format("%sName = '%s'", sql.isEmpty() ? "" : ", ", newName);
 			if (!newType.isEmpty())
 				sql += String.format("%sType = '%s'", sql.isEmpty() ? "" : ", ", newType);
+			if (!newPhone.isEmpty())
+				sql += String.format("%sPhone = '%s'", sql.isEmpty() ? "" : ", ", newPhone);
+			if (!newEmail.isEmpty())
+				sql += String.format("%sEmail = '%s'", sql.isEmpty() ? "" : ", ", newEmail);
+			if (!newAddress.isEmpty())
+				sql += String.format("%sAddress = '%s'", sql.isEmpty() ? "" : ", ", newAddress);
 			if (!newActiveStatus.isEmpty())
 				sql += String.format("%sActive = %s", sql.isEmpty() ? "" : ", ", newActiveStatus);
 			
@@ -178,7 +197,7 @@ public class Publishing {
 		}
 	}
 
-	public void addAuthor() {
+	public int addAuthor() {
 		try {
 			// start transaction
 			db.disableAutocommit();
@@ -188,9 +207,16 @@ public class Publishing {
 			String name = scanner.nextLine();
 			System.out.print("Enter type (Staff/Invited): ");
 			String type = scanner.nextLine();
+			System.out.print("Enter Phone Number: ");
+			String phone = scanner.nextLine();
+			System.out.print("Enter Email: ");
+			String email = scanner.nextLine();
+			System.out.print("Enter Address: ");
+			String address = scanner.nextLine();
 
 			// insert into Employees table
-			String sql = String.format("INSERT INTO Employees(Name, Type, Active) VALUES ('%s', '%s', true);", name, type);
+			String sql = String.format("INSERT INTO Employees(Name, Type, Phone, Email, Address, Active)"
+				+ "VALUES ('%s', '%s', '%s', '%s', '%s', true);", name, type, phone, email, address);
 			db.update(sql);
 			
 			// get ID of newly created employee
@@ -212,8 +238,11 @@ public class Publishing {
 
 			// end transaction
 			db.enableAutocommit();
+			
+			return employeeID;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return 0;
 		}
 	}
 
@@ -235,6 +264,12 @@ public class Publishing {
 			String newName = scanner.nextLine();
 			System.out.print("Enter new type (Staff/Invited, or blank to keep current): ");
 			String newType = scanner.nextLine();
+			System.out.print("Enter new phone (or blank to keep current): ");
+			String newPhone = scanner.nextLine();
+			System.out.print("Enter new email (or blank to keep current): ");
+			String newEmail = scanner.nextLine();
+			System.out.print("Enter new address (or blank to keep current): ");
+			String newAddress = scanner.nextLine();
 			System.out.print("Enter new active status (true/false, or blank to keep current): ");
 			String newActiveStatus = scanner.nextLine();
 			
@@ -246,6 +281,12 @@ public class Publishing {
 				sql += String.format("%sName = '%s'", sql.isEmpty() ? "" : ", ", newName);
 			if (!newType.isEmpty())
 				sql += String.format("%sType = '%s'", sql.isEmpty() ? "" : ", ", newType);
+			if (!newPhone.isEmpty())
+				sql += String.format("%sPhone = '%s'", sql.isEmpty() ? "" : ", ", newPhone);
+			if (!newEmail.isEmpty())
+				sql += String.format("%sEmail = '%s'", sql.isEmpty() ? "" : ", ", newEmail);
+			if (!newAddress.isEmpty())
+				sql += String.format("%sAddress = '%s'", sql.isEmpty() ? "" : ", ", newAddress);
 			if (!newActiveStatus.isEmpty())
 				sql += String.format("%sActive = %s", sql.isEmpty() ? "" : ", ", newActiveStatus);
 			
