@@ -1,5 +1,5 @@
 import java.util.Scanner;
-//javac database_setup.java DBManager.java DBTablePrinter.java User.java Reports.java Distributors.java Production.java Publishers.java
+//javac database_setup.java DBManager.java DBTablePrinter.java User.java Reports.java Distribution.java Production.java Publishing.java Publisher.java DistributionTeam.java Editor.java FinancialTeam.java
 //java database_setup
 public class User {
 	
@@ -8,11 +8,11 @@ public class User {
 
 	private DBManager db = null;
 	
-	private Reports report = null;
-	private Production production = null;
+	private FinancialTeam financial = null;
+	private Editor editor = null;
 	// add your objects here
-	private Publishers publisher = null;
-	private Distributors distr_team = null;
+	private Publisher publisher = null;
+	private DistributionTeam distr_team = null;
 	
 	
 	public User(String user, Scanner s, DBManager dbM) {
@@ -22,17 +22,17 @@ public class User {
 		currUser = user;
 		
 		if (user.equals("4")) { // Financial Team
-			report = new Reports(db, scanner);
+			financial = new FinancialTeam(db, scanner);
 		}
 		else if (user.equals("1")) { // publisher
-			publisher = new Publishers(db, scanner);
+			publisher = new Publisher(db, scanner);
 		}
 		else if (user.equals("2")) { // editor
 			// editor object
-			production = new Production(db, scanner);
+			editor = new Editor(db, scanner);
 		}
 		else if (user.equals("3")) { // distribution team
-			distr_team = new Distributors(db, scanner);
+			distr_team = new DistributionTeam(db, scanner);
 		}
 		
 	}
@@ -40,13 +40,13 @@ public class User {
 	public void command(String command) {
 
 		if (currUser.equals("4")) { // Financial Team
-			report.command(command);
+			financial.command(command);
 		}
 		else if (currUser.equals("1")) { // publisher
 			publisher.command(command);
 		}
 		else if (currUser.equals("2")) { // editor
-			production.command(command);
+			editor.command(command);
 		}
 		else if (currUser.equals("3")) { // distribution team
 			distr_team.command(command);			

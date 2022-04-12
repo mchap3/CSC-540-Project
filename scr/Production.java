@@ -1,7 +1,7 @@
 import java.sql.*;
 import java.util.Scanner;
 
-//javac database_setup.java DBManager.java DBTablePrinter.java User.java Reports.java Distributors.java Production.java Publishers.java
+//javac database_setup.java DBManager.java DBTablePrinter.java User.java Reports.java Distribution.java Production.java Publishing.java Publisher.java DistributionTeam.java Editor.java FinancialTeam.java
 //java database_setup
 public class Production {
 
@@ -63,7 +63,7 @@ public class Production {
 					if (input.isEmpty())
 						break;
 					if (input.toLowerCase().equals("new")) {
-						Publishers pub = new Publishers(db, scanner);
+						Publishing pub = new Publishing(db, scanner);
 						empID = pub.addAuthor();
 					} else
 						empID = Integer.valueOf(input);
@@ -196,7 +196,7 @@ public class Production {
 							if (input.isEmpty())
 								break;
 							if (input.toLowerCase().equals("new")) {
-								Publishers pub = new Publishers(db, scanner);
+								Publishing pub = new Publishing(db, scanner);
 								empID = pub.addAuthor();
 							} else
 								empID = Integer.valueOf(input);
@@ -550,7 +550,7 @@ public class Production {
 					if (input.isEmpty())
 						break;
 					if (input.toLowerCase().equals("new")) {
-						Publishers pub = new Publishers(db, scanner);
+						Publishing pub = new Publishing(db, scanner);
 						empID = pub.addAuthor();
 					} else
 						empID = Integer.valueOf(input);
@@ -964,7 +964,7 @@ public class Production {
 		         { "  P17        | track employee payment                              | ", "" }
 		};
 
-		for (int i = 0; i < 17; i++) {
+		for (int i = 0; i < help.length; i++) {
 			System.out.println(help[i][0] + help[i][1]);
 		}
 		System.out.println();

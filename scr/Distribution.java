@@ -2,17 +2,17 @@ import java.sql.*;
 import java.util.Scanner;
 
 
-//javac database_setup.java DBManager.java DBTablePrinter.java User.java Reports.java Distributors.java Production.java Publishers.java
+//javac database_setup.java DBManager.java DBTablePrinter.java User.java Reports.java Distribution.java Production.java Publishing.java Publisher.java DistributionTeam.java Editor.java FinancialTeam.java
 //java database_setup
 
-public class Distributors {
+public class Distribution {
 
 	private DBManager db = null;
 	private ResultSet result = null;
 	
 	private Scanner scanner = null;
 
-	public Distributors(DBManager dbM, Scanner s) {
+	public Distribution(DBManager dbM, Scanner s) {
 		db = dbM;
 		scanner = s;
 

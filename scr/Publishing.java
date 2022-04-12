@@ -2,16 +2,16 @@ import java.sql.*;
 import java.util.Scanner;
 
 
-//javac database_setup.java DBManager.java DBTablePrinter.java User.java Reports.java Distributors.java Production.java Publishers.java
+//javac database_setup.java DBManager.java DBTablePrinter.java User.java Reports.java Distribution.java Production.java Publishing.java Publisher.java DistributionTeam.java Editor.java FinancialTeam.java
 //java database_setup
 
-public class Publishers {
+public class Publishing {
 
 	private DBManager db = null;
 	private ResultSet result = null;
 	private Scanner scanner = null;
 
-	public Publishers(DBManager dbM, Scanner s) {
+	public Publishing(DBManager dbM, Scanner s) {
 		db = dbM;
 		scanner = s;
 	}
@@ -327,7 +327,7 @@ public class Publishers {
 	private static void helper() {
 		
 		System.out.println("\nCommand Code | Command Description             | Arguments it needs");
-		System.out.println("-------------|---------------------------------|-------------------------------");
+		System.out.println("-------------|---------------------------------|-------------------");
 		
 		String[][] help = {	
 		         { "  P1         | assign editor to publication    | ", "employee ID, publication ID" },
