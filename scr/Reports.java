@@ -143,7 +143,7 @@ public class Reports {
 					+ "WHERE ProduceByDate >= '"+ startDate + "' AND ProduceByDate <= '"+ endDate +"';";
 
 			String sq2 = "SELECT SUM(Amount) AS Total_EmployeeCosts_Time_Period FROM Payments "
-					+ "WHERE ProduceByDate >= '"+ startDate + "' AND ProduceByDate <= '"+ endDate +"';";
+					+ "WHERE SubmitDate >= '"+ startDate + "' AND SubmitDate <= '"+ endDate +"';";
 
 			// commitQuery is for querying, commitUpdate is for everything else and that wont return anything unlike this one.
 			
@@ -300,21 +300,20 @@ public class Reports {
 			System.out.println("Enter Valid End Date for Report (YYYY-MM-DD format):");
 			String endDate = scanner.nextLine();
 
-			String sql = "SELECT SUM(Amount) AS Total_Editor_Pay FROM Payments p, Employees e, Editors ed "
-					+ "WHERE p.EmpID = e.EmpID AND p.EmpID = ed.EmpID AND SubmitDate >= '"+ startDate + "' AND SubmitDate <= '"+ endDate +"';";
+			String sql = "SELECT '" + startDate + " to " + endDate + "' AS PayPeriod, Type, SUM(Amount) AS Total_Pay_For_WorkType "
+					+ "FROM Payments p, Employees e, Editors ed WHERE p.EmpID = e.EmpID AND p.EmpID = ed.EmpID AND "
+					+ " SubmitDate >= '"+ startDate + "' AND SubmitDate <= '"+ endDate +"' GROUP BY Type;";
 
-			String sq2 = "SELECT SUM(Amount) AS Total_Author_Pay FROM Payments p, Employees e, Authors a "
-					+ "WHERE p.EmpID = e.EmpID AND p.EmpID = a.EmpID AND SubmitDate >= '"+ startDate + "' AND SubmitDate <= '"+ endDate +"';";
-
-			String sq3 = "SELECT SUM(Amount) AS Total_Staff_Pay FROM Payments p, Employees e "
-					+ "WHERE p.EmpID = e.EmpID AND Type = 'Staff' AND SubmitDate >= '"+ startDate + "' AND SubmitDate <= '"+ endDate +"';";
-
+			String sq2 = "SELECT '" + startDate + " to " + endDate + "' AS PayPeriod, Type, SUM(Amount) AS Total_Pay_For_WorkType "
+					+ "FROM Payments p, Employees e, Authors ath WHERE p.EmpID = e.EmpID AND p.EmpID = ath.EmpID AND "
+					+ " SubmitDate >= '"+ startDate + "' AND SubmitDate <= '"+ endDate +"' GROUP BY Type;";
+			
 			
 // commitQuery is for querying, commitUpdate is for everything else and that wont return anything unlike this one.
 			
 			result = db.query(sql);
-			ResultSet result2 = db.query(sq2);
-			ResultSet result3 = db.query(sq3);
+			ResultSet result2 = db.query(sq2); 
+
 			
 			// commit and if successful, print the tables
 			if (db.commit()) {
@@ -322,8 +321,7 @@ public class Reports {
 				DBTablePrinter.printResultSet(result);
 				System.out.println("\nAuthor Pay:");
 				DBTablePrinter.printResultSet(result2);
-				System.out.println("\nInvited VS Staff: For a Given Month:");
-				DBTablePrinter.printResultSet(result3);
+
 			}
 			
 			System.out.println();
@@ -349,24 +347,30 @@ public class Reports {
 			System.out.println("Enter Valid End Date for Report (YYYY-MM-DD format):");
 			String endDate = scanner.nextLine();
 
-			String sql = "SELECT '" + startDate + " to " + endDate + "' AS PayPeriod, Type, SUM(Amount) AS Total_Pay_For_WorkType "
+			String sql = "SELECT '" + startDate + " to " + endDate + "' AS PayPeriod, SUM(Amount) AS Total_Pay_For_WorkType "
 					+ "FROM Payments p, Employees e, Editors ed, Edits et WHERE p.EmpID = e.EmpID AND p.EmpID = ed.EmpID AND "
-					+ "p.EmpID = et.EmpID AND SubmitDate >= '"+ startDate + "' AND SubmitDate <= '"+ endDate +"' GROUP BY Type;";
+					+ "p.EmpID = et.EmpID AND SubmitDate >= '"+ startDate + "' AND SubmitDate <= '"+ endDate +"';";
 			
-			String sq2 = "SELECT '" + startDate + " to " + endDate + "' AS PayPeriod, p.EmpID, Type, Amount AS Total_Pay_For_WorkType "
-					+ "FROM Payments p NATURAL JOIN Employees e WHERE SubmitDate >= '"+ startDate + "' AND SubmitDate <= '"+ endDate +"' AND "
-					+ "p.EmpID IN (SELECT EmpID from WritesArticle);";
+			String sq2 = "SELECT '" + startDate + " to " + endDate + "' AS PayPeriod, SUM(Amount) AS Total_Pay_For_WorkType "
+					+ "FROM Payments p, Employees e, Authors ed, WritesBook et WHERE p.EmpID = e.EmpID AND p.EmpID = ed.EmpID AND "
+					+ "p.EmpID = et.EmpID AND SubmitDate >= '"+ startDate + "' AND SubmitDate <= '"+ endDate +"';";
+
+			String sq3 = "SELECT '" + startDate + " to " + endDate + "' AS PayPeriod, SUM(Amount) AS Total_Pay_For_WorkType "
+					+ "FROM Payments p, Employees e, Authors ed, WritesArticle et WHERE p.EmpID = e.EmpID AND p.EmpID = ed.EmpID AND "
+					+ "p.EmpID = et.EmpID AND SubmitDate >= '"+ startDate + "' AND SubmitDate <= '"+ endDate +"';";
 
 			// commitQuery is for querying, commitUpdate is for everything else and that wont return anything unlike this one.
 			result = db.query(sql);
 			ResultSet result2 = db.query(sq2);
-			
+			ResultSet result3 = db.query(sq3);
 			// commit and if successful, print the tables
 			if (db.commit()) {
-				System.out.println("\nEditor Pay: for Invited and Staff:");
+				System.out.println("\nEditor Pay: ");
 				DBTablePrinter.printResultSet(result);
-				System.out.println("\nAuthor Pay: for Invited and Staff:");
+				System.out.println("\nAuthor Pay: for Book:");
 				DBTablePrinter.printResultSet(result2);
+				System.out.println("\nAuthor Pay: for Article:");
+				DBTablePrinter.printResultSet(result3);
 			}
 			
 			System.out.println();
