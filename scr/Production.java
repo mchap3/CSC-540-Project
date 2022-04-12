@@ -142,7 +142,7 @@ public class Production {
 			// build UPDATE Books SQL statement
 			String sql5 = "";
 			if (!newEditionNum.isEmpty())
-				sql5 += "EditionNumber = " + newEditionNum;
+				sql5 += String.format("EditionNumber = '%s'", newEditionNum);
 			if (!newIsbn.isEmpty())
 				sql5 += String.format("%sISBN = '%s'", sql5.isEmpty() ? "" : ", ", newIsbn);
 			if (!newPubDate.isEmpty())
@@ -178,7 +178,6 @@ public class Production {
 						break;
 					if (input.equals("1")) {
 						// remove author
-						DBTablePrinter.printResultSet(result2);
 						System.out.print("Enter AuthorID to remove: ");
 						empID = scanner.nextInt(); scanner.nextLine();
 						String sql7 = String.format("delete from WritesBook where PublicationID = %d and EmpID = %d;", newPubID == 0 ? pubID : newPubID, empID);
@@ -682,7 +681,7 @@ public class Production {
 			
 			// confirmation
 			System.out.println("Successfully Updated Following Record:");
-			String sql2 = String.format("select * from Articles where PublicationID = %d and ArticleTitle = '%s';", pubID, newArticleText);
+			String sql2 = String.format("select * from Articles where PublicationID = %d and ArticleTitle = '%s';", pubID, articleTitle);
 			result = db.query(sql2);
 			DBTablePrinter.printResultSet(result);
 			
