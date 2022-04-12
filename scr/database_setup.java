@@ -44,6 +44,7 @@ public class database_setup {
 
 			if (userType.equals("1") || userType.equals("2") || userType.equals("3") || userType.equals("4")) {
 				currentUser = new User(userType, scanner, db);
+				currentUser.command("");
 				break;
 			}
 		}
