@@ -108,6 +108,10 @@ public class Editor {
 			production.editChapter();
 			break;
 			
+		case "b8":
+			production.deleteChapter();
+			break;
+			
 		// issue menu commands
 		case "i3": 
 			production.createIssue();
@@ -130,10 +134,14 @@ public class Editor {
 			break;
 			
 		case "i8":
-			production.addArticleText();
+			production.deleteArticle();
 			break;
 			
 		case "i9":
+			production.addArticleText();
+			break;
+			
+		case "i10":
 			production.editArticleText();
 			break;
 			
@@ -166,6 +174,7 @@ public class Editor {
 		         { "  B5         | delete book                     | ", "publication ID" },
 		         { "  B6         | add book chapter                | ", "publication ID, chapter title" },
 		         { "  B7         | edit book chapter               | ", "publication ID, chapter title" },
+		         { "  B8         | delete book chapter             | ", "publication ID, chapter title" },
 		         { "  back       | return to editor menu           | ", "" }
 		};
 
@@ -187,8 +196,9 @@ public class Editor {
 		         { "  I5         | delete periodical issue         | ", "publication ID" },
 		         { "  I6         | add article to issue            | ", "publication ID, article title, article topic, author(s)" },
 		         { "  I7         | edit article in issue           | ", "publication ID, article title, article topic, author(s)" },
-		         { "  I8         | add article text                | ", "publication ID, article title, article text" },
-		         { "  I9         | update article text             | ", "publication ID, article title, article text" },
+		         { "  I8         | delete article in issue         | ", "publication ID, article title" },
+		         { "  I9         | add article text                | ", "publication ID, article title, article text" },
+		         { "  I10        | update article text             | ", "publication ID, article title, article text" },
 		         { "  back       | return to editor menu           | ", "" }
 		};
 

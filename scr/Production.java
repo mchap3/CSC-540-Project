@@ -338,6 +338,45 @@ public class Production {
 		
 	}
 	
+	public void deleteChapter() {
+		try {
+			System.out.println("DELETING CHAPTER...");
+			
+			// display book catalog
+			printBookCatalog();
+
+			// get publication ID from user
+			System.out.print("Enter publication ID: ");
+			int pubID = scanner.nextInt();
+			scanner.nextLine();
+
+			// display current book chapter information
+			String sql1 = String.format("select * from Chapters where PublicationID = %d;", pubID);
+			result = db.query(sql1);
+			DBTablePrinter.printResultSet(result);
+
+			// select which chapter to delete
+			System.out.print("Enter the chapter title you want to delete: ");
+			String chTitle = scanner.nextLine();
+
+			// get info and DELETE from Chapters
+			String sql3 = String.format("select * from Chapters where PublicationID = %d and ChapterTitle = '%s';",
+					pubID, chTitle);
+			result = db.query(sql3);
+			String sql2 = String.format("delete from Chapters where PublicationID = %d and ChapterTitle = '%s';", pubID, chTitle);
+			db.update(sql2);
+
+			// confirmation
+			System.out.println("Successfully Removed Following Record:");
+			DBTablePrinter.printResultSet(result);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} 
+		
+	}
+	
 	public void createIssue() {
 		try {
 			// start transaction
@@ -609,6 +648,38 @@ public class Production {
 			System.out.println("Successfully Updated Following Record:");
 			String sql3 = String.format("select * from Articles where PublicationID = %d and ArticleTitle = '%s';", pubID, newArticleTitle);
 			result = db.query(sql3);
+			DBTablePrinter.printResultSet(result);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} 
+		
+	}
+	
+	public void deleteArticle() {
+		try {
+			System.out.println("DELETING ARTICLE...");
+			
+			// display Issue catalog and get PublicationID from user
+			printIssueCatalog();
+			System.out.print("Enter publication ID: ");
+			int pubID = scanner.nextInt(); scanner.nextLine();
+			
+			// display Article list and get Article Title from user
+			result = db.query(String.format("select * from Articles where PublicationID = %d;", pubID));
+			DBTablePrinter.printResultSet(result);
+			System.out.print("Enter the article title you want to delete: ");
+			String articleTitle = scanner.nextLine();
+			
+			// get info then DELETE from Articles
+			String sql = String.format("select * from Articles where PublicationID = %d and ArticleTitle = '%s';", pubID, articleTitle);
+			result = db.query(sql);
+			String sql2 = String.format("delete from Articles where PublicationID = %d and ArticleTitle = '%s';", pubID, articleTitle);
+			db.update(sql2);
+			
+			// confirmation
+			System.out.println("Successfully Removed Following Record:");
 			DBTablePrinter.printResultSet(result);
 			
 		} catch (Exception e) {
