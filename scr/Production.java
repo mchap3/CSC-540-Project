@@ -63,7 +63,7 @@ public class Production {
 					if (input.isEmpty())
 						break;
 					if (input.toLowerCase().equals("new")) {
-						Publishers pub = new Publishers(db, scanner);
+						Publishing pub = new Publishing(db, scanner);
 						empID = pub.addAuthor();
 					} else
 						empID = Integer.valueOf(input);
@@ -196,7 +196,7 @@ public class Production {
 							if (input.isEmpty())
 								break;
 							if (input.toLowerCase().equals("new")) {
-								Publishers pub = new Publishers(db, scanner);
+								Publishing pub = new Publishing(db, scanner);
 								empID = pub.addAuthor();
 							} else
 								empID = Integer.valueOf(input);
@@ -550,7 +550,7 @@ public class Production {
 					if (input.isEmpty())
 						break;
 					if (input.toLowerCase().equals("new")) {
-						Publishers pub = new Publishers(db, scanner);
+						Publishing pub = new Publishing(db, scanner);
 						empID = pub.addAuthor();
 					} else
 						empID = Integer.valueOf(input);
