@@ -268,7 +268,7 @@ public class DBManager {
                     + "FOREIGN KEY (DistAccountNum) REFERENCES Distributors(DistAccountNum) "
                     + "ON UPDATE CASCADE ON DELETE SET NULL, "
                     + "FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) "
-                    + "ON UPDATE CASCADE);");
+                    + "ON UPDATE CASCADE ON DELETE SET NULL);");
             statement.executeUpdate(
                     "CREATE TABLE Invoices (InvoiceID INT AUTO_INCREMENT, "
                     + "DistAccountNum INT, "
