@@ -258,7 +258,7 @@ public class DBManager {
             statement.executeUpdate(
                     "CREATE TABLE Orders (OrderID INT AUTO_INCREMENT, "
                     + "DistAccountNum INT, "
-                    + "PublicationID INT NOT NULL, "
+                    + "PublicationID INT, "
                     + "NumCopies INT NOT NULL, "
 		    + "OrderDate DATE NOT NULL, "
                     + "ProduceByDate DATE NOT NULL, "
