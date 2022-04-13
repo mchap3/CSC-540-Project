@@ -91,8 +91,8 @@ public class Publishing {
 			String address = scanner.nextLine();
 
 			// insert into Employees table
-			String sql = String.format("INSERT INTO Employees(Name, Type, Phone, Email, Address, Active)"
-				+ "VALUES ('%s', '%s', '%s', '%s', '%s', true);", name, type, phone, email, address);
+			String sql = String.format("INSERT INTO Employees(Name, Type, Phone, Email, Address)"
+				+ "VALUES ('%s', '%s', '%s', '%s', '%s');", name, type, phone, email, address);
 			db.update(sql);
 			
 			// get ID of newly created employee
@@ -143,8 +143,8 @@ public class Publishing {
 			String newEmail = scanner.nextLine();
 			System.out.print("Enter new address (or blank to keep current): ");
 			String newAddress = scanner.nextLine();
-			System.out.print("Enter new active status (true/false, or blank to keep current): ");
-			String newActiveStatus = scanner.nextLine();
+//			System.out.print("Enter new active status (true/false, or blank to keep current): ");
+//			String newActiveStatus = scanner.nextLine();
 			
 			// create SET portion of update string
 			String sql = "";
@@ -160,8 +160,8 @@ public class Publishing {
 				sql += String.format("%sEmail = '%s'", sql.isEmpty() ? "" : ", ", newEmail);
 			if (!newAddress.isEmpty())
 				sql += String.format("%sAddress = '%s'", sql.isEmpty() ? "" : ", ", newAddress);
-			if (!newActiveStatus.isEmpty())
-				sql += String.format("%sActive = %s", sql.isEmpty() ? "" : ", ", newActiveStatus);
+//			if (!newActiveStatus.isEmpty())
+//				sql += String.format("%sActive = %s", sql.isEmpty() ? "" : ", ", newActiveStatus);
 			
 			// update if necessary
 			if (!sql.isEmpty()) {
@@ -215,8 +215,8 @@ public class Publishing {
 			String address = scanner.nextLine();
 
 			// insert into Employees table
-			String sql = String.format("INSERT INTO Employees(Name, Type, Phone, Email, Address, Active)"
-				+ "VALUES ('%s', '%s', '%s', '%s', '%s', true);", name, type, phone, email, address);
+			String sql = String.format("INSERT INTO Employees(Name, Type, Phone, Email, Address)"
+				+ "VALUES ('%s', '%s', '%s', '%s', '%s');", name, type, phone, email, address);
 			db.update(sql);
 			
 			// get ID of newly created employee
@@ -270,8 +270,8 @@ public class Publishing {
 			String newEmail = scanner.nextLine();
 			System.out.print("Enter new address (or blank to keep current): ");
 			String newAddress = scanner.nextLine();
-			System.out.print("Enter new active status (true/false, or blank to keep current): ");
-			String newActiveStatus = scanner.nextLine();
+//			System.out.print("Enter new active status (true/false, or blank to keep current): ");
+//			String newActiveStatus = scanner.nextLine();
 			
 			// create SET portion of update string
 			String sql = "";
@@ -287,8 +287,8 @@ public class Publishing {
 				sql += String.format("%sEmail = '%s'", sql.isEmpty() ? "" : ", ", newEmail);
 			if (!newAddress.isEmpty())
 				sql += String.format("%sAddress = '%s'", sql.isEmpty() ? "" : ", ", newAddress);
-			if (!newActiveStatus.isEmpty())
-				sql += String.format("%sActive = %s", sql.isEmpty() ? "" : ", ", newActiveStatus);
+//			if (!newActiveStatus.isEmpty())
+//				sql += String.format("%sActive = %s", sql.isEmpty() ? "" : ", ", newActiveStatus);
 			
 			// update if necessary
 			if (!sql.isEmpty()) {
@@ -333,10 +333,10 @@ public class Publishing {
 		         { "  P1         | assign editor to publication    | ", "employee ID, publication ID" },
 		         { "  P2         | view editor responsibilities    | ", "employee ID" },
 		         { "  P3         | add editor                      | ", "name, type" },
-		         { "  P4         | update editor                   | ", "employee ID, name, type, active" },
+		         { "  P4         | update editor                   | ", "employee ID, name, type" },
 		         { "  P5         | delete editor                   | ", "employee ID" },
 		         { "  P6         | add author                      | ", "employee ID, name, type" },
-		         { "  P7         | update author                   | ", "employee ID, name, type, active" },
+		         { "  P7         | update author                   | ", "employee ID, name, type" },
 		         { "  P8         | delete author                   | ", "employee ID" }
 		      };
 		

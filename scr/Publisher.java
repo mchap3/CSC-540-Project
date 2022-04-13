@@ -278,10 +278,10 @@ public class Publisher {
 				{ "  P1         | assign editor to publication    | ", "employee ID, publication ID" },
 				{ "  P2         | view editor responsibilities    | ", "employee ID" },
 				{ "  P3         | add editor                      | ", "name, type" },
-				{ "  P4         | update editor                   | ", "employee ID, name, type, active" },
+				{ "  P4         | update editor                   | ", "employee ID, name, type" },
 				{ "  P5         | delete editor                   | ", "employee ID" },
 				{ "  P6         | add author                      | ", "employee ID, name, type" },
-				{ "  P7         | update author                   | ", "employee ID, name, type, active" },
+				{ "  P7         | update author                   | ", "employee ID, name, type" },
 				{ "  P8         | delete author                   | ", "employee ID" },
 				{ "  back       | return to publisher menu        | ", "" }
 		};
