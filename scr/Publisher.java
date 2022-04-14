@@ -1,5 +1,11 @@
 import java.util.Scanner;
 
+/**
+ * User profile for Publisher with menus and commands for operations
+ * on publications, production, distribution, and financial menues.
+ *
+ * @author
+ */
 public class Publisher {
 	private DBManager db = null;
 	private Scanner scanner = null;
@@ -12,6 +18,13 @@ public class Publisher {
 	private enum Menu {MAIN, PUB, PROD, DIST, FIN}
 	private Menu menu;
 
+	/**
+	 * Constructs Publisher object with production, publishing 
+	 * distribution, report objects and menu flag
+	 * 
+	 * @param dbM DBManager object
+	 * @param s scanner object
+	 */
 	public Publisher(DBManager dbM, Scanner s) {
 		db = dbM;
 		scanner = s;
@@ -24,6 +37,9 @@ public class Publisher {
 		menu = Menu.MAIN;
 	}
 
+	/**
+	 * Prints main-menu-level command options available to Publisher class
+	 */
 	private static void helper() {
 		System.out.printf("%35s\n", "PUBLISHER MENU");
 		System.out.println("\nCommand Code | Command Description             | Arguments it needs");
@@ -43,6 +59,12 @@ public class Publisher {
 		System.out.println();
 	}
 
+	/**
+	 * Directs command string from user input to call the appropriate
+	 * production, publishing, distribution, and report APIs
+	 * 
+	 * @param com command string
+	 */
 	public void command(String com) {
 		System.out.println("Your Command: " + com + "\n");
 
@@ -276,7 +298,10 @@ public class Publisher {
 		}
 
 	}
-	
+
+	/**
+	 * Prints publisher-menu command options available to Publisher class
+	 */
 	private static void pubHelper() {
 		System.out.printf("%36s\n", "PUBLISHING MENU");
 		System.out.println("\nCommand Code | Command Description             | Arguments it needs");
@@ -299,7 +324,10 @@ public class Publisher {
 		}
 		System.out.println();
 	}
-	
+
+	/**
+	 * Prints publication-menu command options available to Publisher class
+	 */
 	private static void prodHelper() {
 		System.out.printf("%36s\n", "PRODUCTION MENU");
 		System.out.println("\nCommand Code | Command Description             | Arguments it needs");
@@ -331,7 +359,10 @@ public class Publisher {
 		}
 		System.out.println();
 	}
-	
+
+	/**
+	 * Prints distributor-menu command options available to Publisher class
+	 */
 	private static void distHelper() {
 		System.out.printf("%36s\n", "DISTRIBUTION MENU");
 		System.out.println("\nCommand Code | Command Description             | Arguments it needs");
@@ -354,7 +385,10 @@ public class Publisher {
 		}
 		System.out.println();
 	}
-	
+
+	/**
+	 * Prints report-menu command options available to Publisher class
+	 */
 	private static void finHelper() {
 		System.out.printf("%44s\n", "FINANCIAL MENU");
 		System.out.println("\nCommand Code | Command Description                              | Arguments it needs");
