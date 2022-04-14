@@ -2,21 +2,17 @@
 import java.util.*;
 
 /**
- * Creates database object 
- * Prints main-menu-level user type options
- * Determines user type from user's input
- * Starts corresponding User class
+ * Creates database object Prints main-menu-level user type options Determines
+ * user type from user's input Starts corresponding User class
  *
- * @author 
+ * @author
  */
 public class database_setup {
 
-/**
- * Creates new database object 
- * Scans user menu input
- * Directs command string from user input or exits the applcaition
- * and closes database connection
- */
+	/**
+	 * Creates new database object Scans user menu input Directs command string from
+	 * user input or exits the applcaition and closes database connection
+	 */
 	public static void main(String[] args) {
 
 		DBManager db = new DBManager();
@@ -42,12 +38,12 @@ public class database_setup {
 
 	// create User, returns the User object
 	/**
-	 * Prints main-menu-level user type options
-	 * Determines user type from user's input
-	 * Starts corresponding User class
+	 * Prints main-menu-level user type options Determines user type from user's
+	 * input Starts corresponding User class
+	 * 
 	 * @param currentUser User object
-	 * @param scanner scanner object
-	 * @param db DBManager object
+	 * @param scanner     scanner object
+	 * @param db          DBManager object
 	 */
 	private static User createUser(Scanner scanner, DBManager db, User currentUser) {
 
@@ -75,7 +71,7 @@ public class database_setup {
 	 * Directs command string from user input or exits the applcaition
 	 * 
 	 * @param currentUser User object
-	 * @param scanner scanner object
+	 * @param scanner     scanner object
 	 */
 	private static String command(Scanner scanner, User currentUser) {
 

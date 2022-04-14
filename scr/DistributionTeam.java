@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 /**
- * User profile for Distribution Team with menus and commands for operations
- * on distributor info.
+ * User profile for Distribution Team with menus and commands for operations on
+ * distributor info.
  *
  * @author Ilya Arakelyan
  */
@@ -12,12 +12,11 @@ public class DistributionTeam {
 	private Scanner scanner = null;
 	private Distribution distribution = null;
 
-
 	/**
 	 * Constructs DistribtuionTeam object with distribution object and menu flag
 	 * 
 	 * @param dbM DBManager object
-	 * @param s scanner object
+	 * @param s   scanner object
 	 */
 	public DistributionTeam(DBManager dbM, Scanner s) {
 		db = dbM;
@@ -26,9 +25,9 @@ public class DistributionTeam {
 		distribution = new Distribution(db, scanner);
 	}
 
-		/**
-		 * print menu for Distributor APIs prompt command input
-		 */
+	/**
+	 * print menu for Distributor APIs prompt command input
+	 */
 	private static void helper() {
 		System.out.printf("%40s\n", "DISTRIBUTION TEAM MENU");
 		System.out.println("\nCommand Code | Command Description             | Arguments it needs");
@@ -52,8 +51,8 @@ public class DistributionTeam {
 	}
 
 	/**
-	 * Directs command string from user input to call the appropriate
-	 * Distributor API
+	 * Directs command string from user input to call the appropriate Distributor
+	 * API
 	 * 
 	 * @param com command string
 	 */

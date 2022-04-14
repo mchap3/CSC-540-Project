@@ -3,15 +3,15 @@ import java.util.Scanner;
 //javac database_setup.java DBManager.java DBTablePrinter.java User.java Reports.java Distribution.java Production.java Publishing.java Publisher.java DistributionTeam.java Editor.java FinancialTeam.java
 //java database_setup
 
-	/**
- 	 * Distribution API class containing methods
-	 * printDistributor() - print
-	 * distributor info addDistributor() - add distributor delDistributor() - delete
-	 * distributor balanceDistributor() - change distributor balance placeOrder() -
-	 * place publication order newInvoice() - bill distributor (create new invocie)
-	 * paymentInvoice() - update invoice payment status
- 	 * @author Ilya Arakelyan
- 	 */
+/**
+ * Distribution API class containing methods printDistributor() - print
+ * distributor info addDistributor() - add distributor delDistributor() - delete
+ * distributor balanceDistributor() - change distributor balance placeOrder() -
+ * place publication order newInvoice() - bill distributor (create new invocie)
+ * paymentInvoice() - update invoice payment status
+ * 
+ * @author Ilya Arakelyan
+ */
 public class Distribution {
 
 	private DBManager db = null;
@@ -19,11 +19,11 @@ public class Distribution {
 	private Scanner scanner = null;
 
 	/**
-	 * Constructor with DBManager for database connection and Scanner for
-	 * user input.
+	 * Constructor with DBManager for database connection and Scanner for user
+	 * input.
 	 * 
 	 * @param dbM DBManager object
-	 * @param s Scanner object
+	 * @param s   Scanner object
 	 */
 	public Distribution(DBManager dbM, Scanner s) {
 		db = dbM;
@@ -31,9 +31,9 @@ public class Distribution {
 
 	}
 
-		/**
-		 * add distributor API. Prompt user for distributor info and update Database
-		 */
+	/**
+	 * add distributor API. Prompt user for distributor info and update Database
+	 */
 	public void addDistributor() {
 		try {
 			// Get the highest ID from the Distributor table
@@ -89,10 +89,10 @@ public class Distribution {
 
 	}
 
-			/**
-			 * Delete distributor API. Prompt user for Distributor ID, delete the
-			 * Distributor, update Database
-			 */
+	/**
+	 * Delete distributor API. Prompt user for Distributor ID, delete the
+	 * Distributor, update Database
+	 */
 	public void delDistributor() {
 		try {
 			// user prompt
@@ -124,10 +124,10 @@ public class Distribution {
 
 	}
 
-			/**
-			 * Print distributor info API. Prompt user for Distributor ID, print Distributor
-			 * info
-			 */
+	/**
+	 * Print distributor info API. Prompt user for Distributor ID, print Distributor
+	 * info
+	 */
 	public void printDistributor() {
 		try {
 			// user prompt
@@ -152,12 +152,12 @@ public class Distribution {
 
 	}
 
-			/**
-			 * update distributor API pick rows for with a given value for selected
-			 * attribute, modify one colums for those rows e.g., Change the Contact
-			 * attribute (from 'John' to 'Jane') of a distributor specified by Name
-			 * ('Library').
-			 */
+	/**
+	 * update distributor API pick rows for with a given value for selected
+	 * attribute, modify one colums for those rows e.g., Change the Contact
+	 * attribute (from 'John' to 'Jane') of a distributor specified by Name
+	 * ('Library').
+	 */
 	public void updateDistributor() {
 		try {
 			// user prompt for what to update
@@ -202,10 +202,10 @@ public class Distribution {
 
 	}
 
-			/**
-			 * Change distributor balance API. Prompt user for Distributor ID, change
-			 * Distributor balance
-			 */
+	/**
+	 * Change distributor balance API. Prompt user for Distributor ID, change
+	 * Distributor balance
+	 */
 	public void balanceDistributor() {
 		try {
 			// user prompt for which account to update
@@ -245,10 +245,10 @@ public class Distribution {
 
 	}
 
-			/**
-			 * Place publication order API. Prompt user for order info, create a new database
-			 * record in table Orders.
-			 */
+	/**
+	 * Place publication order API. Prompt user for order info, create a new
+	 * database record in table Orders.
+	 */
 	public void placeOrder() {
 		try {
 			// Get the highest ID from the Orders table
@@ -307,11 +307,11 @@ public class Distribution {
 		}
 	}
 
-			/**
-			 * Bill distributor (create new invocie) API. Prompt user for new invoice info,
-			 * create a new database record in table Invoices the invoice start date is the
-			 * first of the entered month (>=) end date - the first of the next month (<)
-			 */	
+	/**
+	 * Bill distributor (create new invocie) API. Prompt user for new invoice info,
+	 * create a new database record in table Invoices the invoice start date is the
+	 * first of the entered month (>=) end date - the first of the next month (<)
+	 */
 	public void newInvoice() {
 		try {
 			// Get the highest ID from the Invoice table
@@ -379,10 +379,10 @@ public class Distribution {
 		}
 	}
 
-			/**
-			 * Update invoice payment status API. Change payment date from NULL to user
-			 * specified
-			 */
+	/**
+	 * Update invoice payment status API. Change payment date from NULL to user
+	 * specified
+	 */
 	public void paymentInvoice() {
 		try {
 			// user prompt

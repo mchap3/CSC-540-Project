@@ -8,18 +8,18 @@ import java.sql.Statement;
 //java database_setup
 
 /**
- * Database manager that provides methods to connect to database,
- * operations with database (table creation, table population,
- * updates, transaction, etc.),
+ * Database manager that provides methods to connect to database, operations
+ * with database (table creation, table population, updates, transaction, etc.),
  * closes connection objects to database
  * 
- * @author 
+ * @author
  */
 public class DBManager {
 
-	//static final String jdbcURL = "jdbc:mariadb://classdb2.csc.ncsu.edu:3306/cpatel3";
-	//static final String user = "cpatel3";
-	//static final String password = "200048024";
+	// static final String jdbcURL =
+	// "jdbc:mariadb://classdb2.csc.ncsu.edu:3306/cpatel3";
+	// static final String user = "cpatel3";
+	// static final String password = "200048024";
 	static final String jdbcURL = "jdbc:mariadb://classdb2.csc.ncsu.edu:3306/iarakel";
 	static final String user = "iarakel";
 	static final String password = "Cehtycehty00";
@@ -29,8 +29,8 @@ public class DBManager {
 	private ResultSet result = null;
 
 	/**
-	 * Calls methods to connect to DB, create and populate tables 
-	 */	
+	 * Calls methods to connect to DB, create and populate tables
+	 */
 	public DBManager() {
 		connectToDatabase();
 		createTables();
@@ -38,7 +38,7 @@ public class DBManager {
 	}
 
 	/**
-	 * Returns connection object 
+	 * Returns connection object
 	 */
 	public Connection getConn() {
 		return connection;
@@ -62,14 +62,14 @@ public class DBManager {
 	}
 
 	/**
-	 * Returns result object 
+	 * Returns result object
 	 */
 	public ResultSet getResult() {
 		return result;
 	}
 
 	/**
-	 * Disable auto commit mode 
+	 * Disable auto commit mode
 	 */
 	public void disableAutocommit() {
 		try {
@@ -81,7 +81,7 @@ public class DBManager {
 	}
 
 	/**
-	 * Enable auto commit mode 
+	 * Enable auto commit mode
 	 */
 	public void enableAutocommit() {
 		try {
@@ -130,10 +130,10 @@ public class DBManager {
 	 * Commit if successful, rollback otherwise
 	 */
 	public boolean commit() {
-		
+
 		try {
 			connection.commit();
-			
+
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -148,13 +148,12 @@ public class DBManager {
 				e2.printStackTrace();
 			}
 		}
-		
+
 		return false;
 	}
 
 	/**
-	 * Connect to database with specified user credentials
-	 * create statement object
+	 * Connect to database with specified user credentials create statement object
 	 * Drop specified tables if they exist
 	 */
 	private void connectToDatabase() {
@@ -196,131 +195,75 @@ public class DBManager {
 	 */
 	private void createTables() {
 		try {
-			statement.executeUpdate(
-                    "CREATE TABLE Publication(PublicationID INT AUTO_INCREMENT, "
-                    + "Title VARCHAR(128) NOT NULL, "
-                    + "Type VARCHAR(128) NOT NULL, "
-                    + "Topic VARCHAR(128) NOT NULL, "
-                    + "PRIMARY KEY (PublicationID));");
-            statement.executeUpdate(
-                    "CREATE TABLE Issues(PublicationID INT, "
-                    + "IssueTitle VARCHAR(128) NOT NULL, "
-                    + "IssueDate DATE NOT NULL, "
-					+ "Periodicity VARCHAR(128) NOT NULL,"
-                    + "PRIMARY KEY (PublicationID), "
-                    + "FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) "
-                    + "ON UPDATE CASCADE ON DELETE CASCADE);");
-            statement.executeUpdate(
-                    "CREATE TABLE Articles(PublicationID INT, "
-                    + "ArticleTitle VARCHAR(128) NOT NULL, "
-                    + "ArticleTopic VARCHAR(128) NOT NULL, "
-                    + "ArticleText VARCHAR(128), "
-                    + "PRIMARY KEY (PublicationID, ArticleTitle), "
-                    + "FOREIGN KEY (PublicationID) REFERENCES Issues(PublicationID) "
-                    + "ON UPDATE CASCADE ON DELETE CASCADE);");
-            statement.executeUpdate(
-                    "CREATE TABLE Books(PublicationID INT, "
-                    + "EditionNumber VARCHAR(16), "
-                    + "ISBN VARCHAR(32), "
-                    + "PublicationDate DATE NOT NULL, "
-                    + "PRIMARY KEY (PublicationID), "
-                    + "UNIQUE(ISBN), "
-                    + "FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) "
-                    + "ON UPDATE CASCADE ON DELETE CASCADE);");
-            statement.executeUpdate(
-                    "CREATE TABLE Chapters(PublicationID INT, "
-                    + "ChapterTitle VARCHAR(128), "
-                    + "PRIMARY KEY (PublicationID, ChapterTitle), "
-                    + "FOREIGN KEY (PublicationID) REFERENCES Books(PublicationID) "
-                    + "ON UPDATE CASCADE ON DELETE CASCADE);");
-            statement.executeUpdate(
-                    "CREATE TABLE Employees(EmpID INT AUTO_INCREMENT, "
-                    + "Name VARCHAR(128) NOT NULL, "
-		    //+ "Age INT NOT NULL, "
-		    //+ "Gender VARCHAR(10) NOT NULL, "
-                    + "Type VARCHAR(10) NOT NULL, "
-		    + "Phone VARCHAR(16) NOT NULL, "
-		    + "Email VARCHAR(128) NOT NULL, "
-		    + "Address VARCHAR(128) NOT NULL, " 
+			statement.executeUpdate("CREATE TABLE Publication(PublicationID INT AUTO_INCREMENT, "
+					+ "Title VARCHAR(128) NOT NULL, " + "Type VARCHAR(128) NOT NULL, " + "Topic VARCHAR(128) NOT NULL, "
+					+ "PRIMARY KEY (PublicationID));");
+			statement.executeUpdate("CREATE TABLE Issues(PublicationID INT, " + "IssueTitle VARCHAR(128) NOT NULL, "
+					+ "IssueDate DATE NOT NULL, " + "Periodicity VARCHAR(128) NOT NULL,"
+					+ "PRIMARY KEY (PublicationID), "
+					+ "FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) "
+					+ "ON UPDATE CASCADE ON DELETE CASCADE);");
+			statement.executeUpdate("CREATE TABLE Articles(PublicationID INT, " + "ArticleTitle VARCHAR(128) NOT NULL, "
+					+ "ArticleTopic VARCHAR(128) NOT NULL, " + "ArticleText VARCHAR(128), "
+					+ "PRIMARY KEY (PublicationID, ArticleTitle), "
+					+ "FOREIGN KEY (PublicationID) REFERENCES Issues(PublicationID) "
+					+ "ON UPDATE CASCADE ON DELETE CASCADE);");
+			statement.executeUpdate("CREATE TABLE Books(PublicationID INT, " + "EditionNumber VARCHAR(16), "
+					+ "ISBN VARCHAR(32), " + "PublicationDate DATE NOT NULL, " + "PRIMARY KEY (PublicationID), "
+					+ "UNIQUE(ISBN), " + "FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) "
+					+ "ON UPDATE CASCADE ON DELETE CASCADE);");
+			statement.executeUpdate("CREATE TABLE Chapters(PublicationID INT, " + "ChapterTitle VARCHAR(128), "
+					+ "PRIMARY KEY (PublicationID, ChapterTitle), "
+					+ "FOREIGN KEY (PublicationID) REFERENCES Books(PublicationID) "
+					+ "ON UPDATE CASCADE ON DELETE CASCADE);");
+			statement.executeUpdate("CREATE TABLE Employees(EmpID INT AUTO_INCREMENT, " + "Name VARCHAR(128) NOT NULL, "
+			// + "Age INT NOT NULL, "
+			// + "Gender VARCHAR(10) NOT NULL, "
+					+ "Type VARCHAR(10) NOT NULL, " + "Phone VARCHAR(16) NOT NULL, " + "Email VARCHAR(128) NOT NULL, "
+					+ "Address VARCHAR(128) NOT NULL, "
 //                    + "Active BOOLEAN NOT NULL, "
-                    + "PRIMARY KEY (EmpID));");
-            statement.executeUpdate(
-                    "CREATE TABLE Editors(EmpID INT, "
-                    + "PRIMARY KEY (EmpID), "
-                    + "FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) "
-                    + "ON UPDATE CASCADE ON DELETE CASCADE);");
-            statement.executeUpdate(
-                    "CREATE TABLE Authors(EmpID INT, "
-                    + "PRIMARY KEY (EmpID), "
-                    + "FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) "
-                    + "ON UPDATE CASCADE ON DELETE CASCADE);");
-            statement.executeUpdate(
-                    "CREATE TABLE Edits(PublicationID INT, "
-                    + "EmpID INT, "
-                    + "PRIMARY KEY (PublicationID, EmpID), "
-                    + "FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) "
-                    + "ON UPDATE CASCADE ON DELETE CASCADE, "
-                    + "FOREIGN KEY (EmpID) REFERENCES Editors(EmpID) "
-                    + "ON UPDATE CASCADE ON DELETE CASCADE);");
-            statement.executeUpdate(
-                    "CREATE TABLE WritesBook(PublicationID INT, "
-                    + "EmpID INT, "
-                    + "PRIMARY KEY (PublicationID, EmpID), "
-                    + "FOREIGN KEY (PublicationID) REFERENCES Books(PublicationID) "
-                    + "ON UPDATE CASCADE ON DELETE CASCADE, "
-                    + "FOREIGN KEY (EmpID) REFERENCES Authors(EmpID) "
-                    + "ON UPDATE CASCADE ON DELETE CASCADE);");
-            statement.executeUpdate(
-                    "CREATE TABLE WritesArticle(PublicationID INT, "
-                    + "ArticleTitle VARCHAR(128), "
-                    + "EmpID INT, "
-                    + "PRIMARY KEY (PublicationID, ArticleTitle, EmpID), "
-                    + "FOREIGN KEY (PublicationID, ArticleTitle) REFERENCES Articles(PublicationID, ArticleTitle) "
-                    + "ON UPDATE CASCADE ON DELETE CASCADE, "
-                    + "FOREIGN KEY (EmpID) REFERENCES Authors(EmpID) "
-                    + "ON UPDATE CASCADE ON DELETE CASCADE);");
-            statement.executeUpdate(
-                    "CREATE TABLE Payments(CheckNumber INT AUTO_INCREMENT, "
-                    + "EmpID INT, "
-                    + "Amount DECIMAL(8,2) NOT NULL, "
-                    + "SubmitDate DATE NOT NULL, "
-                    + "ClaimDate DATE, "
-                    + "PRIMARY KEY (CheckNumber), "
-                    + "FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) "
-                    + "ON UPDATE CASCADE ON DELETE SET NULL);");
-            statement.executeUpdate(
-                    "CREATE TABLE Distributors (DistAccountNum INT AUTO_INCREMENT, "
-                    + "Name VARCHAR(128) NOT NULL, "
-                    + "Type VARCHAR(128) NOT NULL, "
-                    + "Address VARCHAR(128) NOT NULL, "
-                    + "City VARCHAR(128) NOT NULL, "
-                    + "PhoneNumber VARCHAR(16) NOT NULL, "
-                    + "Contact VARCHAR(128) NOT NULL, "
-                    + "Balance DECIMAL(8,2) NOT NULL, "
-                    + "PRIMARY KEY (DistAccountNum));");
-            statement.executeUpdate(
-                    "CREATE TABLE Orders (OrderID INT AUTO_INCREMENT, "
-                    + "DistAccountNum INT, "
-                    + "PublicationID INT, "
-                    + "NumCopies INT NOT NULL, "
-		    + "OrderDate DATE NOT NULL, "
-                    + "ProduceByDate DATE NOT NULL, "
-                    + "Price DECIMAL(8,2) NOT NULL, "
-                    + "ShippingCosts DECIMAL(8,2) NOT NULL, "
-                    + "PRIMARY KEY (OrderID), "
-                    + "FOREIGN KEY (DistAccountNum) REFERENCES Distributors(DistAccountNum) "
-                    + "ON UPDATE CASCADE ON DELETE SET NULL, "
-                    + "FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) "
-                    + "ON UPDATE CASCADE ON DELETE SET NULL);");
-            statement.executeUpdate(
-                    "CREATE TABLE Invoices (InvoiceID INT AUTO_INCREMENT, "
-                    + "DistAccountNum INT, "
-                    + "Amount DECIMAL(8,2) NOT NULL, "
-                    + "BillingDate DATE NOT NULL, "
-                    + "PaymentDate DATE, "
-                    + "PRIMARY KEY (InvoiceID), "
-                    + "FOREIGN KEY (DistAccountNum) REFERENCES Distributors(DistAccountNum) "
-                    + "ON UPDATE CASCADE ON DELETE SET NULL);");
+					+ "PRIMARY KEY (EmpID));");
+			statement.executeUpdate("CREATE TABLE Editors(EmpID INT, " + "PRIMARY KEY (EmpID), "
+					+ "FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) " + "ON UPDATE CASCADE ON DELETE CASCADE);");
+			statement.executeUpdate("CREATE TABLE Authors(EmpID INT, " + "PRIMARY KEY (EmpID), "
+					+ "FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) " + "ON UPDATE CASCADE ON DELETE CASCADE);");
+			statement.executeUpdate(
+					"CREATE TABLE Edits(PublicationID INT, " + "EmpID INT, " + "PRIMARY KEY (PublicationID, EmpID), "
+							+ "FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) "
+							+ "ON UPDATE CASCADE ON DELETE CASCADE, " + "FOREIGN KEY (EmpID) REFERENCES Editors(EmpID) "
+							+ "ON UPDATE CASCADE ON DELETE CASCADE);");
+			statement.executeUpdate("CREATE TABLE WritesBook(PublicationID INT, " + "EmpID INT, "
+					+ "PRIMARY KEY (PublicationID, EmpID), "
+					+ "FOREIGN KEY (PublicationID) REFERENCES Books(PublicationID) "
+					+ "ON UPDATE CASCADE ON DELETE CASCADE, " + "FOREIGN KEY (EmpID) REFERENCES Authors(EmpID) "
+					+ "ON UPDATE CASCADE ON DELETE CASCADE);");
+			statement.executeUpdate("CREATE TABLE WritesArticle(PublicationID INT, " + "ArticleTitle VARCHAR(128), "
+					+ "EmpID INT, " + "PRIMARY KEY (PublicationID, ArticleTitle, EmpID), "
+					+ "FOREIGN KEY (PublicationID, ArticleTitle) REFERENCES Articles(PublicationID, ArticleTitle) "
+					+ "ON UPDATE CASCADE ON DELETE CASCADE, " + "FOREIGN KEY (EmpID) REFERENCES Authors(EmpID) "
+					+ "ON UPDATE CASCADE ON DELETE CASCADE);");
+			statement.executeUpdate("CREATE TABLE Payments(CheckNumber INT AUTO_INCREMENT, " + "EmpID INT, "
+					+ "Amount DECIMAL(8,2) NOT NULL, " + "SubmitDate DATE NOT NULL, " + "ClaimDate DATE, "
+					+ "PRIMARY KEY (CheckNumber), " + "FOREIGN KEY (EmpID) REFERENCES Employees(EmpID) "
+					+ "ON UPDATE CASCADE ON DELETE SET NULL);");
+			statement.executeUpdate("CREATE TABLE Distributors (DistAccountNum INT AUTO_INCREMENT, "
+					+ "Name VARCHAR(128) NOT NULL, " + "Type VARCHAR(128) NOT NULL, "
+					+ "Address VARCHAR(128) NOT NULL, " + "City VARCHAR(128) NOT NULL, "
+					+ "PhoneNumber VARCHAR(16) NOT NULL, " + "Contact VARCHAR(128) NOT NULL, "
+					+ "Balance DECIMAL(8,2) NOT NULL, " + "PRIMARY KEY (DistAccountNum));");
+			statement.executeUpdate("CREATE TABLE Orders (OrderID INT AUTO_INCREMENT, " + "DistAccountNum INT, "
+					+ "PublicationID INT, " + "NumCopies INT NOT NULL, " + "OrderDate DATE NOT NULL, "
+					+ "ProduceByDate DATE NOT NULL, " + "Price DECIMAL(8,2) NOT NULL, "
+					+ "ShippingCosts DECIMAL(8,2) NOT NULL, " + "PRIMARY KEY (OrderID), "
+					+ "FOREIGN KEY (DistAccountNum) REFERENCES Distributors(DistAccountNum) "
+					+ "ON UPDATE CASCADE ON DELETE SET NULL, "
+					+ "FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) "
+					+ "ON UPDATE CASCADE ON DELETE SET NULL);");
+			statement.executeUpdate("CREATE TABLE Invoices (InvoiceID INT AUTO_INCREMENT, " + "DistAccountNum INT, "
+					+ "Amount DECIMAL(8,2) NOT NULL, " + "BillingDate DATE NOT NULL, " + "PaymentDate DATE, "
+					+ "PRIMARY KEY (InvoiceID), "
+					+ "FOREIGN KEY (DistAccountNum) REFERENCES Distributors(DistAccountNum) "
+					+ "ON UPDATE CASCADE ON DELETE SET NULL);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -340,7 +283,8 @@ public class DBManager {
 //            statement.executeUpdate("INSERT INTO Publication VALUES (NULL, 'Science', 'Journal', 'Science');");
 //            statement.executeUpdate("INSERT INTO Publication VALUES (NULL, 'Database Systems', 'Book', 'Databases');");
 //            statement.executeUpdate("INSERT INTO Publication VALUES (NULL, 'Database Systems', 'Book', 'Databases');");
-			statement.executeUpdate("INSERT INTO Publication VALUES (1001, 'Introduction to database', 'Book', 'technology');");
+			statement.executeUpdate(
+					"INSERT INTO Publication VALUES (1001, 'Introduction to database', 'Book', 'technology');");
 			statement.executeUpdate("INSERT INTO Publication VALUES (1002, 'Healthy Diet', 'Magazine', 'health');");
 			statement.executeUpdate("INSERT INTO Publication VALUES (1003, 'Animal Science', 'Journal', 'science');");
 
@@ -367,10 +311,8 @@ public class DBManager {
 //					"INSERT INTO Articles VALUES (6, 'Structure of Omicron', 'Coronavirus', 'structure_of_omicron.txt');");
 //			statement.executeUpdate(
 //					"INSERT INTO Articles VALUES (6, 'Fly Cell Atlas', 'Genetics', 'fly_cell_atlas.txt');");
-			statement.executeUpdate(
-					"INSERT INTO Articles VALUES (1002, 'UnknownTitle', 'UnknownTopic', 'ABC');");
-			statement.executeUpdate(
-					"INSERT INTO Articles VALUES (1003, 'UnknownTitle', 'UnknownTopic', 'AAA');");
+			statement.executeUpdate("INSERT INTO Articles VALUES (1002, 'UnknownTitle', 'UnknownTopic', 'ABC');");
+			statement.executeUpdate("INSERT INTO Articles VALUES (1003, 'UnknownTitle', 'UnknownTopic', 'AAA');");
 
 //			statement.executeUpdate("INSERT INTO Chapters VALUES (1, 'Chapter 1');");
 //			statement.executeUpdate("INSERT INTO Chapters VALUES (1, 'Chapter 2');");
@@ -389,9 +331,12 @@ public class DBManager {
 //			statement.executeUpdate("INSERT INTO Employees VALUES (6, 'Tom A', 'Invited', '919-xxx-xxxx', 'name@email.com','400 New Street');");
 //			statement.executeUpdate("INSERT INTO Employees VALUES (7, 'Jan P', 'Staff', '919-xxx-xxxx', 'name@email.com','400 New Street');");
 //			statement.executeUpdate("INSERT INTO Employees VALUES (8, 'Nina T', 'Invited', '919-xxx-xxxx', 'name@email.com','400 New Street');");
-			statement.executeUpdate("INSERT INTO Employees VALUES (3001, 'John', 'Staff', '9391234567', '3001@gmail.com','21 ABC St, NC 27');");
-			statement.executeUpdate("INSERT INTO Employees VALUES (3002, 'Ethen', 'Staff', '9491234567', '3002@gmail.com','21 ABC St, NC 27606');");
-			statement.executeUpdate("INSERT INTO Employees VALUES (3003, 'Cathy',  'Invited', '9591234567', '3003@gmail.com','3300 AAA St, NC 27606');");
+			statement.executeUpdate(
+					"INSERT INTO Employees VALUES (3001, 'John', 'Staff', '9391234567', '3001@gmail.com','21 ABC St, NC 27');");
+			statement.executeUpdate(
+					"INSERT INTO Employees VALUES (3002, 'Ethen', 'Staff', '9491234567', '3002@gmail.com','21 ABC St, NC 27606');");
+			statement.executeUpdate(
+					"INSERT INTO Employees VALUES (3003, 'Cathy',  'Invited', '9591234567', '3003@gmail.com','3300 AAA St, NC 27606');");
 
 //			statement.executeUpdate("INSERT INTO Authors VALUES (1);");
 //			statement.executeUpdate("INSERT INTO Authors VALUES (2);");
@@ -474,9 +419,12 @@ public class DBManager {
 //			statement.executeUpdate("INSERT INTO Orders VALUES (7, 2, 2, 2, '2022-4-25', '2022-5-12', 15.15, 2.00);");
 //			statement.executeUpdate("INSERT INTO Orders VALUES (8, 2, 1, 3, '2022-4-25', '2022-5-23', 15.15, 2.00);");
 //			statement.executeUpdate("INSERT INTO Orders VALUES (9, 3, 4, 4, '2022-4-25', '2022-5-25', 15.15, 2.00);");
-			statement.executeUpdate("INSERT INTO Orders VALUES (4001, 2001, 1001, 30, '2020-01-02', '2020-01-15', 20, 30);");
-			statement.executeUpdate("INSERT INTO Orders VALUES (4002, 2001, 1001, 10, '2020-02-05', '2020-02-15', 20, 15);");
-			statement.executeUpdate("INSERT INTO Orders VALUES (4003, 2002, 1003, 10, '2020-02-10', '2020-02-25', 10, 15);");
+			statement.executeUpdate(
+					"INSERT INTO Orders VALUES (4001, 2001, 1001, 30, '2020-01-02', '2020-01-15', 20, 30);");
+			statement.executeUpdate(
+					"INSERT INTO Orders VALUES (4002, 2001, 1001, 10, '2020-02-05', '2020-02-15', 20, 15);");
+			statement.executeUpdate(
+					"INSERT INTO Orders VALUES (4003, 2002, 1003, 10, '2020-02-10', '2020-02-25', 10, 15);");
 
 //			statement.executeUpdate("INSERT INTO Invoices VALUES (1, 1, 5.15, '2022-4-25', NULL);");
 //			statement.executeUpdate("INSERT INTO Invoices VALUES (2, 4, 10.30, '2022-4-25', '2022-5-05');");
@@ -492,8 +440,7 @@ public class DBManager {
 	}
 
 	/**
-	 * Close connection to database, close objects
-	 * connection, statement, result
+	 * Close connection to database, close objects connection, statement, result
 	 */
 	public void close() {
 
