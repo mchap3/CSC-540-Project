@@ -127,21 +127,21 @@ public class DBManager {
 			statement = connection.createStatement();
 
 			statement.executeUpdate("SET FOREIGN_KEY_CHECKS=0;");
-			statement.executeUpdate("DROP TABLE WritesBook");
-			statement.executeUpdate("DROP TABLE WritesArticle");
-			statement.executeUpdate("DROP TABLE Edits");
-			statement.executeUpdate("DROP TABLE Articles");
-			statement.executeUpdate("DROP TABLE Chapters");
-			statement.executeUpdate("DROP TABLE Issues");
-			statement.executeUpdate("DROP TABLE Books");
-			statement.executeUpdate("DROP TABLE Editors");
-			statement.executeUpdate("DROP TABLE Authors");
+			statement.executeUpdate("DROP TABLE IF EXISTS WritesBook");
+			statement.executeUpdate("DROP TABLE IF EXISTS WritesArticle");
+			statement.executeUpdate("DROP TABLE IF EXISTS Edits");
+			statement.executeUpdate("DROP TABLE IF EXISTS Articles");
+			statement.executeUpdate("DROP TABLE IF EXISTS Chapters");
+			statement.executeUpdate("DROP TABLE IF EXISTS Issues");
+			statement.executeUpdate("DROP TABLE IF EXISTS Books");
+			statement.executeUpdate("DROP TABLE IF EXISTS Editors");
+			statement.executeUpdate("DROP TABLE IF EXISTS Authors");
 			statement.executeUpdate("DROP TABLE IF EXISTS Payments");
-			statement.executeUpdate("DROP TABLE Employees");
-			statement.executeUpdate("DROP TABLE Invoices");
-			statement.executeUpdate("DROP TABLE Orders");
-			statement.executeUpdate("DROP TABLE Distributors");
-			statement.executeUpdate("DROP TABLE Publication");
+			statement.executeUpdate("DROP TABLE IF EXISTS Employees");
+			statement.executeUpdate("DROP TABLE IF EXISTS Invoices");
+			statement.executeUpdate("DROP TABLE IF EXISTS Orders");
+			statement.executeUpdate("DROP TABLE IF EXISTS Distributors");
+			statement.executeUpdate("DROP TABLE IF EXISTS Publication");
 			statement.executeUpdate("SET FOREIGN_KEY_CHECKS=1;");
 		} catch (SQLException e) {
 			e.printStackTrace();
