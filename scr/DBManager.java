@@ -20,9 +20,12 @@ public class DBManager {
 	// "jdbc:mariadb://classdb2.csc.ncsu.edu:3306/cpatel3";
 	// static final String user = "cpatel3";
 	// static final String password = "200048024";
-	static final String jdbcURL = "jdbc:mariadb://classdb2.csc.ncsu.edu:3306/iarakel";
-	static final String user = "iarakel";
-	static final String password = "Cehtycehty00";
+	// static final String jdbcURL = "jdbc:mariadb://classdb2.csc.ncsu.edu:3306/iarakel";
+	// static final String user = "iarakel";
+	// static final String password = "Cehtycehty00";
+	static final String jdbcURL = "jdbc:mariadb://classdb2.csc.ncsu.edu:3306/aabate";
+	static final String user = "aabate";
+	static final String password = "aabate";
 
 	private Connection connection = null;
 	private Statement statement = null;
