@@ -1,6 +1,12 @@
 import java.util.Scanner;
 //javac database_setup.java DBManager.java DBTablePrinter.java User.java Reports.java Distribution.java Production.java Publishing.java Publisher.java DistributionTeam.java Editor.java FinancialTeam.java
 //java database_setup
+
+/**
+ * User class creates user objects and
+ * starts the corresponding class for each user type
+ * @author
+ */
 public class User {
 	
 	private String currUser = null;
@@ -14,7 +20,14 @@ public class User {
 	private Publisher publisher = null;
 	private DistributionTeam distr_team = null;
 	
-	
+		/**
+	 * Constructor with DBManager for database connection and Scanner for
+	 * user input and user type string.
+	 * 
+	 * @param user String
+	 * @param dbM DBManager object
+	 * @param s Scanner object
+	 */	
 	public User(String user, Scanner s, DBManager dbM) {
 		
 		db = dbM;
@@ -36,7 +49,13 @@ public class User {
 		}
 		
 	}
-	
+
+	/**
+	 * Directs command string from user input to call the appropriate
+	 * user type class
+	 * 
+	 * @param command command string
+	 */	
 	public void command(String command) {
 
 		if (currUser.equals("4")) { // Financial Team
