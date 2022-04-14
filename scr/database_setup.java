@@ -11,12 +11,14 @@ public class database_setup {
 
 	/**
 	 * Creates new database object Scans user menu input Directs command string from
-	 * user input or exits the applcaition and closes database connection
+	 * user input or exits the application and closes database connection
 	 */
 	public static void main(String[] args) {
 
 		DBManager db = new DBManager();
 
+		db.disableAutocommit();
+		
 		User currentUser = null;
 
 		Scanner scanner = new Scanner(System.in);
