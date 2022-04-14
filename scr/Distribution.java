@@ -1,29 +1,40 @@
 import java.sql.*;
 import java.util.Scanner;
+//javac database_setup.java DBManager.java DBTablePrinter.java User.java Reports.java Distribution.java Production.java Publishing.java Publisher.java DistributionTeam.java Editor.java FinancialTeam.java
+//java database_setup
 
-public class Distribution {
 	/**
-	 * Collection of Distribution team API methods printDistributor() - print
+ 	 * Distribution API class containing methods
+	 * printDistributor() - print
 	 * distributor info addDistributor() - add distributor delDistributor() - delete
 	 * distributor balanceDistributor() - change distributor balance placeOrder() -
 	 * place publication order newInvoice() - bill distributor (create new invocie)
 	 * paymentInvoice() - update invoice payment status
-	 */
+ 	 * @author Ilya Arakelyan
+ 	 */
+public class Distribution {
+
 	private DBManager db = null;
 	private ResultSet result = null;
-
 	private Scanner scanner = null;
 
+	/**
+	 * Constructor with DBManager for database connection and Scanner for
+	 * user input.
+	 * 
+	 * @param dbM DBManager object
+	 * @param s Scanner object
+	 */
 	public Distribution(DBManager dbM, Scanner s) {
 		db = dbM;
 		scanner = s;
 
 	}
 
-	public void addDistributor() {
 		/**
-		 * add distributor API Prompt user for info and update Database
+		 * add distributor API. Prompt user for distributor info and update Database
 		 */
+	public void addDistributor() {
 		try {
 			// Get the highest ID from the Distributor table
 			int maxID = 0;
@@ -78,12 +89,12 @@ public class Distribution {
 
 	}
 
-	public void delDistributor() {
-		try {
 			/**
-			 * delete distributor API Prompt user for Distributor ID, delete the
+			 * Delete distributor API. Prompt user for Distributor ID, delete the
 			 * Distributor, update Database
 			 */
+	public void delDistributor() {
+		try {
 			// user prompt
 			System.out.println("\nDelete Distributor");
 			System.out.println("Enter Account ID to delete:");
@@ -113,12 +124,12 @@ public class Distribution {
 
 	}
 
-	public void printDistributor() {
-		try {
 			/**
-			 * print distributor info API Prompt user for Distributor ID, print Distributor
+			 * Print distributor info API. Prompt user for Distributor ID, print Distributor
 			 * info
 			 */
+	public void printDistributor() {
+		try {
 			// user prompt
 			String sql = null;
 			System.out.println("\nPrint Distributor");
@@ -141,15 +152,14 @@ public class Distribution {
 
 	}
 
-	//
-	public void updateDistributor() {
-		try {
 			/**
 			 * update distributor API pick rows for with a given value for selected
 			 * attribute, modify one colums for those rows e.g., Change the Contact
 			 * attribute (from 'John' to 'Jane') of a distributor specified by Name
 			 * ('Library').
 			 */
+	public void updateDistributor() {
+		try {
 			// user prompt for what to update
 			String sql = null;
 			System.out.println("\nUpdate Distributor");
@@ -192,12 +202,12 @@ public class Distribution {
 
 	}
 
-	public void balanceDistributor() {
-		try {
 			/**
-			 * change distributor balance API Prompt user for Distributor ID, change
+			 * Change distributor balance API. Prompt user for Distributor ID, change
 			 * Distributor balance
 			 */
+	public void balanceDistributor() {
+		try {
 			// user prompt for which account to update
 			String sql = null;
 			System.out.println("\nUpdate Distributor Balance");
@@ -235,12 +245,12 @@ public class Distribution {
 
 	}
 
+			/**
+			 * Place publication order API. Prompt user for order info, create a new database
+			 * record in table Orders.
+			 */
 	public void placeOrder() {
 		try {
-			/**
-			 * place publication order API Prompt user for order info, create a new database
-			 * record in table Orders
-			 */
 			// Get the highest ID from the Orders table
 			int maxID = 0;
 			result = db.query("select max(OrderID) as MaxID from Orders;");
@@ -297,13 +307,13 @@ public class Distribution {
 		}
 	}
 
-	public void newInvoice() {
-		try {
 			/**
-			 * bill distributor (create new invocie) API Prompt user for new invoice info,
+			 * Bill distributor (create new invocie) API. Prompt user for new invoice info,
 			 * create a new database record in table Invoices the invoice start date is the
 			 * first of the entered month (>=) end date - the first of the next month (<)
-			 */
+			 */	
+	public void newInvoice() {
+		try {
 			// Get the highest ID from the Invoice table
 			int maxID = 0;
 			result = db.query("select max(InvoiceID) as MaxID from Invoices;");
@@ -340,15 +350,6 @@ public class Distribution {
 			int month_int = Integer.parseInt(split_date[1]);
 			String end_date = split_date[0] + "-" + Integer.toString(month_int + 1) + "-" + split_date[2];
 
-			// calculate total from Orders - original query
-			// String sum_str = "(SELECT SUM(Price) FROM Orders WHERE DistAccountNum = " +
-			// d_id +
-			// " AND ProduceByDate >= " + start_date + " AND ProduceByDate < " + end_date +
-			// ")";
-			// String sql = "INSERT INTO Invoices VALUES (" + newID_str + "," + d_id + "," +
-			// sum_str
-			// + "," + end_date + ", NULL);";
-
 			// calculate total from Orders: NumCopies*Price + Shipping
 			String sql5 = "(SELECT NumCopies, Price, ShippingCosts as ShC FROM Orders WHERE DistAccountNum = " + d_id
 					+ " AND ProduceByDate >= " + start_date + " AND ProduceByDate < " + end_date + ");";
@@ -378,12 +379,12 @@ public class Distribution {
 		}
 	}
 
-	public void paymentInvoice() {
-		try {
 			/**
-			 * update invoice payment status API: change payment date from NULL to user
+			 * Update invoice payment status API. Change payment date from NULL to user
 			 * specified
 			 */
+	public void paymentInvoice() {
+		try {
 			// user prompt
 			System.out.println("\nUpdate Invoice Payment Status");
 			System.out.println("Enter Invoice ID to update:");
