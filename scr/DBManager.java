@@ -12,7 +12,7 @@ import java.sql.Statement;
  * with database (table creation, table population, updates, transaction, etc.),
  * closes connection objects to database
  * 
- * @author
+ * @author Chaitanya Patel
  */
 public class DBManager {
 

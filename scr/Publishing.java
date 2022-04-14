@@ -8,7 +8,7 @@ import java.util.Scanner;
  * Publishing API class containing all methods for Publication related
  * operations.
  *
- * @author
+ * @author Morgan Chapman
  */
 public class Publishing {
 

@@ -6,7 +6,7 @@ import java.util.Scanner;
  * User class creates user objects and starts the corresponding class for each
  * user type
  * 
- * @author
+ * @author Morgan Chapman
  */
 public class User {
 

@@ -4,7 +4,7 @@ import java.util.Scanner;
  * User profile for Publisher with menus and commands for operations on
  * publications, production, distribution, and financial menues.
  *
- * @author
+ * @author Andrew Abate
  */
 public class Publisher {
 	private DBManager db = null;

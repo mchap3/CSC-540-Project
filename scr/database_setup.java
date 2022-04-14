@@ -5,7 +5,7 @@ import java.util.*;
  * Creates database object Prints main-menu-level user type options Determines
  * user type from user's input Starts corresponding User class
  *
- * @author
+ * @author Chaitanya Patel
  */
 public class database_setup {
 
