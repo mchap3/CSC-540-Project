@@ -16,8 +16,6 @@ public class database_setup {
 	public static void main(String[] args) {
 
 		DBManager db = new DBManager();
-
-		db.disableAutocommit();
 		
 		User currentUser = null;
 
