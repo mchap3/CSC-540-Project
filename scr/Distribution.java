@@ -288,10 +288,12 @@ public class Distribution {
 			String order_price = scanner.nextLine();
 			System.out.println("Enter Shipping Cost:");
 			String ship_cost = scanner.nextLine();
+			float total_cost = Integer.parseInt(num_copies)*Float.parseFloat(order_price) + Float.parseFloat(ship_cost);
+			String total_cost_str = String.valueOf(total_cost);
 			// update string
 			String sql = "INSERT INTO Orders VALUES (" + newID_str + "," + d_id + "," + pub_ID + "," + num_copies + ","
-					+ order_date + "," + prod_date + "," + order_price + "," + ship_cost + ");";
-			System.out.println(sql);
+					+ order_date + "," + prod_date + "," + order_price + "," + ship_cost + "," +  total_cost_str +");";
+			//System.out.println(sql);
 			// update database and commit
 			db.update(sql);
 			result = db.query("SELECT * FROM Orders WHERE OrderID =" + newID + ";");
