@@ -36,6 +36,10 @@ public class Distribution {
 	 */
 	public void addDistributor() {
 		try {
+
+			// start transaction
+			db.disableAutocommit();
+
 			// Get the highest ID from the Distributor table
 			int maxID = 0;
 			result = db.query("select max(DistAccountNum) as MaxID from Distributors;");
@@ -85,6 +89,9 @@ public class Distribution {
 		} catch (Exception e) {
 			e.printStackTrace();
 
+		} finally {
+			// enable auto-commit after transaction
+			db.enableAutocommit();
 		}
 
 	}
@@ -95,6 +102,10 @@ public class Distribution {
 	 */
 	public void delDistributor() {
 		try {
+
+			// start transaction
+			db.disableAutocommit();
+
 			// user prompt
 			System.out.println("\nDelete Distributor");
 			System.out.println("Enter Account ID to delete:");
@@ -120,6 +131,9 @@ public class Distribution {
 		} catch (Exception e) {
 			e.printStackTrace();
 
+		} finally {
+			// enable auto-commit after transaction
+			db.enableAutocommit();
 		}
 
 	}
@@ -130,6 +144,10 @@ public class Distribution {
 	 */
 	public void printDistributor() {
 		try {
+
+			// start transaction
+			db.disableAutocommit();
+
 			// user prompt
 			String sql = null;
 			System.out.println("\nPrint Distributor");
@@ -148,6 +166,9 @@ public class Distribution {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			// enable auto-commit after transaction
+			db.enableAutocommit();
 		}
 
 	}
@@ -160,6 +181,10 @@ public class Distribution {
 	 */
 	public void updateDistributor() {
 		try {
+
+			// start transaction
+			db.disableAutocommit();
+
 			// user prompt for what to update
 			String sql = null;
 			System.out.println("\nUpdate Distributor");
@@ -198,6 +223,9 @@ public class Distribution {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			// enable auto-commit after transaction
+			db.enableAutocommit();
 		}
 
 	}
@@ -208,6 +236,10 @@ public class Distribution {
 	 */
 	public void balanceDistributor() {
 		try {
+
+			// start transaction
+			db.disableAutocommit();
+
 			// user prompt for which account to update
 			String sql = null;
 			System.out.println("\nUpdate Distributor Balance");
@@ -241,6 +273,9 @@ public class Distribution {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			// enable auto-commit after transaction
+			db.enableAutocommit();
 		}
 
 	}
@@ -251,6 +286,10 @@ public class Distribution {
 	 */
 	public void placeOrder() {
 		try {
+
+			// start transaction
+			db.disableAutocommit();
+
 			// Get the highest ID from the Orders table
 			int maxID = 0;
 			result = db.query("select max(OrderID) as MaxID from Orders;");
@@ -288,12 +327,13 @@ public class Distribution {
 			String order_price = scanner.nextLine();
 			System.out.println("Enter Shipping Cost:");
 			String ship_cost = scanner.nextLine();
-			float total_cost = Integer.parseInt(num_copies)*Float.parseFloat(order_price) + Float.parseFloat(ship_cost);
+			float total_cost = Integer.parseInt(num_copies) * Float.parseFloat(order_price)
+					+ Float.parseFloat(ship_cost);
 			String total_cost_str = String.valueOf(total_cost);
 			// update string
 			String sql = "INSERT INTO Orders VALUES (" + newID_str + "," + d_id + "," + pub_ID + "," + num_copies + ","
-					+ order_date + "," + prod_date + "," + order_price + "," + ship_cost + "," +  total_cost_str +");";
-			//System.out.println(sql);
+					+ order_date + "," + prod_date + "," + order_price + "," + ship_cost + "," + total_cost_str + ");";
+			// System.out.println(sql);
 			// update database and commit
 			db.update(sql);
 			result = db.query("SELECT * FROM Orders WHERE OrderID =" + newID + ";");
@@ -306,6 +346,9 @@ public class Distribution {
 		} catch (Exception e) {
 			e.printStackTrace();
 
+		} finally {
+			// enable auto-commit after transaction
+			db.enableAutocommit();
 		}
 	}
 
@@ -316,6 +359,10 @@ public class Distribution {
 	 */
 	public void newInvoice() {
 		try {
+
+			// start transaction
+			db.disableAutocommit();
+
 			// Get the highest ID from the Invoice table
 			int maxID = 0;
 			result = db.query("select max(InvoiceID) as MaxID from Invoices;");
@@ -378,6 +425,9 @@ public class Distribution {
 		} catch (Exception e) {
 			e.printStackTrace();
 
+		} finally {
+			// enable auto-commit after transaction
+			db.enableAutocommit();
 		}
 	}
 
@@ -387,6 +437,10 @@ public class Distribution {
 	 */
 	public void paymentInvoice() {
 		try {
+
+			// start transaction
+			db.disableAutocommit();
+
 			// user prompt
 			System.out.println("\nUpdate Invoice Payment Status");
 			System.out.println("Enter Invoice ID to update:");
@@ -405,6 +459,9 @@ public class Distribution {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			// enable auto-commit after transaction
+			db.enableAutocommit();
 		}
 
 	}

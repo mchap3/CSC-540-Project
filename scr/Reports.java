@@ -41,6 +41,9 @@ public class Reports {
 	public void generateReport() {
 		try {
 
+			// start transaction
+			db.disableAutocommit();
+
 			// Only Part that needs to be changed between each method.
 			// ************************************************
 			System.out.println("\nGenerate Report");
@@ -70,6 +73,9 @@ public class Reports {
 		} catch (Exception e) {
 			e.printStackTrace();
 
+		} finally {
+			// enable auto-commit after transaction
+			db.enableAutocommit();
 		}
 
 	}
@@ -79,6 +85,9 @@ public class Reports {
 	 */
 	public void totalPublicationsSold() {
 		try {
+
+			// start transaction
+			db.disableAutocommit();
 
 			// Only Part that needs to be changed between each method.
 			// ************************************************
@@ -115,6 +124,9 @@ public class Reports {
 			System.out.println("Something Went Wrong, please check that you filled out the form correctly\n");
 			e.printStackTrace();
 
+		} finally {
+			// enable auto-commit after transaction
+			db.enableAutocommit();
 		}
 
 	}
@@ -124,6 +136,9 @@ public class Reports {
 	 */
 	public void totalRevenue() {
 		try {
+
+			// start transaction
+			db.disableAutocommit();
 
 			// Only Part that needs to be changed between each method.
 			// ************************************************
@@ -153,9 +168,12 @@ public class Reports {
 
 		} catch (Exception e) {
 			System.out.println("Something Went Wrong, please check that you filled out the form correctly\n");
-			
+
 			e.printStackTrace();
 
+		} finally {
+			// enable auto-commit after transaction
+			db.enableAutocommit();
 		}
 
 	}
@@ -165,6 +183,9 @@ public class Reports {
 	 */
 	public void totalExpenses() {
 		try {
+
+			// start transaction
+			db.disableAutocommit();
 
 			// Only Part that needs to be changed between each method.
 			// ************************************************
@@ -202,9 +223,12 @@ public class Reports {
 
 		} catch (Exception e) {
 			System.out.println("Something Went Wrong, please check that you filled out the form correctly\n");
-			
+
 			e.printStackTrace();
 
+		} finally {
+			// enable auto-commit after transaction
+			db.enableAutocommit();
 		}
 
 	}
@@ -214,6 +238,9 @@ public class Reports {
 	 */
 	public void totalDistributors() {
 		try {
+
+			// start transaction
+			db.disableAutocommit();
 
 			// Only Part that needs to be changed between each method.
 			// ************************************************
@@ -236,6 +263,9 @@ public class Reports {
 		} catch (Exception e) {
 			e.printStackTrace();
 
+		} finally {
+			// enable auto-commit after transaction
+			db.enableAutocommit();
 		}
 
 	}
@@ -245,6 +275,9 @@ public class Reports {
 	 */
 	public void totalCityRevenue() {
 		try {
+
+			// start transaction
+			db.disableAutocommit();
 
 			// Only Part that needs to be changed between each method.
 			// ************************************************
@@ -271,9 +304,12 @@ public class Reports {
 
 		} catch (Exception e) {
 			System.out.println("Something Went Wrong, please check that you filled out the form correctly\n");
-			
+
 			e.printStackTrace();
 
+		} finally {
+			// enable auto-commit after transaction
+			db.enableAutocommit();
 		}
 
 	}
@@ -283,6 +319,9 @@ public class Reports {
 	 */
 	public void totalDistributorRevenue() {
 		try {
+
+			// start transaction
+			db.disableAutocommit();
 
 			// Only Part that needs to be changed between each method.
 			// ************************************************
@@ -309,9 +348,12 @@ public class Reports {
 
 		} catch (Exception e) {
 			System.out.println("Something Went Wrong, please check that you filled out the form correctly\n");
-			
+
 			e.printStackTrace();
 
+		} finally {
+			// enable auto-commit after transaction
+			db.enableAutocommit();
 		}
 
 	}
@@ -321,6 +363,9 @@ public class Reports {
 	 */
 	public void totalAddressRevenue() {
 		try {
+
+			// start transaction
+			db.disableAutocommit();
 
 			// Only Part that needs to be changed between each method.
 			// ************************************************
@@ -348,6 +393,9 @@ public class Reports {
 		} catch (Exception e) {
 			e.printStackTrace();
 
+		} finally {
+			// enable auto-commit after transaction
+			db.enableAutocommit();
 		}
 
 	}
@@ -357,6 +405,9 @@ public class Reports {
 	 */
 	public void totalPaymentsByTimeAndTypeofEmployee() {
 		try {
+
+			// start transaction
+			db.disableAutocommit();
 
 			// Only Part that needs to be changed between each method.
 			// ************************************************
@@ -398,9 +449,12 @@ public class Reports {
 
 		} catch (Exception e) {
 			System.out.println("Something Went Wrong, please check that you filled out the form correctly\n");
-			
+
 			e.printStackTrace();
 
+		} finally {
+			// enable auto-commit after transaction
+			db.enableAutocommit();
 		}
 
 	}
@@ -410,6 +464,9 @@ public class Reports {
 	 */
 	public void totalPaymentsByTypeOfEmployeeAndWorkType() {
 		try {
+
+			// start transaction
+			db.disableAutocommit();
 
 			// Only Part that needs to be changed between each method.
 			// ************************************************
@@ -458,6 +515,9 @@ public class Reports {
 		} catch (Exception e) {
 			e.printStackTrace();
 
+		} finally {
+			// enable auto-commit after transaction
+			db.enableAutocommit();
 		}
 
 	}
@@ -467,6 +527,9 @@ public class Reports {
 	 */
 	public void listOfAllDistributors() {
 		try {
+
+			// start transaction
+			db.disableAutocommit();
 
 			// Only Part that needs to be changed between each method.
 			// ************************************************
@@ -488,9 +551,12 @@ public class Reports {
 
 		} catch (Exception e) {
 			System.out.println("Something Went Wrong, please check that you filled out the form correctly\n");
-			
+
 			e.printStackTrace();
 
+		} finally {
+			// enable auto-commit after transaction
+			db.enableAutocommit();
 		}
 
 	}
@@ -500,6 +566,9 @@ public class Reports {
 	 */
 	public void listOfAllEmployees() {
 		try {
+
+			// start transaction
+			db.disableAutocommit();
 
 			// Only Part that needs to be changed between each method.
 			// ************************************************
@@ -526,9 +595,12 @@ public class Reports {
 
 		} catch (Exception e) {
 			System.out.println("Something Went Wrong, please check that you filled out the form correctly\n");
-			
+
 			e.printStackTrace();
 
+		} finally {
+			// enable auto-commit after transaction
+			db.enableAutocommit();
 		}
 
 	}
