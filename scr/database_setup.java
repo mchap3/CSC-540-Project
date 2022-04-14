@@ -1,12 +1,22 @@
 
-/**
- * Create and populate all database tables
- */
 import java.util.*;
-//javac database_setup.java DBManager.java DBTablePrinter.java User.java Reports.java Distributors.java Production.java Publishers.java
-//java database_setup
+
+/**
+ * Creates database object 
+ * Prints main-menu-level user type options
+ * Determines user type from user's input
+ * Starts corresponding User class
+ *
+ * @author 
+ */
 public class database_setup {
 
+/**
+ * Creates new database object 
+ * Scans user menu input
+ * Directs command string from user input or exits the applcaition
+ * and closes database connection
+ */
 	public static void main(String[] args) {
 
 		DBManager db = new DBManager();
@@ -31,6 +41,14 @@ public class database_setup {
 	}
 
 	// create User, returns the User object
+	/**
+	 * Prints main-menu-level user type options
+	 * Determines user type from user's input
+	 * Starts corresponding User class
+	 * @param currentUser User object
+	 * @param scanner scanner object
+	 * @param db DBManager object
+	 */
 	private static User createUser(Scanner scanner, DBManager db, User currentUser) {
 
 		String userType = null;
@@ -53,6 +71,12 @@ public class database_setup {
 
 	}
 
+	/**
+	 * Directs command string from user input or exits the applcaition
+	 * 
+	 * @param currentUser User object
+	 * @param scanner scanner object
+	 */
 	private static String command(Scanner scanner, User currentUser) {
 
 		String logout = null;
