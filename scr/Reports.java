@@ -50,7 +50,7 @@ public class Reports {
 			System.out.println("Enter Valid End Date for Report (YYYY-MM-DD format):");
 			String endDate = scanner.nextLine();
 
-			String sql = "SELECT Name AS Distributor,DistAccountNum AS Acc_Num , p.PublicationID, p.Title, SUM(NumCopies), SUM(Price) AS TotalPrice "
+			String sql = "SELECT Name AS Distributor,DistAccountNum AS Acc_Num , p.PublicationID, p.Title, SUM(NumCopies), SUM(TotalCost) AS TotalPrice "
 					+ "FROM Publication p, Distributors d NATURAL JOIN Orders o WHERE p.PublicationID = o.PublicationID AND ProduceByDate "
 					+ ">= '" + startDate + "' AND ProduceByDate <= '" + endDate
 					+ "' GROUP BY DistAccountNum, p.PublicationID;";
@@ -92,7 +92,7 @@ public class Reports {
 			System.out.println("Enter a Valid Publication ID Number:");
 			String pubID = scanner.nextLine();
 
-			String sql = "SELECT PublicationID, Title, SUM(NumCopies) AS Total_Copies, SUM(Price) AS Total_Price "
+			String sql = "SELECT PublicationID, Title, SUM(NumCopies) AS Total_Copies, SUM(TotalCost) AS Total_Price "
 					+ "FROM Publication p NATURAL JOIN Orders o WHERE " + "ProduceByDate >= '" + startDate
 					+ "' AND ProduceByDate <= '" + endDate + "' AND PublicationID= " + pubID
 					+ " GROUP BY PublicationID;";
@@ -112,6 +112,7 @@ public class Reports {
 			// run.
 
 		} catch (Exception e) {
+			System.out.println("Something Went Wrong, please check that you filled out the form correctly\n");
 			e.printStackTrace();
 
 		}
@@ -133,7 +134,7 @@ public class Reports {
 			System.out.println("Enter Valid End Date for Report (YYYY-MM-DD format):");
 			String endDate = scanner.nextLine();
 
-			String sql = "SELECT SUM(Price) AS Total_Revenue_Time_Period FROM Orders " + "WHERE ProduceByDate >= '"
+			String sql = "SELECT SUM(TotalCost) AS Total_Revenue_Time_Period FROM Orders " + "WHERE ProduceByDate >= '"
 					+ startDate + "' AND ProduceByDate <= '" + endDate + "';";
 
 			// commitQuery is for querying, commitUpdate is for everything else and that
@@ -151,6 +152,8 @@ public class Reports {
 			// run.
 
 		} catch (Exception e) {
+			System.out.println("Something Went Wrong, please check that you filled out the form correctly\n");
+			
 			e.printStackTrace();
 
 		}
@@ -198,6 +201,8 @@ public class Reports {
 			// run.
 
 		} catch (Exception e) {
+			System.out.println("Something Went Wrong, please check that you filled out the form correctly\n");
+			
 			e.printStackTrace();
 
 		}
@@ -248,7 +253,7 @@ public class Reports {
 			System.out.println("Enter Valid City: ");
 			String city = scanner.nextLine();
 
-			String sql = "SELECT SUM(Price) AS Total_Revenue_For_City FROM Orders o, Distributors d "
+			String sql = "SELECT SUM(TotalCost) AS Total_Revenue_For_City FROM Orders o, Distributors d "
 					+ "WHERE o.DistAccountNum = d.DistAccountNum AND City = '" + city + "';";
 
 			// commitQuery is for querying, commitUpdate is for everything else and that
@@ -265,6 +270,8 @@ public class Reports {
 			// run.
 
 		} catch (Exception e) {
+			System.out.println("Something Went Wrong, please check that you filled out the form correctly\n");
+			
 			e.printStackTrace();
 
 		}
@@ -284,7 +291,7 @@ public class Reports {
 			System.out.println("Enter Valid Distributor ID: ");
 			String DistID = scanner.nextLine();
 
-			String sql = "SELECT SUM(Price) AS Total_Revenue_For_Distributor FROM Orders o, Distributors d "
+			String sql = "SELECT SUM(TotalCost) AS Total_Revenue_For_Distributor FROM Orders o, Distributors d "
 					+ "WHERE o.DistAccountNum = d.DistAccountNum AND d.DistAccountNum = " + DistID + ";";
 
 			// commitQuery is for querying, commitUpdate is for everything else and that
@@ -301,6 +308,8 @@ public class Reports {
 			// run.
 
 		} catch (Exception e) {
+			System.out.println("Something Went Wrong, please check that you filled out the form correctly\n");
+			
 			e.printStackTrace();
 
 		}
@@ -320,7 +329,7 @@ public class Reports {
 			System.out.println("Enter Valid Street Address: ");
 			String address = scanner.nextLine();
 
-			String sql = "SELECT SUM(Price) AS Total_Revenue_For_Address FROM Orders o, Distributors d "
+			String sql = "SELECT SUM(TotalCost) AS Total_Revenue_For_Address FROM Orders o, Distributors d "
 					+ "WHERE o.DistAccountNum = d.DistAccountNum AND d.Address = '" + address + "';";
 
 			// commitQuery is for querying, commitUpdate is for everything else and that
@@ -388,6 +397,8 @@ public class Reports {
 			// run.
 
 		} catch (Exception e) {
+			System.out.println("Something Went Wrong, please check that you filled out the form correctly\n");
+			
 			e.printStackTrace();
 
 		}
@@ -476,6 +487,8 @@ public class Reports {
 			// run.
 
 		} catch (Exception e) {
+			System.out.println("Something Went Wrong, please check that you filled out the form correctly\n");
+			
 			e.printStackTrace();
 
 		}
@@ -512,6 +525,8 @@ public class Reports {
 			// run.
 
 		} catch (Exception e) {
+			System.out.println("Something Went Wrong, please check that you filled out the form correctly\n");
+			
 			e.printStackTrace();
 
 		}
