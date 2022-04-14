@@ -31,7 +31,7 @@ public class Publisher {
 
 		String[][] help = { 
 				 { "  M1         | publishing menu                 | ", "" },
-		         { "  M2         | publication/editing menu        | ", "" },
+		         { "  M2         | production/editing menu         | ", "" },
 		         { "  M3         | distribution menu               | ", "" },
 		         { "  M4         | financial menu                  | ", "" },
 		         { "  logout     | return to user selection        | ", "" }
@@ -129,6 +129,10 @@ public class Publisher {
 			production.editChapter();
 			break;
 			
+		case "b7":
+			production.deleteChapter();
+			break;
+			
 		// issue menu commands
 		case "i2":
 			production.createIssue();
@@ -149,12 +153,16 @@ public class Publisher {
 		case "i6":
 			production.editArticle();
 			break;
-
+			
 		case "i7":
-			production.addArticleText();
+			production.deleteArticle();
 			break;
 
 		case "i8":
+			production.addArticleText();
+			break;
+
+		case "i9":
 			production.editArticleText();
 			break;
 			
@@ -304,6 +312,7 @@ public class Publisher {
 				{ "  B4         | delete book                     | ", "publication ID" },
 				{ "  B5         | add book chapter                | ", "publication ID, chapter title" },
 				{ "  B6         | edit book chapter               | ", "publication ID, chapter title" },
+				{ "  B7         | delete book chapter             | ", "publication ID, chapter title" },
 				{ "-------------|---------------------------------|-------------------", ""},
 				{ "  I1         | search article catalog          | ", "author, issue date, topic" },
 				{ "  I2         | create periodical issue         | ", "title, type, topic, issue title, issue date, periodicity" },
@@ -311,8 +320,9 @@ public class Publisher {
 				{ "  I4         | delete periodical issue         | ", "publication ID" },
 				{ "  I5         | add article to issue            | ", "publication ID, article title, article topic, author(s)" },
 				{ "  I6         | edit article in issue           | ", "publication ID, article title, article topic, author(s)" },
-				{ "  I7         | add article text                | ", "publication ID, article title, article text" },
-				{ "  I8         | update article text             | ", "publication ID, article title, article text" },
+				{ "  I7         | delete article in issue         | ", "publication ID, article title" },
+				{ "  I8         | add article text                | ", "publication ID, article title, article text" },
+				{ "  I9         | update article text             | ", "publication ID, article title, article text" },
 				{ "  back       | return to publisher menu        | ", "" }
 		};
 

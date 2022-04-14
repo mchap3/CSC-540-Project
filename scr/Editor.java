@@ -32,7 +32,7 @@ public class Editor {
 		         { "  E4         | search book catalog             | ", "author, publication date, topic" },
 		         { "  E5         | search article catalog          | ", "author, issue date, topic" },
 		         { "  E6         | add author                      | ", "employee ID, name, type" },
-		         { "  E7         | update author                   | ", "employee ID, name, type, active" },
+		         { "  E7         | update author                   | ", "employee ID, name, type" },
 		         { "  E8         | delete author                   | ", "employee ID" },
 		         { "  logout     | return to user selection        | ", "" }
 		};
