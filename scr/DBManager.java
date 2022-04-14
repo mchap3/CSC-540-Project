@@ -255,6 +255,7 @@ public class DBManager {
 					+ "PublicationID INT, " + "NumCopies INT NOT NULL, " + "OrderDate DATE NOT NULL, "
 					+ "ProduceByDate DATE NOT NULL, " + "Price DECIMAL(8,2) NOT NULL, "
 					+ "ShippingCosts DECIMAL(8,2) NOT NULL, " + "PRIMARY KEY (OrderID), "
+					+ "TotalCost DECIMAL(8,2) NOT NULL, "
 					+ "FOREIGN KEY (DistAccountNum) REFERENCES Distributors(DistAccountNum) "
 					+ "ON UPDATE CASCADE ON DELETE SET NULL, "
 					+ "FOREIGN KEY (PublicationID) REFERENCES Publication(PublicationID) "
@@ -420,11 +421,11 @@ public class DBManager {
 //			statement.executeUpdate("INSERT INTO Orders VALUES (8, 2, 1, 3, '2022-4-25', '2022-5-23', 15.15, 2.00);");
 //			statement.executeUpdate("INSERT INTO Orders VALUES (9, 3, 4, 4, '2022-4-25', '2022-5-25', 15.15, 2.00);");
 			statement.executeUpdate(
-					"INSERT INTO Orders VALUES (4001, 2001, 1001, 30, '2020-01-02', '2020-01-15', 20, 30);");
+					"INSERT INTO Orders VALUES (4001, 2001, 1001, 30, '2020-01-02', '2020-01-15', 20, 30, 630);");
 			statement.executeUpdate(
-					"INSERT INTO Orders VALUES (4002, 2001, 1001, 10, '2020-02-05', '2020-02-15', 20, 15);");
+					"INSERT INTO Orders VALUES (4002, 2001, 1001, 10, '2020-02-05', '2020-02-15', 20, 15, 215);");
 			statement.executeUpdate(
-					"INSERT INTO Orders VALUES (4003, 2002, 1003, 10, '2020-02-10', '2020-02-25', 10, 15);");
+					"INSERT INTO Orders VALUES (4003, 2002, 1003, 10, '2020-02-10', '2020-02-25', 10, 15, 115);");
 
 //			statement.executeUpdate("INSERT INTO Invoices VALUES (1, 1, 5.15, '2022-4-25', NULL);");
 //			statement.executeUpdate("INSERT INTO Invoices VALUES (2, 4, 10.30, '2022-4-25', '2022-5-05');");
