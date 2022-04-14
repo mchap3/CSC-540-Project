@@ -7,6 +7,14 @@ import java.sql.Statement;
 //javac database_setup.java DBManager.java DBTablePrinter.java User.java Reports.java Distribution.java Production.java Publishing.java Publisher.java DistributionTeam.java Editor.java FinancialTeam.java
 //java database_setup
 
+/**
+ * Database manager that provides methods to connect to database,
+ * operations with database (table creation, table population,
+ * updates, transaction, etc.),
+ * closes connection objects to database
+ * 
+ * @author 
+ */
 public class DBManager {
 
 	//static final String jdbcURL = "jdbc:mariadb://classdb2.csc.ncsu.edu:3306/cpatel3";
@@ -20,16 +28,25 @@ public class DBManager {
 	private Statement statement = null;
 	private ResultSet result = null;
 
+	/**
+	 * Calls methods to connect to DB, create and populate tables 
+	 */	
 	public DBManager() {
 		connectToDatabase();
 		createTables();
 		populateTables();
 	}
 
+	/**
+	 * Returns connection object 
+	 */
 	public Connection getConn() {
 		return connection;
 	}
 
+	/**
+	 * Creates a Statement object for sending statements to database.
+	 */
 	public Statement createStatement() {
 		try {
 
@@ -44,10 +61,16 @@ public class DBManager {
 		}
 	}
 
+	/**
+	 * Returns result object 
+	 */
 	public ResultSet getResult() {
 		return result;
 	}
 
+	/**
+	 * Disable auto commit mode 
+	 */
 	public void disableAutocommit() {
 		try {
 			connection.setAutoCommit(false);
@@ -56,7 +79,10 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * Enable auto commit mode 
+	 */
 	public void enableAutocommit() {
 		try {
 			connection.setAutoCommit(true);
@@ -65,7 +91,10 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * Returns result of database query
+	 */
 	public ResultSet query(String s) {
 		try {
 			createStatement();
@@ -81,6 +110,9 @@ public class DBManager {
 		return null;
 	}
 
+	/**
+	 * Update database
+	 */
 	public void update(String s) {
 		try {
 			createStatement();
@@ -94,6 +126,9 @@ public class DBManager {
 
 	}
 
+	/**
+	 * Commit if successful, rollback otherwise
+	 */
 	public boolean commit() {
 		
 		try {
@@ -117,6 +152,11 @@ public class DBManager {
 		return false;
 	}
 
+	/**
+	 * Connect to database with specified user credentials
+	 * create statement object
+	 * Drop specified tables if they exist
+	 */
 	private void connectToDatabase() {
 
 		try {
@@ -151,6 +191,9 @@ public class DBManager {
 		}
 	}
 
+	/**
+	 * Create database tables
+	 */
 	private void createTables() {
 		try {
 			statement.executeUpdate(
@@ -283,6 +326,9 @@ public class DBManager {
 		}
 	}
 
+	/**
+	 * Populate tables with Demo Data
+	 */
 	private void populateTables() {
 		try {
 			// Populate Publication Tables
@@ -445,6 +491,10 @@ public class DBManager {
 		}
 	}
 
+	/**
+	 * Close connection to database, close objects
+	 * connection, statement, result
+	 */
 	public void close() {
 
 		if (connection != null) {
