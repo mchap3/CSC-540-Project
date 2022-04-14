@@ -38,7 +38,7 @@ public class database_setup {
 		while (true) {
 
 			System.out.println(
-					"Enter a Valid User Type number (Example: \n 1 for Publisher, \n 2 for Editor, \n 3 for Distribution Team, \n 4 for Financial Team)\n"
+					"Enter a Valid User Type number Example: \n 1 for Publisher, \n 2 for Editor, \n 3 for Distribution Team, \n 4 for Financial Team\n"
 							+ "User Type: ");
 			userType = scanner.nextLine().toLowerCase();
 

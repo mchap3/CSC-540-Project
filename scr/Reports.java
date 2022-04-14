@@ -5,13 +5,28 @@ import java.util.Scanner;
 //javac database_setup.java DBManager.java DBTablePrinter.java User.java Reports.java Distribution.java Production.java Publishing.java Publisher.java DistributionTeam.java Editor.java FinancialTeam.java
 //java database_setup
 
+
+/**
+ * Reports object, used for generating reports.
+ * @author Chaitanya Patel
+ *
+ */
 public class Reports {
 
+	/** Database manager object */
 	private DBManager db = null;
+	
+	/** result object that sets the result of a query */
 	private ResultSet result = null;
 	
+	/** Scanner object for reading input */
 	private Scanner scanner = null;
 
+	/**
+	 * constructor
+	 * @param dbM database manager
+	 * @param s scanner
+	 */
 	public Reports(DBManager dbM, Scanner s) {
 		db = dbM;
 		scanner = s;
@@ -20,6 +35,10 @@ public class Reports {
 
 	
 	// Just copy this method and change the inner stuff for each API command
+	
+	/**
+	 * generates reports
+	 */
 	public void generateReport() {
 		try {
 
@@ -55,6 +74,9 @@ public class Reports {
 		
 	}
 	
+	/**
+	 * calculates publications sold
+	 */
 	public void totalPublicationsSold() {
 		try {
 
@@ -93,6 +115,9 @@ public class Reports {
 		
 	}
 	
+	/**
+	 * calculates total revenue
+	 */
 	public void totalRevenue() {
 		try {
 
@@ -127,6 +152,9 @@ public class Reports {
 		
 	}
 	
+	/**
+	 * calculates total expenses
+	 */
 	public void totalExpenses() {
 		try {
 
@@ -169,6 +197,9 @@ public class Reports {
 		
 	}
 	
+	/**
+	 * returns total number of distributors
+	 */
 	public void totalDistributors() {
 		try {
 
@@ -195,6 +226,9 @@ public class Reports {
 		
 	}
 	
+	/**
+	 * calculates total city revenue
+	 */
 	public void totalCityRevenue() {
 		try {
 
@@ -226,6 +260,9 @@ public class Reports {
 		
 	}
 	
+	/**
+	 * calculates total distributor revenue
+	 */
 	public void totalDistributorRevenue() {
 		try {
 
@@ -257,6 +294,9 @@ public class Reports {
 		
 	}
 	
+	/**
+	 * calculates address revenue
+	 */
 	public void totalAddressRevenue() {
 		try {
 
@@ -288,6 +328,9 @@ public class Reports {
 		
 	}
 	
+	/**
+	 * calculates payments by time and type of employees
+	 */
 	public void totalPaymentsByTimeAndTypeofEmployee() {
 		try {
 
@@ -335,6 +378,9 @@ public class Reports {
 		
 	}
 	
+	/**
+	 * total payments by type of employee and work type
+	 */
 	public void totalPaymentsByTypeOfEmployeeAndWorkType() {
 		try {
 
@@ -384,6 +430,9 @@ public class Reports {
 		
 	}
 	
+	/**
+	 * return list of distributors
+	 */
 	public void listOfAllDistributors() {
 		try {
 
@@ -410,6 +459,9 @@ public class Reports {
 		
 	}
 	
+	/**
+	 * returns list of employees
+	 */
 	public void listOfAllEmployees() {
 		try {
 
@@ -442,6 +494,9 @@ public class Reports {
 	}
 	
 	
+	/**
+	 * 
+	 */
 	private static void helper() {
 		
 		System.out.println("\nCommand Code | Command Description                                 | Arguments it needs");
