@@ -1,12 +1,17 @@
 import java.sql.*;
 import java.util.Scanner;
 
-
-//javac database_setup.java DBManager.java DBTablePrinter.java User.java Reports.java Distribution.java Production.java Publishing.java Publisher.java DistributionTeam.java Editor.java FinancialTeam.java
-//java database_setup
-
 public class Distribution {
-
+    /**
+* Collection of Distribution team API methods
+* printDistributor() - print distributor info
+* addDistributor() - add distributor
+* delDistributor() - delete distributor
+* balanceDistributor() - change distributor balance
+* placeOrder() - place publication order
+* newInvoice() - bill distributor (create new invocie)
+* paymentInvoice() - update invoice payment status
+*/
 	private DBManager db = null;
 	private ResultSet result = null;
 	
@@ -18,8 +23,11 @@ public class Distribution {
 
 	}
 
-	// add distributor API
 	public void addDistributor() {
+		/**
+        * add distributor API
+		* Prompt user for info and update Database 
+        */
 		try {
 			//Get the highest ID from the Distributor table
 			int maxID = 0;
@@ -59,7 +67,7 @@ public class Distribution {
 			String sql = "INSERT INTO Distributors VALUES (" 
 				+ newID_str + "," + d_name + "," + d_type + "," + d_street + "," + d_city + "," + d_phone + ","
 				+ d_contact + "," + d_balance + ");";
-			// update and commit
+			// update database and commit
 			db.update(sql);
 			result = db.query("SELECT * FROM Distributors WHERE DistAccountNum =" + newID_str + " ;");
 			if (db.commit()) {
@@ -75,9 +83,13 @@ public class Distribution {
 		
 	}
 
-	// delete distributor API 
 	public void delDistributor() {
 		try {
+		/**
+        * delete distributor API 
+		* Prompt user for Distributor ID, delete the Distributor,
+		* update Database 
+        */
 			// user prompt
 			System.out.println("\nDelete Distributor");
 			System.out.println("Enter Account ID to delete:");
@@ -90,7 +102,7 @@ public class Distribution {
 			String userType = scanner.nextLine().toLowerCase();
 			if (userType.equals("yes")){
 				String sql = "DELETE FROM Distributors WHERE DistAccountNum = "	+ newID + ";";
-				// update and commit
+				// update DB and commit
 				db.update(sql);
 				if (db.commit()) {
 					System.out.println("\nRecord Deleted");
@@ -107,9 +119,12 @@ public class Distribution {
 		
 	}
 
-	// print info distributor API 
 	public void printDistributor() {
 		try {
+		/**
+        * print distributor info API 
+		* Prompt user for Distributor ID, print Distributor info 
+        */
 			// user prompt
 			String sql = null;
 			System.out.println("\nPrint Distributor");
@@ -121,7 +136,7 @@ public class Distribution {
 			else{
 				sql = "SELECT * FROM Distributors WHERE DistAccountNum =" + userType + " ;";
 			}
-			// pull the record
+			// pull the record and print
 			result = db.query(sql);
 			if (db.commit()) {
 				DBTablePrinter.printResultSet(result);
@@ -133,11 +148,14 @@ public class Distribution {
 		
 	}
 
-	// update distributor API: pick rows for with a given value for selected attribute, modify one colums for those rows
-	//e.g., Change the Contact attribute (from 'John' to 'Jane') of a distributor specified by Name ('Library').
+	// 
 	public void updateDistributor() {
 		try {
-			//db.disableAutocommit();
+		/**
+        * update distributor API 
+		* pick rows for with a given value for selected attribute, modify one colums for those rows
+		* e.g., Change the Contact attribute (from 'John' to 'Jane') of a distributor specified by Name ('Library').
+        */
 			// user prompt for what to update
 			String sql = null;
 			System.out.println("\nUpdate Distributor");
@@ -146,17 +164,18 @@ public class Distribution {
 			System.out.println("Enter selection attribute value (e.g., 4):");
 			String sel_value = "'" + scanner.nextLine() + "'";
 			sql = "SELECT * FROM Distributors WHERE " + sel_attr + " = " + sel_value + ";";
+			
 			// pull the record
 			result = db.query(sql);
 			DBTablePrinter.printResultSet(result);
+			
 			// user prompt for new values
 			System.out.println("Enter attribute to update:");
 			String up_attr = scanner.nextLine();
 			System.out.println("Enter new value:");
 			String up_value = "'" + scanner.nextLine() + "'";
 			String sql1 = "UPDATE Distributors SET " + up_attr + " = " +  up_value + " WHERE " + sel_attr + " = " + sel_value + ";";
-			//System.out.println(sql1);
-			
+		
 			// confirm the change and pull updated record
 			System.out.println("Confirm changes? (yes/no)");
 			String userType = scanner.nextLine().toLowerCase();
@@ -169,19 +188,22 @@ public class Distribution {
 				}
 			}
 			else{
+				// do nothing
 				System.out.println("No changes made");								
 			}
 								
 				} catch (Exception e) {
 			e.printStackTrace();
 		} 
-			//db.enableAutocommit();
+		
 	}
 
-	// change distributor balance API
 	public void balanceDistributor() {
 		try {
-			//db.disableAutocommit();
+		/**
+        * change distributor balance API
+		* Prompt user for Distributor ID, change Distributor balance
+        */
 			// user prompt for which account to update
 			String sql = null;
 			System.out.println("\nUpdate Distributor Balance");
@@ -209,18 +231,22 @@ public class Distribution {
 				}
 			}
 			else{
+				// do nothing
 				System.out.println("No changes made");								
 			}
 								
 				} catch (Exception e) {
 			e.printStackTrace();
 		} 
-			//db.enableAutocommit();
+
 	}
 
-	// place publication order API
 	public void placeOrder() {
 		try {
+		/**
+        * place publication order API
+		* Prompt user for order info, create a new database record in table Orders
+        */			
 			//Get the highest ID from the Orders table
 			int maxID = 0;
 			result = db.query("select max(OrderID) as MaxID from Orders;");
@@ -262,7 +288,7 @@ public class Distribution {
 			String sql = "INSERT INTO Orders VALUES (" 
 				+ newID_str + "," + d_id + "," + pub_ID + "," + num_copies + "," + order_date + "," + prod_date + "," + order_price + "," + ship_cost + ");";
 			System.out.println(sql);
-			// update and commit
+			// update database and commit
 			db.update(sql);
 			result = db.query("SELECT * FROM Orders WHERE OrderID =" + newID + ";");
 			if (db.commit()) {
@@ -277,12 +303,14 @@ public class Distribution {
 		} 
 	}
 
-	// bill distributor (create new invocie) API
-	// enter month-year manually in oppose to determining the current month; 
-	// the invoice start date is the first of the entered month (>=)
-	// end date - the first of the next month (<)
 	public void newInvoice() {
 		try {
+		/**
+        * bill distributor (create new invocie) API
+		* Prompt user for new invoice info, create a new database record in table Invoices
+		* the invoice start date is the first of the entered month (>=)
+		* end date - the first of the next month (<)
+        */
 			//Get the highest ID from the Invoice table
 			int maxID = 0;
 			result = db.query("select max(InvoiceID) as MaxID from Invoices;");
@@ -335,7 +363,7 @@ public class Distribution {
 					invoice_total = invoice_total + result.getInt("NumCopies")*result.getFloat("Price") + result.getFloat("ShC");					
 				}
 			}
-			// update and commit
+			// update database and commit
 			String sql = "INSERT INTO Invoices VALUES (" + newID_str + "," + d_id + "," + invoice_total
 				+ "," + end_date + ", NULL);";
 			//System.out.println(sql);			
@@ -353,9 +381,12 @@ public class Distribution {
 		} 
 	}
 
-	// update invoice payment status API: change payment date from NULL to entered
 	public void paymentInvoice() {
 		try {
+		/**
+        * update invoice payment status API: 
+		* change payment date from NULL to user specified
+        */	
 			// user prompt
 			System.out.println("\nUpdate Invoice Payment Status");
 			System.out.println("Enter Invoice ID to update:");
@@ -363,7 +394,7 @@ public class Distribution {
 			System.out.println("Enter Invoice Payment Date (year-month-date):");
 			String inDate = "'" + scanner.nextLine() + "'";
 			String sql = "UPDATE Invoices SET PaymentDate =" + inDate + " WHERE InvoiceID = " + inID + ";";
-			// update and commit			
+			// update database and commit			
 			db.update(sql);
 			result = db.query("SELECT * FROM Invoices WHERE InvoiceID =" + inID + ";");
 			if (db.commit()) {

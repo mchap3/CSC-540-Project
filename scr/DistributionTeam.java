@@ -1,6 +1,9 @@
 import java.util.Scanner;
 
 public class DistributionTeam {
+	    /**
+* choise menu for Distributor APIs
+*/
 	
 	private DBManager db = null;
 	private Scanner scanner = null;
@@ -15,6 +18,10 @@ public class DistributionTeam {
 	}
 	
 private static void helper() {
+		    /**
+* print menu for Distributor APIs
+* promt command input
+*/
 		System.out.printf("%40s\n", "DISTRIBUTION TEAM MENU");
 		System.out.println("\nCommand Code | Command Description             | Arguments it needs");
 		System.out.println("-------------|---------------------------------|-------------------");
@@ -37,6 +44,9 @@ private static void helper() {
 	}
 	
 	public void command(String com) {
+			    /**
+* call API based on user prompt
+*/
 		System.out.println("Your Command: " + com + "\n");
 		
 		switch(com.toLowerCase()) {
