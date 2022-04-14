@@ -355,7 +355,7 @@ public class Distribution {
 	/**
 	 * Bill distributor (create new invocie) API. Prompt user for new invoice info,
 	 * create a new database record in table Invoices the invoice start date is the
-	 * first of the entered month (>=) end date - the first of the next month (<)
+	 * first of the entered month (more or equal to) end date - the first of the next month (less)
 	 */
 	public void newInvoice() {
 		try {
