@@ -1265,7 +1265,7 @@ public class Production {
 	/**
 	 * Prints all Issues in database
 	 */
-	private void printIssueCatalog() {
+	public void printIssueCatalog() {
 		result = db.query("select * from Publication natural join Issues;");
 		System.out.println("Issue catalog:");
 		DBTablePrinter.printResultSet(result);
@@ -1274,7 +1274,7 @@ public class Production {
 	/**
 	 * Prints all Books in database
 	 */
-	private void printBookCatalog() {
+	public void printBookCatalog() {
 		result = db.query("select * from Publication natural join Books;");
 		System.out.println("Book catalog:");
 		DBTablePrinter.printResultSet(result);

@@ -11,6 +11,7 @@ public class DistributionTeam {
 	private DBManager db = null;
 	private Scanner scanner = null;
 	private Distribution distribution = null;
+	private Production production = null;
 
 	/**
 	 * Constructs DistribtuionTeam object with distribution object and menu flag
@@ -23,6 +24,7 @@ public class DistributionTeam {
 		scanner = s;
 
 		distribution = new Distribution(db, scanner);
+		production = new Production(db, scanner);
 	}
 
 	/**
@@ -42,6 +44,8 @@ public class DistributionTeam {
 				{ "  D5         | update distributor balance      | ", "Distributor ID" },
 				{ "  D6         | place publication order         | ",
 						"Order ID, Dist ID, Pub ID, #Copies, Production Date, Price, Shipping" },
+				{ "  D7         | print book catalog              | ", "" },
+				{ "  D8         | print issue catalog             | ", "" },
 				{ "  logout     | return to user selection        | ", "" } };
 
 		for (int i = 0; i < help.length; i++) {
@@ -86,6 +90,14 @@ public class DistributionTeam {
 
 		case "d6":
 			distribution.placeOrder();
+			break;
+			
+		case "d7":
+			production.printBookCatalog();
+			break;
+			
+		case "d8":
+			production.printIssueCatalog();
 			break;
 
 		default:

@@ -67,6 +67,8 @@ public class FinancialTeam {
 						"employee ID, amount, payment date" },
 				{ "  F16        | update employee payment                          | ", "check number, claim date" },
 				{ "  F17        | track employee payment                           | ", "check number" },
+				{ "  F18        | print book catalog                               | ", "" },
+				{ "  F19        | print issue catalog                              | ", "" },
 				{ "  logout     | return to user selection                         | ", "" } };
 
 		for (int i = 0; i < help.length; i++) {
@@ -151,6 +153,14 @@ public class FinancialTeam {
 
 		case "f17":
 			production.trackPayment();
+			break;
+			
+		case "f18":
+			production.printBookCatalog();
+			break;
+			
+		case "f19":
+			production.printIssueCatalog();
 			break;
 
 		default:
