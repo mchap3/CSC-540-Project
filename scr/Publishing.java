@@ -1,21 +1,36 @@
 import java.sql.*;
 import java.util.Scanner;
 
-
 //javac database_setup.java DBManager.java DBTablePrinter.java User.java Reports.java Distribution.java Production.java Publishing.java Publisher.java DistributionTeam.java Editor.java FinancialTeam.java
 //java database_setup
 
+/**
+ * Publishing API class containing all methods for Publication related
+ * operations.
+ *
+ * @author
+ */
 public class Publishing {
 
 	private DBManager db = null;
 	private ResultSet result = null;
 	private Scanner scanner = null;
 
+	/**
+	 * Constructor with DBManager for database connection and Scanner for
+	 * user input.
+	 * 
+	 * @param dbM DBManager object
+	 * @param s Scanner object
+	 */
 	public Publishing(DBManager dbM, Scanner s) {
 		db = dbM;
 		scanner = s;
 	}
 
+	/**
+	 * Assigns editor to publication.
+	 */
 	public void assignEditorToPublication() {
 		try {
 			// display editors
@@ -48,6 +63,9 @@ public class Publishing {
 		}
 	}
 
+	/**
+	 * Prints responsibilites of given editor.
+	 */
 	public void viewEditorResponsibilities() {
 		try {
 			// display editors
@@ -73,6 +91,9 @@ public class Publishing {
 		}
 	}
 
+	/**
+	 * Adds editor: creates new employee, adds it to Editors table.
+	 */
 	public void addEditor() {
 		try {
 			// start transaction
@@ -119,6 +140,9 @@ public class Publishing {
 		}
 	}
 
+	/**
+	 * Updates editor information.
+	 */
 	public void updateEditor() {
 		try {
 			// display editors
@@ -180,6 +204,9 @@ public class Publishing {
 		}
 	}
 
+	/**
+	 * Deletes editor from database.
+	 */
 	public void deleteEditor() {
 		try {
 			// display editors
@@ -197,6 +224,9 @@ public class Publishing {
 		}
 	}
 
+	/**
+	 * Adds author: creates new employee, adds it to Authors table.
+	 */
 	public int addAuthor() {
 		try {
 			// start transaction
@@ -246,6 +276,9 @@ public class Publishing {
 		}
 	}
 
+	/**
+	 * Updates author information.
+	 */
 	public void updateAuthor() {
 		try {
 			// display authors
@@ -307,6 +340,9 @@ public class Publishing {
 		}
 	}
 
+	/**
+	 * Deletes author from database.
+	 */
 	public void deleteAuthor() {
 		try {
 			// display authors
@@ -383,5 +419,4 @@ public class Publishing {
 		
 	}
 	
-
 }
