@@ -1,6 +1,13 @@
 import java.util.Scanner;
 
+/**
+ * User profile for Editors with menus and commands for operations
+ * on publications.
+ *
+ * @author Morgan Chapman
+ */
 public class Editor {
+	
 	private DBManager db = null;
 	private Scanner scanner = null;
 	
@@ -10,6 +17,12 @@ public class Editor {
 	private enum Menu {MAIN, BOOK, ISSUE}
 	private Menu menu;
 	
+	/**
+	 * Constructs editor object with production and publishing objects and menu flag
+	 * 
+	 * @param dbM DBManager object
+	 * @param s scanner object
+	 */
 	public Editor(DBManager dbM, Scanner s) {
 		db = dbM;
 		scanner = s;
@@ -20,6 +33,9 @@ public class Editor {
 		menu = Menu.MAIN;
 	}
 	
+	/**
+	 * Prints main-menu-level command options available to Editor class
+	 */
 	private static void helper() {
 		System.out.printf("%35s\n", "EDITOR MENU");
 		System.out.println("\nCommand Code | Command Description             | Arguments it needs");
@@ -43,6 +59,12 @@ public class Editor {
 		System.out.println();
 	}
 
+	/**
+	 * Directs command string from user input to call the appropriate
+	 * Production or Publishing API
+	 * 
+	 * @param com command string
+	 */
 	public void command(String com) {
 		System.out.println("Your Command: " + com + "\n");
 
@@ -162,6 +184,9 @@ public class Editor {
 		}
 	}
 	
+	/**
+	 * Prints book-menu command options available to Editor class
+	 */
 	private static void bookHelper() {
 		System.out.printf("%35s\n", "BOOK MENU");
 		System.out.println("\nCommand Code | Command Description             | Arguments it needs");
@@ -184,6 +209,9 @@ public class Editor {
 		System.out.println();
 	}
 	
+	/**
+	 * Prints issue-menu command options available to Editor class
+	 */
 	private static void issueHelper() {
 		System.out.printf("%35s\n", "ISSUE MENU");
 		System.out.println("\nCommand Code | Command Description             | Arguments it needs");

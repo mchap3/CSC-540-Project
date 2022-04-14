@@ -3,17 +3,34 @@ import java.util.Scanner;
 
 //javac database_setup.java DBManager.java DBTablePrinter.java User.java Reports.java Distribution.java Production.java Publishing.java Publisher.java DistributionTeam.java Editor.java FinancialTeam.java
 //java database_setup
+/**
+ * Production API class containing all methods for Production/Editing related
+ * operations.
+ *
+ * @author Morgan Chapman
+ */
 public class Production {
 
 	private DBManager db = null;
 	private ResultSet result = null;
 	private Scanner scanner = null;
 
+	/**
+	 * Constructor with DBManager for database connection and Scanner for
+	 * user input.
+	 * 
+	 * @param dbM DBManager object
+	 * @param s Scanner object
+	 */
 	public Production(DBManager dbM, Scanner s) {
 		db = dbM;
 		scanner = s;
 	}
 
+	/**
+	 * Creates a new book and inserts into database.
+	 * User inputs book information.
+	 */
 	public void createBook() {
 		try {
 			System.out.println("CREATING BOOK...");
@@ -94,6 +111,10 @@ public class Production {
 
 	}
 
+	/**
+	 * Modifies a book present in the database.
+	 * User inputs new values for attributes being modified.
+	 */
 	public void editBook() {
 		try {
 			System.out.println("EDITING BOOK...");
@@ -230,6 +251,9 @@ public class Production {
 		
 	}
 
+	/**
+	 * Removes a book from database
+	 */
 	public void deleteBook() {
 		try {
 			System.out.println("DELETING BOOK...");
@@ -260,6 +284,10 @@ public class Production {
 		
 	}
 	
+	/**
+	 * Inserts new chapter for a book into database.
+	 * User inputs book and chapter information. 
+	 */
 	public void addChapter() {
 		try {
 			System.out.println("ADDING CHAPTER...");
@@ -297,6 +325,10 @@ public class Production {
 		
 	}
 	
+	/**
+	 * Modifies a book chapter in the database.
+	 * User inputs new chapter information
+	 */
 	public void editChapter() {
 		try {
 			System.out.println("UPDATING CHAPTER...");
@@ -338,6 +370,9 @@ public class Production {
 		
 	}
 	
+	/**
+	 * Removes a book chapter from database
+	 */
 	public void deleteChapter() {
 		try {
 			System.out.println("DELETING CHAPTER...");
@@ -377,6 +412,10 @@ public class Production {
 		
 	}
 	
+	/**
+	 * Creates and inserts new Issue publication into database.
+	 * User inputs all issue information
+	 */
 	public void createIssue() {
 		try {
 			// start transaction
@@ -429,6 +468,10 @@ public class Production {
 		
 	}
 	
+	/**
+	 * Modifies information for an issue in database.
+	 * User inputs new issue information to be modified.
+	 */
 	public void editIssue() {
 		try {
 			System.out.println("EDITING ISSUE...");
@@ -517,6 +560,9 @@ public class Production {
 		
 	}
 	
+	/**
+	 * Removes an issue publication from the database
+	 */
 	public void deleteIssue() {
 		try {
 			System.out.println("DELETING ISSUE...");
@@ -548,6 +594,10 @@ public class Production {
 		
 	}
 	
+	/**
+	 * Inserts a new issue article into database.
+	 * User inputs article information.
+	 */
 	public void addArticle() {
 		try {
 			System.out.println("ADDING ARTICLE...");
@@ -613,6 +663,10 @@ public class Production {
 		
 	}
 	
+	/**
+	 * Modifies issue article information in database.
+	 * User inputs new article information for modification.
+	 */
 	public void editArticle() {
 		try {
 			System.out.println("EDITING ARTICLE...");
@@ -657,6 +711,9 @@ public class Production {
 		
 	}
 	
+	/**
+	 * Removes issue article from database
+	 */
 	public void deleteArticle() {
 		try {
 			System.out.println("DELETING ARTICLE...");
@@ -689,6 +746,9 @@ public class Production {
 		
 	}
 	
+	/**
+	 * Modifies issue article to add article text into database
+	 */
 	public void addArticleText() {
 		try {
 			System.out.println("ADDING ARTICLE TEXT...");
@@ -726,6 +786,9 @@ public class Production {
 		
 	}
 	
+	/**
+	 * Modify article text attribute of an issue article in database
+	 */
 	public void editArticleText() {
 		try {
 			System.out.println("UPDATING ARTICLE TEXT...");
@@ -763,6 +826,10 @@ public class Production {
 		
 	}
 	
+	/**
+	 * Prints book information in database that matches user-input values
+	 * for author, publication date, and/or topic.
+	 */
 	public void getBookInfo() {
 		try {
 			System.out.println("SEARCH BOOK CATALOG...");
@@ -797,6 +864,10 @@ public class Production {
 		
 	}
 	
+	/**
+	 * Prints article information in database that matches user-input values
+	 * for author, creation date (date of issue), and/or topic.
+	 */
 	public void getArticleInfo() {
 		try {
 			System.out.println("SEARCH ARTICLE CATALOG...");
@@ -831,6 +902,10 @@ public class Production {
 		
 	}
 	
+	/**
+	 * Insert payment to employee into the database.
+	 * User inputs payment information
+	 */
 	public void makePayment() {
 		try {
 			System.out.println("ENTERING EMPLOYEE PAYMENT...");
@@ -950,6 +1025,10 @@ public class Production {
 		
 	}
 	
+	/**
+	 * Update existing payment to an employee in the database.
+	 * User inputs claim date of employee check upon receipt.
+	 */
 	public void updatePayment() {
 		try {
 			System.out.println("UPDATING EMPLOYEE PAYMENT...");
@@ -986,6 +1065,10 @@ public class Production {
 		
 	}
 	
+	/**
+	 * Prints payment information for a given check number as
+	 * input by the user.
+	 */
 	public void trackPayment() {
 		try {
 			System.out.println("TRACKING EMPLOYEE PAYMENT...");
@@ -1121,12 +1204,18 @@ public class Production {
 	}
 	
 
+	/**
+	 * Prints all Issues in database
+	 */
 	private void printIssueCatalog() {
 		result = db.query("select * from Publication natural join Issues;");
 		System.out.println("Issue catalog:");
 		DBTablePrinter.printResultSet(result);
 	}
 
+	/**
+	 * Prints all Books in database
+	 */
 	private void printBookCatalog() {
 		result = db.query("select * from Publication natural join Books;");
 		System.out.println("Book catalog:");
