@@ -15,4 +15,6 @@ APIs were written to interface with the database via JDBC. Transactions were uti
 to improve data reliability.
 
 The application UI was designed as command line menu input for all user interaction.
-The course staff provided access to a MariaDB server, which is not currently accessible.
+Access to a MariaDB server was provided for the course, but is no longer accessible.
+
+However, for demonstration purposes, a containerized version of the app bundled as a Docker compose project with a MariaDB server has been added in the `demo` directory.
